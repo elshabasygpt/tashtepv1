@@ -1,10 +1,11 @@
 import { CategoryService } from "@/services/category.service";
 import { Container } from "@/components/layout/container";
 
-export const dynamic = "force-dynamic";
 import { Section } from "@/components/layout/section";
 import { CategoryList } from "@/features/categories/components/category-list";
 import { CategoryCard } from "@/features/categories/components/category-card";
+
+export const dynamic = "force-dynamic";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";

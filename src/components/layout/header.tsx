@@ -53,10 +53,10 @@ export function Header() {
             <Link href="/categories" className="transition-colors hover:text-tashtep-orange">
               الأقسام
             </Link>
-            <Link href="/offers" className="transition-colors text-destructive hover:text-destructive/80">
+            <Link href="#" className="transition-colors text-destructive hover:text-destructive/80">
               العروض
             </Link>
-            <Link href="/inspiration" className="transition-colors hover:text-tashtep-orange">
+            <Link href="#" className="transition-colors hover:text-tashtep-orange">
               أفكار وتصاميم
             </Link>
           </nav>

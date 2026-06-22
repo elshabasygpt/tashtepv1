@@ -77,14 +77,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   الأقسام
                 </Link>
                 <Link
-                  href="/offers"
+                  href="#"
                   className="text-lg font-medium text-destructive p-2 hover:bg-secondary rounded-md transition-colors"
                   onClick={onClose}
                 >
                   العروض
                 </Link>
                 <Link
-                  href="/inspiration"
+                  href="#"
                   className="text-lg font-medium p-2 hover:bg-secondary rounded-md transition-colors"
                   onClick={onClose}
                 >
