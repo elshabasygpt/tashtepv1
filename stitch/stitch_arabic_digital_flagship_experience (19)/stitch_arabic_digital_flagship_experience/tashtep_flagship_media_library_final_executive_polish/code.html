@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>مكتبة الوسائط - تشتيب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&amp;family=Tajawal:wght@400;500;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#f4f4f2",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-tint": "#8d4f00",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e3e1",
+                        "inverse-on-surface": "#f1f1ef",
+                        "tashtep-orange": "#F39223",
+                        "tertiary-container": "#a9a9ae",
+                        "primary-fixed-dim": "#ffb875",
+                        "inverse-primary": "#ffb875",
+                        "background": "#f9f9f7",
+                        "secondary": "#5f5e5e",
+                        "secondary-container": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-container": "#656464",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#2d1600",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-container": "#f39223",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3130",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-container": "#eeeeec",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "obsidian": "#111111",
+                        "primary-fixed": "#ffdcc0",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-primary-container": "#5e3300",
+                        "charcoal": "#333333",
+                        "on-surface-variant": "#544435",
+                        "surface-dim": "#dadad8",
+                        "outline": "#877363",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-error-container": "#93000a",
+                        "gallery-white": "#FFFFFF",
+                        "primary": "#8d4f00",
+                        "surface": "#f9f9f7",
+                        "on-tertiary-container": "#3d3e42",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5d5e63",
+                        "outline-variant": "#dac2af",
+                        "stone": "#F8F8F9",
+                        "on-secondary-fixed-variant": "#474646",
+                        "workspace-bg": "#FAFAF8"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "micro-sm": "8px",
+                        "macro-md": "64px",
+                        "container-max": "1440px",
+                        "micro-md": "16px",
+                        "macro-sm": "32px",
+                        "gutter": "24px",
+                        "macro-lg": "128px",
+                        "micro-xs": "4px"
+                    },
+                    fontFamily: {
+                        "display-hero-mobile": ["Cairo"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "display-hero": ["Cairo"],
+                        "body-md": ["Tajawal"],
+                        "headline-lg": ["Cairo"],
+                        "label-md": ["Tajawal"],
+                        "headline-md": ["Cairo"],
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["Tajawal"]
+                    },
+                    fontSize: {
+                        "display-hero-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "300" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-hero": ["80px", { "lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300" }],
+                        "body-md": ["16px", { "lineHeight": "1.625", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "technical-mono": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "400" }]
+                    },
+                    boxShadow: {
+                        'ultra-diffuse': '0 10px 40px rgba(0, 0, 0, 0.04)',
+                        'soft-float': '0 20px 40px -10px rgba(0,0,0,0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FAFAF8; }
+        .masonry-grid {
+            column-count: 2;
+            column-gap: 24px;
+        }
+        @media (min-width: 1280px) {
+            .masonry-grid { column-count: 3; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+        .transition-editorial {
+            transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-scale:hover {
+            transform: scale(1.01);
+        }
+    </style>
+</head>
+<body class="font-body-md text-obsidian antialiased selection:bg-tashtep-orange selection:text-white">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-64 h-16 z-40 bg-gallery-white/80 dark:bg-obsidian/80 backdrop-blur-md border-b border-stone dark:border-charcoal flex justify-between items-center px-gutter w-[calc(100%-16rem)]">
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-headline-sm text-obsidian dark:text-gallery-white">تشتيب</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-secondary dark:text-secondary-fixed-dim hover:text-tashtep-orange dark:hover:text-primary-fixed-dim transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-low focus-within:ring-1 focus-within:ring-tashtep-orange">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:text-tashtep-orange dark:hover:text-primary-fixed-dim transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-low focus-within:ring-1 focus-within:ring-tashtep-orange">
+<span class="material-symbols-outlined" data-icon="wifi_tethering">wifi_tethering</span>
+</button>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:text-tashtep-orange dark:hover:text-primary-fixed-dim transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-low focus-within:ring-1 focus-within:ring-tashtep-orange">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-obsidian h-screen w-64 fixed right-0 top-0 border-l border-stone dark:border-charcoal z-50 flex flex-col p-macro-sm">
+<div class="mb-8 flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-low rounded-xl flex items-center justify-center">
+<img class="w-8 h-8 object-contain" data-alt="A minimalist, high-end abstract geometric logo for a luxury interior design and home finishing brand, featuring sleek lines and a monochromatic palette with a subtle touch of warmth. The style is modern editorial, evoking precision and elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfNkLWF3ADs5_g840AB4x7D91t6l0FFMxqvJgl5vyxD9i73Io2spI8Ou4O5qOFsFlefch4o-3OiDsF28NavfMIyAnkNL3lk93929DnRhtpSsp8SNUl6RUb6HslfQJXs8EcAiuG5vU5Wkntk_4qwMGxHoI_ysUy-MvCuA0uvdb-rT1VB2Sz1x9ge_zGqsmuAUSLtGiPibYxrVOf276loTM7UMS9hr8SjncR-XmkNAw_alhcvCSt9zKpIlIS-wZ0ycKm7ITECsUg4KdF"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-obsidian dark:text-gallery-white leading-tight">تشتيب</h1>
+<p class="font-label-md text-label-md text-secondary">إدارة الفخامة</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow mt-6">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>لوحة القيادة</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>الطلبات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>المنتجات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>العملاء</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span>مكتبة الوسائط</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>التحليلات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-low dark:hover:bg-charcoal transition-colors duration-200 rounded-lg font-body-md text-body-md scale-98 active:scale-95 transition-transform mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>الإعدادات</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace Area -->
+<main class="mr-64 mt-16 p-macro-sm min-h-screen">
+<div class="max-w-[1440px] mx-auto w-full flex flex-col gap-macro-sm">
+<!-- Section 1: Premium Hero & Section 2: Global Search -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-gallery-white p-8 rounded-3xl border border-stone shadow-ultra-diffuse transition-editorial">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2"><h2 class="font-headline-lg text-headline-lg text-obsidian tracking-tight">مكتبة الوسائط</h2><div class="flex items-center gap-4 mr-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low text-charcoal font-label-md text-xs"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> إجمالي الملفات: 12,408</span><span class="text-secondary font-label-md text-xs">آخر رفع منذ دقيقة</span></div></div>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">إدارة جميع الصور والفيديوهات والملفات الخاصة بالمتجر من مساحة عمل واحدة.</p>
+<div class="mt-8 relative max-w-xl">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-tertiary">search</span>
+<input class="w-full bg-stone border-none rounded-2xl py-4 pr-12 pl-4 font-body-md text-obsidian placeholder:text-tertiary focus:ring-1 focus:ring-obsidian transition-editorial" placeholder="ابحث باسم الملف أو المنتج أو Alt Text... (⌘K)" type="text"/>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 rounded-lg border border-stone bg-gallery-white text-obsidian font-label-md hover:bg-stone transition-editorial flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span> استيراد
+                    </button>
+<button class="px-6 py-3 rounded-lg border border-stone bg-gallery-white text-obsidian font-label-md hover:bg-stone transition-editorial flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">create_new_folder</span> مجلد جديد
+                    </button>
+<button class="px-8 py-3 rounded-lg bg-obsidian text-white font-label-md hover:bg-charcoal transition-editorial flex items-center gap-2 shadow-sm scale-98 active:scale-95">
+<span class="material-symbols-outlined text-[20px]">upload</span> رفع ملفات
+                    </button>
+</div>
+</div>
+<!-- Section 3: Smart Filter Pills -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-5 py-2 rounded-full bg-obsidian text-white font-label-md transition-editorial flex-shrink-0">الكل</button>
+<button class="px-5 py-2 rounded-full bg-stone text-charcoal font-label-md hover:bg-surface-variant transition-editorial flex-shrink-0">الصور</button>
+<button class="px-5 py-2 rounded-full bg-stone text-charcoal font-label-md hover:bg-surface-variant transition-editorial flex-shrink-0">الفيديوهات</button>
+<button class="px-5 py-2 rounded-full bg-stone text-charcoal font-label-md hover:bg-surface-variant transition-editorial flex-shrink-0">المستندات</button>
+<button class="px-5 py-2 rounded-full bg-stone text-charcoal font-label-md hover:bg-surface-variant transition-editorial flex-shrink-0">غير مستخدمة</button>
+<button class="px-5 py-2 rounded-full bg-stone text-charcoal font-label-md hover:bg-surface-variant transition-editorial flex-shrink-0">تحتاج تحسين</button>
+</div>
+<!-- Main Body Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Folder Nav -->
+<aside class="hidden lg:flex flex-col lg:col-span-2 gap-4 sticky top-24">
+<h3 class="font-label-md text-tertiary mb-2 px-2 uppercase tracking-wider text-xs">المجلدات</h3>
+<ul class="flex flex-col gap-1">
+<li><button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-obsidian font-label-md transition-editorial"><span class="material-symbols-outlined text-[20px] text-primary">folder_open</span> المنتجات</button></li>
+<li><button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low hover:text-obsidian font-label-md transition-editorial"><span class="material-symbols-outlined text-[20px]">folder</span> العلامات التجارية</button></li>
+<li><button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low hover:text-obsidian font-label-md transition-editorial"><span class="material-symbols-outlined text-[20px]">folder</span> الفئات</button></li>
+<li><button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low hover:text-obsidian font-label-md transition-editorial"><span class="material-symbols-outlined text-[20px]">folder</span> المدونة</button></li>
+<li><button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low hover:text-obsidian font-label-md transition-editorial"><span class="material-symbols-outlined text-[20px]">folder</span> واجهة المتجر</button></li>
+</ul>
+</aside>
+<!-- Center Column: Editorial Masonry Media Grid -->
+<div class="lg:col-span-7">
+<div class="masonry-grid">
+<!-- Media Card 1 -->
+<div class="masonry-item bg-gallery-white rounded-3xl overflow-hidden border hover:shadow-ultra-diffuse transition-editorial hover-scale group relative border-stone/40">
+<div class="aspect-[4/5] relative bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="A high-resolution editorial photograph of a luxurious modern living room setting, showcasing premium wall finishes and a bespoke velvet sofa. Soft, natural light cascades from a large window, creating a serene, bright light-mode aesthetic with deep contrasts and minimalist styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb9DQlJEZDSdccA1Md9LOPYhEyD-54LNzFb7C40OfiY4J3L1NaCPa0Npgbp7nMH3P0eWOcqr9OBsz42Ltf9TA-AhFIaVj62jnd-6l-9wddLOzIab9NBL5YlwXQETk9quPpIGMjzWAZfUN_OxlWOLFUtviqh1GnibJsB4jvyRt30bm3ESGQ0WxDzByQ6ZQzzNDTrpyc8VKfz_F8BxlZzS6kafLLLHbIB9v89xzbU0QEczUiu5jwjsnUVICbYXJPgAP79YPCeWkINEf0"/>
+<div class="absolute inset-0 bg-obsidian/40 opacity-0 group-hover:opacity-100 transition-editorial flex items-center justify-center gap-4"><div class="flex flex-wrap justify-center gap-2 p-4"><button class="w-9 h-9 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white transition-colors" title="رابط"><span class="material-symbols-outlined text-[18px]">link</span></button><button class="w-9 h-9 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white transition-colors" title="تعديل"><span class="material-symbols-outlined text-[18px]">edit</span></button><button class="w-9 h-9 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white transition-colors" title="استبدال"><span class="material-symbols-outlined text-[18px]">sync</span></button><button class="w-9 h-9 rounded-full bg-error/10 text-error flex items-center justify-center hover:bg-error hover:text-white transition-colors" title="حذف"><span class="material-symbols-outlined text-[18px]">delete</span></button></div></div>
+</div>
+<div class="p-4 border-t border-stone">
+<p class="font-label-md text-obsidian truncate">living_room_hero_v2.jpg</p>
+<div class="flex justify-between items-center mt-1">
+<span class="font-technical-mono text-tertiary text-[11px]">2400 × 3000 • 1.2 MB</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+</div>
+</div>
+</div>
+<!-- Media Card 2 -->
+<div class="masonry-item bg-gallery-white rounded-3xl overflow-hidden border hover:shadow-ultra-diffuse transition-editorial hover-scale group relative border-stone/40">
+<div class="aspect-square relative bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a premium brushed brass faucet fixture against a stark, pure white background. The image highlights the fine texture and high-quality craftsmanship of the product, adhering to a minimalist Apple-inspired aesthetic with flawless lighting and extreme clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2jr1iVmYjlwZEj8q3YhdMou49HHfO5dEZlWGhDUQWWcPdRkCmoSULkcv9MaNCJYEz4bKf2gLMeAOxTIalmHZmqfYcfMlterU0jR60_G5BsUP9wopsG3eLf99Tq-BJ1X21Y_mt0y-0wd4tKCQYohXu6Zpv0lq44I4bVD3DObb_dXvMCCy_5Kawb1NeQuDgR2hvgLC5fIlRmvbU_QauwCWBFu3JAK2x2ZYkkcIPg0ZG4hsvbmMJyihTdQPJHwH0M1nDBm4_uywfkx4N"/>
+<div class="absolute inset-0 bg-obsidian/40 opacity-0 group-hover:opacity-100 transition-editorial flex items-center justify-center gap-4">
+<button class="w-10 h-10 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white scale-98 transition-transform"><span class="material-symbols-outlined">visibility</span></button>
+<button class="w-10 h-10 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white scale-98 transition-transform"><span class="material-symbols-outlined">content_copy</span></button>
+</div>
+</div>
+<div class="p-4 border-t border-stone">
+<p class="font-label-md text-obsidian truncate">brass_fixture_detail.png</p>
+<div class="flex justify-between items-center mt-1">
+<span class="font-technical-mono text-tertiary text-[11px]">1080 × 1080 • 840 KB</span>
+<span class="w-2 h-2 rounded-full bg-tashtep-orange"></span>
+</div>
+</div>
+</div>
+<!-- Media Card 3 -->
+<div class="masonry-item bg-gallery-white rounded-3xl overflow-hidden border hover:shadow-ultra-diffuse transition-editorial hover-scale group relative border-stone/40">
+<div class="aspect-[3/4] relative bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="An editorial lifestyle shot of a modern kitchen island with pristine white marble countertops and sleek matte black cabinetry. The composition is asymmetrical, inspired by Zara Home, with subtle textural elements like a rustic ceramic bowl. High key lighting, elegant and refined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgftoGyq_wCZzx_Liatm2QWddsgwnO-b1G1XYreEeZ6nx0RSUX0d4gqpSy1DvnYj3Tu2lvmbAk7RrCyTtrqcJMxVHyo6ncCpVYtpVa1deNTTO754HaaeV-o0RgjJscQV9xn2LgcYmTW-HYgXEbheKWRU8FDuXBUuqzQ2V7EN54Z-uhaPrLiZLb6Z4tozVvDhATg1Z4A-HOhL9kInxdLGtVbk-XK5K-oO8chU6wlIpkGHEVSzsc0dQcXQKmSkD7DYQdxTIGeZ786Her"/>
+<div class="absolute inset-0 bg-obsidian/40 opacity-0 group-hover:opacity-100 transition-editorial flex items-center justify-center gap-4">
+<button class="w-10 h-10 rounded-full bg-gallery-white/90 text-obsidian flex items-center justify-center hover:bg-white scale-98 transition-transform"><span class="material-symbols-outlined">visibility</span></button>
+</div>
+</div>
+<div class="p-4 border-t border-stone">
+<p class="font-label-md text-obsidian truncate">kitchen_island_marble.webp</p>
+<div class="flex justify-between items-center mt-1">
+<span class="font-technical-mono text-tertiary text-[11px]">1200 × 1600 • 450 KB</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Asset Intelligence Preview -->
+<aside class="hidden lg:block lg:col-span-3 sticky top-24">
+<div class="bg-gallery-white rounded-3xl border border-stone p-6 shadow-ultra-diffuse flex flex-col gap-6"><div class="aspect-video bg-surface-container-low rounded-2xl overflow-hidden relative mb-4"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnW23NNqFWPcOLa9o2U1twrzdNfXanDMFW9OfGU5k7si00xVk0oh7jfGkAyDxK_1lmxuPJ34g0PjGVngNqhMkdeyAxkquTk1saAQCUhbk-BzqnbShsDfQHaaMC073Jj_QiDt0VVzRaoFBTgmq7Ol2wr1YjLA4pMzj1d34L19mZxD7o3tjki2hnmAP3FSb4eAX7uU1GfZEEnxZ96ckfrkJJUDA8NaEwny-M-hJ199BamdJzWSzZY-ylvBAgIbZPL8coqW1iVfMmNYQN"/></div><div class="space-y-4"><div class="flex justify-between items-start"><div><h4 class="font-headline-sm text-lg text-obsidian truncate">living_room_hero_v2.jpg</h4><p class="font-technical-mono text-secondary text-[11px]">تاريخ الرفع: 12 أكتوبر 2023</p></div><div class="flex flex-col items-end"><span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">درجة التحسين</span><span class="text-xl font-headline-md text-emerald-600">98%</span></div></div><div class="grid grid-cols-2 gap-3 py-4 border-y border-stone/50"><div class="space-y-1"><p class="text-[10px] text-tertiary uppercase">الأبعاد</p><p class="text-xs font-technical-mono">3000 × 2400</p></div><div class="space-y-1"><p class="text-[10px] text-tertiary uppercase">الحجم</p><p class="text-xs font-technical-mono">1.2 MB</p></div><div class="space-y-1"><p class="text-[10px] text-tertiary uppercase">الصيغة</p><p class="text-xs font-technical-mono">JPEG</p></div><div class="space-y-1"><p class="text-[10px] text-tertiary uppercase">مستخدم في</p><p class="text-xs">الصفحة الرئيسية</p></div></div><div class="space-y-2"><label class="font-label-md text-tertiary text-xs">النص البديل - SEO</label><textarea class="w-full bg-stone/50 border border-stone/30 rounded-xl p-3 font-body-md text-sm text-obsidian focus:ring-1 focus:ring-tashtep-orange resize-none" rows="3">صورة لغرفة معيشة حديثة بأثاث فاخر وتشطيبات راقية</textarea></div><div class="flex gap-2"><button class="flex-1 py-2.5 rounded-lg bg-obsidian text-white font-label-md text-sm hover:bg-charcoal transition-colors">حفظ التغييرات</button><button class="p-2.5 rounded-lg border border-stone text-obsidian hover:bg-stone transition-colors"><span class="material-symbols-outlined text-[20px]">download</span></button></div></div></div>
+</aside>
+</div>
+<!-- Section 7/9: Integrated Analytics -->
+<div class="mt-macro-sm border-t border-stone pt-12">
+<h3 class="font-headline-md text-xl text-obsidian mb-6">رؤى الوسائط</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-gallery-white p-5 rounded-2xl border border-stone"><div class="flex justify-between items-start mb-3"><span class="material-symbols-outlined text-secondary">cloud_done</span><span class="text-[10px] font-bold text-secondary uppercase">المساحة</span></div><p class="font-label-md text-tertiary text-xs">المساحة المستخدمة: 45.2 GB</p><div class="w-full h-1.5 bg-stone rounded-full mt-2 overflow-hidden"><div class="h-full bg-tashtep-orange w-[45%]"></div></div><p class="font-label-md text-secondary text-[10px] mt-2">المساحة المتاحة: 54.8 GB</p></div>
+<div class="bg-gallery-white p-5 rounded-2xl border border-stone">
+<span class="material-symbols-outlined text-secondary mb-2">image</span>
+<p class="font-label-md text-tertiary text-sm">إجمالي الملفات</p>
+<p class="font-headline-md text-2xl text-obsidian mt-1">12,408</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl border border-stone md:col-span-2 flex items-center justify-between"><div class="flex flex-col gap-4 w-full"> <div class="flex items-center justify-between"> <div class="flex items-center gap-3"> <div class="w-10 h-10 rounded-full bg-tashtep-orange/10 flex items-center justify-center text-tashtep-orange"> <span class="material-symbols-outlined">auto_fix_high</span> </div> <div> <h4 class="font-label-md text-obsidian text-sm">تحسينات ذكية مقترحة</h4> <p class="text-xs text-secondary">تم اكتشاف 42 ملفاً يمكن تحسين أدائها</p> </div> </div> <button class="px-4 py-2 rounded-lg bg-obsidian text-white font-label-md text-xs hover:bg-charcoal transition-colors">بدء التحسين</button> </div> <div class="grid grid-cols-2 gap-4"> <div class="bg-gallery-white/50 p-3 rounded-xl border border-stone/30"> <p class="text-xl font-headline-md text-obsidian">24</p> <p class="text-[10px] text-secondary">ملف غير مستخدم</p> </div> <div class="bg-gallery-white/50 p-3 rounded-xl border border-stone/30"> <p class="text-xl font-headline-md text-obsidian">18</p> <p class="text-[10px] text-secondary">صورة بدون نص بديل</p> </div> </div> </div></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Bar -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+<div class="bg-obsidian/90 backdrop-blur-xl px-2 py-2 rounded-full shadow-soft-float flex items-center gap-1 border border-charcoal">
+<button class="h-10 px-4 rounded-full text-white hover:bg-white/10 transition-colors font-label-md text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> رفع جديد
+            </button>
+<div class="w-px h-6 bg-white/20 mx-1"></div>
+<button class="w-10 h-10 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">create_new_folder</span>
+</button>
+<button class="w-10 h-10 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">compress</span>
+</button>
+<button class="w-10 h-10 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+</button>
+</div>
+</div>
+</body></html>

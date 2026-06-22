@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep - Wishlist</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;family=Tajawal:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS & Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#1a1c1b",
+                        "outline-variant": "#dac2af",
+                        "on-primary-container": "#5e3300",
+                        "inverse-surface": "#2f3130",
+                        "surface-tint": "#8d4f00",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#a9a9ae",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeeec",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5f5e5e",
+                        "outline": "#877363",
+                        "gallery-white": "#FFFFFF",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "tashtep-orange": "#F39223",
+                        "surface-bright": "#f9f9f7",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-surface": "#1a1c1b",
+                        "surface-dim": "#dadad8",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#656464",
+                        "primary": "#8d4f00",
+                        "on-primary-fixed": "#2d1600",
+                        "stone": "#F8F8F9",
+                        "primary-fixed-dim": "#ffb875",
+                        "obsidian": "#111111",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "surface-container-highest": "#e2e3e1",
+                        "inverse-primary": "#ffb875",
+                        "charcoal": "#333333",
+                        "tertiary": "#5d5e63",
+                        "surface-container-high": "#e8e8e6",
+                        "primary-container": "#f39223",
+                        "surface-container-low": "#f4f4f2",
+                        "background": "#f9f9f7",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-surface-variant": "#544435",
+                        "on-tertiary-container": "#3d3e42",
+                        "secondary-container": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#474646",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f9f9f7",
+                        "primary-fixed": "#ffdcc0",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-on-surface": "#f1f1ef"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "micro-sm": "8px",
+                        "gutter": "24px",
+                        "micro-xs": "4px",
+                        "macro-md": "64px",
+                        "macro-sm": "32px",
+                        "macro-lg": "128px",
+                        "container-max": "1440px",
+                        "micro-md": "16px"
+                    },
+                    fontFamily: {
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["Cairo"],
+                        "display-hero-mobile": ["Cairo"],
+                        "body-md": ["Tajawal"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "display-hero": ["Cairo"],
+                        "headline-lg": ["Cairo"],
+                        "body-lg": ["Tajawal"],
+                        "label-md": ["Tajawal"]
+                    },
+                    fontSize: {
+                        "technical-mono": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-hero-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "300" }],
+                        "body-md": ["16px", { "lineHeight": "1.625", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-hero": ["80px", { "lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-obsidian antialiased">
+<main class="max-w-container-max mx-auto px-gutter py-macro-md md:py-macro-lg">
+<!-- Header Section -->
+<header class="mb-macro-sm md:mb-macro-md flex flex-col items-start max-w-2xl">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-obsidian mb-micro-sm">منتجاتك المفضلة</h1>
+<p class="font-body-md md:font-body-lg text-secondary">احفظ منتجاتك المفضلة وارجع إليها في أي وقت. مجموعتك الخاصة من التشطيبات الفاخرة.</p>
+</header>
+<!-- Category Filter -->
+<nav aria-label="Wishlist filters" class="flex flex-wrap gap-micro-sm mb-macro-md">
+<button class="rounded-full px-micro-md py-micro-sm font-label-md bg-obsidian text-gallery-white transition-transform active:scale-95">الكل</button>
+<button class="rounded-full px-micro-md py-micro-sm font-label-md bg-stone text-charcoal hover:bg-surface-variant transition-colors active:scale-95">الدهانات</button>
+<button class="rounded-full px-micro-md py-micro-sm font-label-md bg-stone text-charcoal hover:bg-surface-variant transition-colors active:scale-95">الديكور</button>
+<button class="rounded-full px-micro-md py-micro-sm font-label-md bg-stone text-charcoal hover:bg-surface-variant transition-colors active:scale-95">ورق الحائط</button>
+<button class="rounded-full px-micro-md py-micro-sm font-label-md bg-stone text-charcoal hover:bg-surface-variant transition-colors active:scale-95">الأدوات</button>
+</nav>
+<!-- Wishlist Grid -->
+<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-micro-md gap-y-macro-sm mb-macro-lg">
+<!-- Product Card 1 -->
+<article class="group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md border border-stone/50">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A luxurious interior scene showing a beautifully painted wall in a warm, textured stone finish. Soft, natural sunlight streams from a nearby window, casting delicate shadows. The scene embodies a modern minimalist aesthetic with high-key lighting, emphasizing the premium quality and subtle grit of the Tashtep paint finish. Small, sophisticated decorative objects sit on a minimal shelf in the foreground." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJxx9GIXSFGu_uj6qQ5UQk5A2i2OUuDJyToFteaHg9sE8sN1yBNRFbXl8xjrtDLYokADOY75DTz_uKtV8I6s8AUW2N8SuSom0NdSwG_eWsKYW9kAMw9L0rDSgNuKxe7DlQsN6dWYkMs99NhiTNHI6g7450y4f03Yl734Vf3014ugAu67mara9pFQY94w36SbufgT94IOZWbjacSaL4FNflnOeTCs4cJ-6lQbCzHTrlGErI-TvouQPKwYFbZIp5pHFqdywodzM4FaAI"/>
+<button aria-label="Remove from wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-gallery-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<!-- Quick Add Hover Overlay -->
+<div class="absolute bottom-0 inset-x-0 p-micro-md translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-gradient-to-t from-obsidian/40 to-transparent">
+<button class="w-full py-micro-sm bg-gallery-white text-obsidian font-label-md rounded shadow-sm hover:bg-surface active:scale-95 transition-all">أضف للسلة</button>
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">طلاء أونيكس مات</h3>
+<span class="font-body-md text-secondary">٢٤٥ ج.م</span>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md border border-stone/50">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up shot of a minimalist, high-end decorative ceramic vase resting on a smooth marble surface. The lighting is editorial and precise, highlighting the matte finish and organic curves of the vase against a stark, bright gallery-white background. The atmosphere is serene, elegant, and perfectly aligned with a luxury home finishing brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA33WcO9C2gYo8r07swUzSvrs_inZPeW472UN6727z2F8FpB8exxT2186exYIBkc48KtwAAScyA0eL2AhF0Ycfz0bEaeWBxuEh_3DROo_itLJcgKwCjGu7XAya2gVswGrsqOJ5dHbdgHnBAqbx02dgycFg7KUpSKiKdalagQLyUXvY7BgCoyHtb8FwrjTkZcjqtQwGd9eSrxkKk_lUO8aW56SR0xUlY7ApHDmEtr5zZRRn5vdg0EkMVxsHwQyYMxUbn_h12GJJGN4XL"/>
+<button aria-label="Remove from wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-gallery-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-0 inset-x-0 p-micro-md translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-gradient-to-t from-obsidian/40 to-transparent">
+<button class="w-full py-micro-sm bg-gallery-white text-obsidian font-label-md rounded shadow-sm hover:bg-surface active:scale-95 transition-all">أضف للسلة</button>
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">مزهرية سيراميك خام</h3>
+<span class="font-body-md text-secondary">١٨٠ ج.م</span>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md border border-stone/50">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A stylish living room corner featuring premium, subtly patterned wallpaper in soft neutral tones. The design is abstract and sophisticated, complementing a sleek, obsidian-black side chair. The lighting is soft and cinematic, creating a warm, inviting, yet highly curated environment typical of a luxury flagship showroom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzn9VmAsHG3bwQlErGm9cXkd5oGi7xrRZZns4vldkoW4mjT5dgqE_8u8iArjus-9r8KQYtDmMVbUQIf6M04Bt25vHwFKnnXFl9nhwtzMay6BQQU2hIJOcbdKPX0_hPCQfCHH33s6Ysw-qdNLISqHmfO4v8VzUpjjCQDZTx1JMi_8SNhPjyuu-pLrm2EcsU1s2_iwYSlUAL5hNtP_V3K5XBm7TtlxciSLixlXXNdLEFKp8ePZRj9HKBwryChXU8UQBZAojE5lKohk7P"/>
+<button aria-label="Remove from wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-gallery-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-0 inset-x-0 p-micro-md translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-gradient-to-t from-obsidian/40 to-transparent">
+<button class="w-full py-micro-sm bg-gallery-white text-obsidian font-label-md rounded shadow-sm hover:bg-surface active:scale-95 transition-all">أضف للسلة</button>
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">ورق حائط نسيج كتان</h3>
+<span class="font-body-md text-secondary">٣٥٠ ج.م / لفة</span>
+</div>
+</article>
+<!-- Product Card 4 -->
+<article class="group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md border border-stone/50">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A set of professional, design-forward painting tools meticulously arranged on a clean, light-colored wooden table. The tools feature ergonomic handles with subtle branding. The lighting is bright, clear, and top-down, creating a structured, technical, and Apple-like presentation that highlights functional beauty and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyqDl3rolBhbEFen8TLOseyQtuSmhbndM3vhgg_hPijorJ2hdIE8HCO1LmkcM0fuHVYhgW1ZX2kxGKkWs_6NWxkTDoHi3gfqzqJk47CIPIAUdJLS0U5PzqrJWuoFW4Eda_9lS3GSNJtcysBVGR_HlnydCIn0ev-szbF2JRvr-h2RoWq1WOephuiILRXdaD8oThJJZcrjjWZJRDioiK9b2pk-hQnOPHGiUOGb8QHfm5P9kitaOli1_j-qkEDXHBqLo1_ru29qNOneUd"/>
+<button aria-label="Remove from wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:bg-gallery-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-0 inset-x-0 p-micro-md translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-gradient-to-t from-obsidian/40 to-transparent">
+<button class="w-full py-micro-sm bg-gallery-white text-obsidian font-label-md rounded shadow-sm hover:bg-surface active:scale-95 transition-all">أضف للسلة</button>
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">مجموعة فرش بريميوم</h3>
+<span class="font-body-md text-secondary">١٢٠ ج.م</span>
+</div>
+</article>
+</section>
+<!-- Recommended Section (Horizontal Slider) -->
+<section class="mt-macro-md">
+<div class="flex items-center justify-between mb-macro-sm">
+<h2 class="font-headline-md text-obsidian">مقترحات لك</h2>
+<a class="font-label-md text-secondary hover:text-obsidian transition-colors underline underline-offset-4" href="#">عرض الكل</a>
+</div>
+<div class="flex overflow-x-auto snap-x gap-micro-md pb-micro-md -mx-gutter px-gutter hide-scrollbar">
+<!-- Slider Card 1 -->
+<article class="w-64 md:w-72 flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist architectural detail showing a beautifully finished baseboard against a smooth wall. High key lighting, very clean, Apple-like precision but with the warmth of Zara Home. The colors are strictly neutral, emphasizing the subtle shadow lines and perfect construction quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVTyDaob4_lHfassznpmZ82v4YJsCk6zHmw_89MdV8aRcVpT9QBh4gxztfudryQDA3JLQ9fj2hCIxJPiqUuGd97a8V8Ge0MBXqfrrcx9eruyO9p9vlvjE8LgPaCexgdzHyy6iCw6SbbkvPE4iIoXwhGhr9vVY0RVQg9TuA75Kwhgepb5vutKFFixWMZSS0mS-W8A28rprE_jFIYGD45GtFLq2cMk3k43hqoHnKRADcDgB9nLJYbIqlBvtafvsezfBvPAyrT46kjXSH"/>
+<button aria-label="Add to wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-secondary hover:text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">نعلات خشبية عصرية</h3>
+<span class="font-body-md text-secondary">٤٥ ر.س / متر</span>
+</div>
+</article>
+<!-- Slider Card 2 -->
+<article class="w-64 md:w-72 flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant, modern light fixture casting a warm, diffused glow against a textured off-white wall. The shot is tightly cropped to show the interplay of light and texture. The aesthetic is highly curated, luxurious, and minimal, focusing on the atmosphere created by premium home finishes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLqmyJXw5B8dmg469KB6HhBs4i3Dzy9Cr0ygbHpaXnWgOaIZGoRUzXh5qSZiGwwzpvZoOURCGHxr1JDXTN7478zxQeAjb154SHnmkWHUQgC2fwi9zeW33LVbkqutyPaFOx-dDIEBjSQh2k2VaVDdleVDsdHYMLKCMJCvWctqkSuNb7ETioSeQcNtxzro4bMfFUI_nz2iimcMzZwocXHnCwSUUOJjkKqSrNXFryZOksOAcVA1hYRoCGwWiAYFXARufmptWMhS8_42o1"/>
+<button aria-label="Add to wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-secondary hover:text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">إضاءة جدارية دافئة</h3>
+<span class="font-body-md text-secondary">٣٢٠ ر.س</span>
+</div>
+</article>
+<!-- Slider Card 3 -->
+<article class="w-64 md:w-72 flex-shrink-0 snap-start group cursor-pointer">
+<div class="relative w-full aspect-[4/5] bg-stone rounded-xl overflow-hidden mb-micro-md">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sample board of premium interior paint colors, arranged in a precise, geometric grid on a bright white background. The colors are sophisticated earthy tones. The lighting is completely flat and objective, resembling high-end technical documentation or an Apple product presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKRm3D4DWFhCyfhTUWWs9cqQsE-XOxaS5ERMl2HRxEchsELSfUYz-zH3dNRlv3XUr0Irw7MYDJDTlwzALFWGg-N-pIHB_WJZCwLMYR1CsZR1qmv-ipNYCLJoYjwufFdL1qQa_pRKBEYwPZv036-jYxxT8AFgvTokpB6HFizt5srX3mw3WZb9fQkzjcSkZW0O512ebEzZXsxLo1bZfMtFuvyrgEJrGCBXzXNnKwC1nD_VvqbERn7RGkQxst8mPm2z6G58bfP9uI6_Pw"/>
+<button aria-label="Add to wishlist" class="absolute top-micro-sm end-micro-sm p-micro-sm rounded-full bg-gallery-white/80 backdrop-blur-md text-secondary hover:text-tashtep-orange shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-md text-obsidian mb-micro-xs">عينة ألوان الأساسيات</h3>
+<span class="font-body-md text-secondary">١٥ ر.س</span>
+</div>
+</article>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep - Category Card</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;family=Tajawal:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#5e3300",
+                        "stone": "#F8F8F9",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-container": "#f39223",
+                        "outline-variant": "#dac2af",
+                        "inverse-primary": "#ffb875",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f9f9f7",
+                        "secondary": "#5f5e5e",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "tertiary-container": "#a9a9ae",
+                        "tertiary": "#5d5e63",
+                        "outline": "#877363",
+                        "gallery-white": "#FFFFFF",
+                        "surface-variant": "#e2e3e1",
+                        "on-surface-variant": "#544435",
+                        "obsidian": "#111111",
+                        "tertiary-fixed": "#e3e2e7",
+                        "surface": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "primary-fixed-dim": "#ffb875",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "surface-container": "#eeeeec",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f4f4f2",
+                        "on-primary-fixed": "#2d1600",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-secondary-fixed-variant": "#474646",
+                        "tashtep-orange": "#F39223",
+                        "on-tertiary-container": "#3d3e42",
+                        "surface-tint": "#8d4f00",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f7",
+                        "charcoal": "#333333",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "secondary-container": "#e5e2e1",
+                        "on-secondary-container": "#656464",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "primary": "#8d4f00",
+                        "surface-dim": "#dadad8",
+                        "surface-container-highest": "#e2e3e1",
+                        "primary-fixed": "#ffdcc0"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "20px"
+                    },
+                    spacing: {
+                        "macro-md": "64px",
+                        "micro-sm": "8px",
+                        "gutter": "24px",
+                        "micro-xs": "4px",
+                        "macro-lg": "128px",
+                        "container-max": "1440px",
+                        "macro-sm": "32px",
+                        "micro-md": "16px"
+                    },
+                    fontFamily: {
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["Tajawal"],
+                        "body-md": ["Tajawal"],
+                        "headline-md": ["Cairo"],
+                        "headline-lg": ["Cairo"],
+                        "display-hero": ["Cairo"],
+                        "display-hero-mobile": ["Cairo"],
+                        "label-md": ["Tajawal"],
+                        "headline-lg-mobile": ["Cairo"]
+                    },
+                    fontSize: {
+                        "technical-mono": ["13px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "400" }],
+                        "body-lg": ["20px", { lineHeight: "1.7", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.625", fontWeight: "400" }],
+                        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "headline-lg": ["48px", { lineHeight: "1.2", fontWeight: "400" }],
+                        "display-hero": ["80px", { lineHeight: "1.1", letterSpacing: "0", fontWeight: "300" }],
+                        "display-hero-mobile": ["48px", { lineHeight: "1.1", fontWeight: "300" }],
+                        "label-md": ["14px", { lineHeight: "1.2", fontWeight: "500" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "1.2", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gallery-white text-obsidian font-body-md min-h-screen flex items-center justify-center p-8">
+<!-- Category Card -->
+<a class="group block w-full max-w-[320px] rounded-2xl bg-surface transition-all duration-500 ease-out hover:-translate-y-1 shadow-[0_10px_40px_rgba(0,0,0,0.04)] overflow-hidden border border-stone" href="#">
+<!-- Image Container (80% ratio roughly aspect-[4/5]) -->
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-background">
+<img alt="دهانات داخلية" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" data-alt="A highly detailed editorial photograph of a minimalist modern living room focusing on rich wall paint textures. The lighting is soft and natural, emphasizing the subtle matte finish of a warm beige interior wall. A sleek, contemporary sculptural chair sits in the foreground, catching elegant highlights. The overall aesthetic is luxurious, editorial, and aligned with high-end home finishing brands, featuring a pristine, light-mode palette with deep obsidian contrasts and natural wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp-UqT58GAlZ1Jb8M-FtdK6VmwQvtasVe4qIFVbd1g_lJqEHzTA2QKQS8oal1tfriyPHxt9LXzcoMK4w-VurybGx9KkfA9tktRwZu6xzdUWmRfMZVa0wFcEX9WjAAF1aKWn4Wc1u6Nm27T1IAmmDBDcvk8Mb8iEbPu9jc5d06K30CVc8dAkFDc13Uh9UbY9_Nsv7atJPhNlXtMetSzy_KMZ_SBP8DPnH9Gcye-RAL9_-K65B8BeQCySe4Gy1yfDAHqGGM6GH_WwHzk"/>
+<!-- Optional subtle gradient overlay for depth if needed, kept minimal for Zara Home feel -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+<!-- Typography Content -->
+<div class="p-micro-md flex flex-col items-start bg-gallery-white">
+<h3 class="font-headline-md text-headline-md text-obsidian mt-micro-xs">دهانات داخلية</h3>
+<span class="font-body-md text-body-md text-secondary mt-micro-xs">١٢٠ منتج</span>
+</div>
+</a>
+</body></html>

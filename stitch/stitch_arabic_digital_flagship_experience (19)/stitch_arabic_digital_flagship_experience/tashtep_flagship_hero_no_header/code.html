@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep - Flagship Home</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&amp;family=Tajawal:wght@400;500;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tashtep-orange": "#F39223",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9f7",
+                    "on-surface-variant": "#544435",
+                    "surface-container-highest": "#e2e3e1",
+                    "surface-bright": "#f9f9f7",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#dac2af",
+                    "on-primary-container": "#5e3300",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#a9a9ae",
+                    "surface-tint": "#8d4f00",
+                    "inverse-on-surface": "#f1f1ef",
+                    "stone": "#F8F8F9",
+                    "surface-container": "#eeeeec",
+                    "secondary-fixed": "#e5e2e1",
+                    "inverse-primary": "#ffb875",
+                    "primary-container": "#f39223",
+                    "primary-fixed": "#ffdcc0",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e2e3e1",
+                    "on-primary-fixed-variant": "#6b3b00",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary-fixed-variant": "#46464b",
+                    "tertiary-fixed": "#e3e2e7",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1a1c1b",
+                    "on-primary-fixed": "#2d1600",
+                    "primary": "#8d4f00",
+                    "outline": "#877363",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-container": "#3d3e42",
+                    "surface-container-high": "#e8e8e6",
+                    "surface-container-low": "#f4f4f2",
+                    "on-secondary-container": "#656464",
+                    "tertiary-fixed-dim": "#c7c6cb",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-surface": "#2f3130",
+                    "gallery-white": "#FFFFFF",
+                    "on-secondary-fixed-variant": "#474646",
+                    "primary-fixed-dim": "#ffb875",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-fixed": "#1a1b1f",
+                    "obsidian": "#111111",
+                    "tertiary": "#5d5e63",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#dadad8",
+                    "charcoal": "#333333",
+                    "surface": "#f9f9f7",
+                    "secondary-container": "#e5e2e1",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "macro-lg": "128px",
+                    "micro-xs": "4px",
+                    "micro-md": "16px",
+                    "container-max": "1440px",
+                    "micro-sm": "8px",
+                    "macro-md": "64px",
+                    "macro-sm": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Tajawal"],
+                    "headline-lg": ["Cairo"],
+                    "display-hero-mobile": ["Cairo"],
+                    "display-hero": ["Cairo"],
+                    "label-md": ["Tajawal"],
+                    "headline-lg-mobile": ["Cairo"],
+                    "body-md": ["Tajawal"],
+                    "headline-md": ["Cairo"],
+                    "technical-mono": ["IBM Plex Sans Arabic"]
+            },
+            "fontSize": {
+                    "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                    "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                    "display-hero-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "300" }],
+                    "display-hero": ["80px", { "lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300" }],
+                    "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                    "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                    "body-md": ["16px", { "lineHeight": "1.625", "fontWeight": "400" }],
+                    "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                    "technical-mono": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Utilities */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: subtle-float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: subtle-float 7s ease-in-out 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gallery-white font-body-md text-body-md text-obsidian antialiased selection:bg-tashtep-orange selection:text-white">
+<!-- TopNavBar (Rendered from Shared Components JSON) -->
+<!-- Flagship Hero Section -->
+<section class="relative w-full min-h-[700px] overflow-hidden flex items-center h-screen">
+<!-- Large-scale Luxury Photography Background -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover object-center" data-alt="A breathtaking, hyper-realistic architectural photograph of an expansive luxury living room, shot with a wide-angle lens. The aesthetic is a perfect blend of Zara Home's editorial warmth and Apple's crisp precision. The space features smooth, velvety off-white plaster walls that catch the soft, warm natural light pouring in from invisible floor-to-ceiling windows on the left. High-end, minimal furniture sits elegantly on light, textured oak flooring. The lighting creates deep, satisfying contrast and serene, elongated shadows across the pristine surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_SK_snbSGjh57jm8yypAy_Tk50NCM13SyVqab2rqMSeVVP_M4fZzObft9GBk3UWf_D8ksG8QHbziouyhoPyZ8ppPG-QigLANcNVylRXvMcASzehMrqe9mzfKitCZYbBw_eP1O-tZFnu3WF0BZcaH1z3xA5vSIY5RRKRchwjvdC5MGdF3bWsHiwSh40vZ3S6g8YB1UcrzIovGbT0p8kgJbBeIE3A5HcmyqQG22sEz6ECMTyLUKMhsoSBT7kG0YIPbPkZc0W2mUUiW9"/>
+<!-- Soft Gradient Overlay for Text Legibility (Editorial style: fading from text side) -->
+<div class="absolute inset-0 bg-gradient-to-l from-gallery-white/95 via-gallery-white/60 to-transparent"></div>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 w-full max-w-container-max mx-auto px-macro-sm md:px-macro-md h-full flex flex-col justify-center">
+<div class="max-w-2xl lg:max-w-3xl pt-12 md:pt-0">
+<!-- Typography -->
+<h1 class="font-display-hero-mobile text-display-hero-mobile md:font-display-hero md:text-display-hero text-obsidian leading-tight mb-6">
+                    أعد تعريف مساحتك<br/>بلمسة من الرقي.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-12">
+                    اكتشف تشكيلة حصرية من مواد التشطيب العصرية. من الدهانات المخملية إلى الأرضيات الفاخرة، نوفر لك كل ما تحتاجه لتجسيد رؤيتك المعمارية بدقة متناهية.
+                </p>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+<!-- Primary CTA -->
+<button class="bg-obsidian text-gallery-white font-label-md text-label-md px-10 py-4 rounded-DEFAULT shadow-none hover:opacity-80 hover:scale-[0.98] transition-all duration-200 w-full sm:w-auto text-center">
+                        استكشف المنتجات
+                    </button>
+<!-- Secondary CTA -->
+<button class="bg-transparent border border-obsidian text-obsidian font-label-md text-label-md px-10 py-4 rounded-DEFAULT hover:bg-stone hover:scale-[0.98] transition-all duration-200 w-full sm:w-auto text-center">
+                        احسب كمية الدهان
+                    </button>
+</div>
+</div>
+<!-- Floating Glassmorphism Badges (Desktop/Tablet) -->
+<!-- Positioned asymmetrically for an editorial feel -->
+<div class="hidden lg:flex absolute top-[25%] left-[20%] glass-panel px-6 py-3 rounded-full items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.04)] animate-float">
+<span class="material-symbols-outlined text-tashtep-orange" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md text-obsidian tracking-wide">+5000 منتج</span>
+</div>
+<div class="hidden lg:flex absolute bottom-[30%] left-[10%] glass-panel px-6 py-3 rounded-full items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.04)] animate-float-delayed">
+<span class="material-symbols-outlined text-tashtep-orange" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md text-obsidian tracking-wide">+120 علامة تجارية</span>
+</div>
+<div class="hidden xl:flex absolute top-[55%] left-[28%] glass-panel px-6 py-3 rounded-full items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.04)] animate-float">
+<span class="material-symbols-outlined text-tashtep-orange" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="font-label-md text-label-md text-obsidian tracking-wide">شحن لجميع المحافظات</span>
+</div>
+<!-- Mobile Badges (Stacked underneath) -->
+<div class="flex lg:hidden flex-wrap gap-3 mt-12">
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-tashtep-orange text-[18px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-[13px] text-obsidian">+5000 منتج</span>
+</div>
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-tashtep-orange text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-[13px] text-obsidian">+120 ماركة</span>
+</div>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group">
+<span class="font-technical-mono text-technical-mono text-obsidian opacity-50 group-hover:opacity-100 transition-opacity duration-300 tracking-widest">المجموعات</span>
+<div class="w-[1px] h-8 bg-obsidian opacity-30 group-hover:opacity-60 transition-opacity duration-300 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-obsidian animate-[translateY_1.5s_ease-in-out_infinite]"></div>
+</div>
+</div>
+</section>
+<script>
+        // Simple micro-interaction for the scroll indicator line animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes translateY {
+                0% { transform: translateY(-100%); }
+                100% { transform: translateY(100%); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تفاصيل المنتج - تشطيب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "stone": "#F8F8F9",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary": "#8d4f00",
+                        "secondary": "#5f5e5e",
+                        "surface-tint": "#8d4f00",
+                        "on-primary-container": "#5e3300",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadad8",
+                        "primary-fixed-dim": "#ffb875",
+                        "inverse-on-surface": "#f1f1ef",
+                        "inverse-surface": "#2f3130",
+                        "surface-container-high": "#e8e8e6",
+                        "charcoal": "#333333",
+                        "on-secondary-fixed-variant": "#474646",
+                        "gallery-white": "#FFFFFF",
+                        "tashtep-orange": "#F39223",
+                        "surface-variant": "#e2e3e1",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "outline": "#877363",
+                        "on-tertiary-container": "#3d3e42",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-primary-fixed": "#2d1600",
+                        "obsidian": "#111111",
+                        "on-secondary-container": "#656464",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#544435",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdcc0",
+                        "surface-container": "#eeeeec",
+                        "tertiary-container": "#a9a9ae",
+                        "error": "#ba1a1a",
+                        "primary-container": "#f39223",
+                        "outline-variant": "#dac2af",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-surface": "#1a1c1b",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "inverse-primary": "#ffb875",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9f7",
+                        "surface": "#f9f9f7",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-background": "#1a1c1b",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#e5e2e1",
+                        "tertiary": "#5d5e63",
+                        "surface-bright": "#f9f9f7",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f4f4f2"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "macro-sm": "32px",
+                        "micro-md": "16px",
+                        "container-max": "1440px",
+                        "micro-sm": "8px",
+                        "macro-md": "64px",
+                        "macro-lg": "128px",
+                        "gutter": "24px",
+                        "micro-xs": "4px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Tajawal"],
+                        "display-hero": ["Cairo"],
+                        "body-lg": ["Tajawal"],
+                        "headline-md": ["Cairo"],
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "display-hero-mobile": ["Cairo"],
+                        "headline-lg": ["Cairo"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "body-md": ["Tajawal"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "display-hero": ["80px", { "lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300" }],
+                        "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "technical-mono": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "display-hero-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "300" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.625", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom Scrollbar for Thumbnails */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Accordion Transition */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* Arbitrary large enough height */
+            opacity: 1;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-icon.open {
+            transform: rotate(180deg);
+        }
+
+        /* Tabs */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            border-bottom-color: #111111;
+            color: #111111;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-gallery-white text-obsidian font-body-md antialiased selection:bg-stone selection:text-obsidian relative">
+<!-- Sticky Purchase Bar -->
+<div class="fixed top-0 left-0 right-0 bg-gallery-white/95 backdrop-blur-md border-b border-stone z-50 transform -translate-y-full transition-transform duration-[180ms] ease-in-out shadow-sm" id="sticky-purchase-bar">
+<div class="max-w-container-max mx-auto px-gutter py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-stone rounded overflow-hidden shrink-0">
+<img alt="Thumbnail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALQkEe1Em2Ze8TosnTcPYNUQkB2uxBFwbWYXcghCwKMkjldo7T3_dSqVxFQJF-2LY0KUEhaTZXf0TG9zX2GWhTiZrlyKdHqwhv1RfluZdMyykawAlZH8FI_VJZkeTUNlJ2Na7nlpdOqNiYihw4NH_Cwokc-tRHi-koRwBOim_Xv64ShtxkoA4HOgg-Lju4J9DN6tdIpWAn_apUqmy6HzzOO6qLiAdBLQmf3IZ_Tl2O_Ko1nK7ZGUOKdeCc2AeJfa_IYRdVIt2x51wV"/>
+</div>
+<span class="font-headline-md text-[18px] text-obsidian hidden sm:block">Jotun Fenomastic</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-[20px] text-obsidian">٢٬٤٥٠ ج.م</span>
+<button class="bg-tashtep-orange text-gallery-white font-label-md text-label-md px-6 py-2.5 rounded hover:opacity-90 transition-opacity active:scale-[0.98] duration-200">
+                    أضف للسلة
+                </button>
+</div>
+</div>
+</div>
+<main class="w-full max-w-container-max mx-auto px-gutter py-macro-md md:py-macro-lg">
+<!-- Breadcrumbs (Editorial touch) -->
+<nav aria-label="Breadcrumb" class="mb-macro-sm flex items-center text-secondary gap-2">
+<a class="font-label-md text-label-md hover:text-obsidian transition-colors" href="#">الرئيسية</a>
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<a class="font-label-md text-label-md hover:text-obsidian transition-colors" href="#">دهانات</a>
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<a class="font-label-md text-label-md hover:text-obsidian transition-colors" href="#">دهانات داخلية</a>
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<span aria-current="page" class="font-label-md text-label-md text-obsidian">جوتن فينوماتيك بيور كولرز</span>
+</nav>
+<!-- Product Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Gallery (Left Side / Start in RTL - 7 cols) -->
+<div class="lg:col-span-7 flex flex-col-reverse md:flex-row gap-micro-md sticky top-macro-sm">
+<!-- Thumbnails -->
+<div class="flex md:flex-col gap-micro-sm overflow-x-auto md:overflow-y-auto hide-scrollbar md:w-32 shrink-0">
+<button class="w-24 h-32 md:w-full md:h-40 border border-obsidian rounded bg-stone relative overflow-hidden group">
+<img alt="Thumbnail 1" class="w-full h-full object-cover transition-transform duration-[180ms] group-hover:scale-105" data-alt="Close up studio shot of a premium Jotun paint bucket on a pristine white background. Studio lighting, sharp focus, editorial minimalism. Light mode, neutral tones, high resolution, soft diffuse shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALQkEe1Em2Ze8TosnTcPYNUQkB2uxBFwbWYXcghCwKMkjldo7T3_dSqVxFQJF-2LY0KUEhaTZXf0TG9zX2GWhTiZrlyKdHqwhv1RfluZdMyykawAlZH8FI_VJZkeTUNlJ2Na7nlpdOqNiYihw4NH_Cwokc-tRHi-koRwBOim_Xv64ShtxkoA4HOgg-Lju4J9DN6tdIpWAn_apUqmy6HzzOO6qLiAdBLQmf3IZ_Tl2O_Ko1nK7ZGUOKdeCc2AeJfa_IYRdVIt2x51wV"/>
+</button>
+<button class="w-24 h-32 md:w-full md:h-40 border border-stone rounded bg-stone relative overflow-hidden group opacity-60 hover:opacity-100 transition-opacity duration-[180ms]">
+<img alt="Thumbnail 2" class="w-full h-full object-cover transition-transform duration-[180ms] group-hover:scale-105" data-alt="High quality lifestyle interior shot showing a modern living room wall painted with premium matte paint. Sunlight streaming through a window, minimalist furniture, warm neutral tones. Zara Home aesthetic, light mode, editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvlWr4FhIgWwIDVbVbtNZOYWbcsdiNHYdA1ARCCYzrgRoU0XDyB5i4veHmL900zIuCzWEPkoE6Pz5fBUoQZWtpHfxkqy3SywO0BemvLbcwCBDbIB6iTh5a8KP6X8Kf7hej4_5jM4_1IlOs7p1hCrGdR6qyEiiimodYqwodS616EV5ayHJUKM99A6RQOWhX0q69Cy9MSvc6VVzyKLPUkPo4yoQDwI3tidy7CdAy-7Zjz_Npwluya7kit4l_qg8m_6SQcmay-58Ta-TV"/>
+</button>
+<button class="w-24 h-32 md:w-full md:h-40 border border-stone rounded bg-stone relative overflow-hidden group opacity-60 hover:opacity-100 transition-opacity duration-[180ms]">
+<img alt="Thumbnail 3" class="w-full h-full object-cover transition-transform duration-[180ms] group-hover:scale-105" data-alt="Detail shot of paint texture being applied to a wall with a high quality roller. Extreme close up showing the rich, matte finish and coverage. Crisp lighting, technical precision, light mode, editorial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqGIDF57anXxhI6k-o0VP2cy63prn1wCY9ocztmykpJ9LIqj0mMof5ciVfkB3GUBKie_C6wvP1Li-D2YDXcpIKDBnJ7RjZmUaYrtfCmXqyepSznJqh5m-LFxJiw1tRYYrcP0EvF28bnTubOuHkpjDwtF7oy_KdpTt8GDeI7vTDb3Q67iGyJA9aGqlqB4CsJhfgJKj338Nr9EA1nZxq_3ThF62aYvkoz7Z5MX0bwvT5cRAQJqTBon-MexUcGKE44Ysy2hrIYGxcpmnw"/>
+</button>
+<button class="w-24 h-32 md:w-full md:h-40 border border-stone rounded bg-stone relative overflow-hidden group opacity-60 hover:opacity-100 transition-opacity duration-[180ms] flex items-center justify-center">
+<img alt="Thumbnail 4" class="w-full h-full object-cover transition-transform duration-[180ms] group-hover:scale-105" data-alt="Color swatch card for Jotun Fenomastic Pure Colors, resting on a clean white marble surface. Soft natural lighting, minimal composition, editorial style. Light mode, subtle shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd2ICw_LEwBVHHfBTrCrcEA0AvlNYxEx7nLCDe6V02fXzIiWd8yEniZAgbFVNBW_LpRoF_k4Lw6ygxAm_-WVTeUaeKeM-JazWY_XgG4VZmIoDHUrfF623Z_RnenET7Rt5zgXD47i1Ge5hwwySy8z9qwIN6k-eJKSNA15NHkfJUfnNjXbAS_pegFbguVNr95tGxM3rRXMqP3Dh9dfCXV3SXqFXvdd9o9JINwO-wD5DO_Y7nLfgHcl1Lm2dAgbHzJW6yj9nZJkyID69u"/>
+</button>
+</div>
+<!-- Main Image -->
+<div class="flex-grow aspect-[3/4] bg-stone rounded-lg relative overflow-hidden flex items-center justify-center cursor-zoom-in">
+<div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
+<span class="bg-gallery-white/90 backdrop-blur text-obsidian font-label-md text-label-md px-4 py-1.5 rounded shadow-sm border border-stone">
+                            أكثر مبيعاً
+                        </span>
+</div>
+<button class="absolute top-4 left-4 z-10 w-12 h-12 bg-gallery-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm border border-stone text-secondary hover:text-tashtep-orange transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[24px]">favorite</span>
+</button>
+<img alt="Main Product Image" class="w-full h-full object-cover mix-blend-multiply" data-alt="Large, high-resolution main image of a premium Jotun Fenomastic paint bucket on a minimal gallery background. The bucket is pristine, lit with soft, diffuse studio lighting. Editorial minimalism, light mode, crisp details, soft shadows on the white ground." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0CuurBhfiPjnBdHpjAP8SzSoD1CaF7laD-f6sVrsD5qYVgJpMLVZmya24pMW7pCm8te7x73FKT7dPioUbWp7xE1pXDtj-ZnzMtumJ4aG4CwQCyeNk1faP86eQ0fBb4sUv1fkGpI9s78GNNPnyb2hiwkvkgz5PX6uBmDr2E6XKzApCK4m43gOKpYg2nTa6tli46OCDDlLgJDJqt8wZJzyx4e_wXvmQFjJ2SO5t9ncqjWqhR8NbSqHZRNueozv9uWvxwYcprn5_xw0P"/>
+</div>
+</div>
+<!-- Information (Right Side / End in RTL - 5 cols) -->
+<div class="lg:col-span-5 flex flex-col pt-4 md:pt-0" id="product-info-panel">
+<!-- Header & Badges -->
+<div class="flex flex-col gap-3 mb-6">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-technical-mono text-[12px] text-obsidian font-medium bg-stone px-2 py-1 rounded">BRAND: JOTUN</span>
+<span class="font-technical-mono text-[12px] text-secondary">SKU: JTN-4500</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-obsidian tracking-tight leading-tight">
+                        فينوماتيك بيور كولرز مطفي
+                    </h1>
+<!-- Rating, Stock & Trust -->
+<div class="flex flex-col gap-3 mt-2">
+<div class="flex items-center gap-2">
+<div class="flex text-obsidian text-[14px]">
+                            ★★★★★
+                        </div>
+<span class="font-label-md text-label-md text-obsidian">4.8</span>
+<a class="font-label-md text-label-md text-secondary underline decoration-stone hover:decoration-secondary transition-colors duration-[180ms]" href="#">(126 مراجعة)</a>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-1.5 text-[#1a7f37] bg-[#1a7f37]/5 px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-label-md text-label-md">متوفر في المخزون</span>
+</div>
+<div class="flex items-center gap-1.5 text-secondary bg-stone px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+<span class="font-label-md text-label-md">تم شراء هذا المنتج +850 مرة</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Description -->
+<p class="font-body-lg text-body-md md:text-body-lg text-secondary mb-8 leading-relaxed max-w-[480px]">
+                    ارتقِ بمساحتك مع جوتن فينوماتيك، الدهان الداخلي الفاخر الذي يمنحك تجربة لونية غامرة بلمسة نهائية مطفية نقية. تركيبة متطورة تضمن تغطية خالية من العيوب ومتانة استثنائية تعكس ذوقك الرفيع في كل زاوية.
+                </p>
+<!-- Feature Chips (Minimal) -->
+<div class="flex flex-wrap gap-2 mb-10">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> تغطية عالية
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> سريع الجفاف
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> مقاوم للرطوبة
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> قابل للغسيل
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> تشطيب فاخر
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-transparent text-obsidian font-label-md text-label-md border border-stone rounded">
+<span class="text-[14px]">✓</span> قليل الرائحة
+                    </span>
+</div>
+<!-- Color Selection -->
+<div class="mb-8">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-obsidian font-bold">اللون: <span class="font-normal text-secondary" id="selected-color-name">أبيض كلاسيكي</span></span>
+<a class="font-label-md text-[13px] text-obsidian uppercase tracking-wider underline decoration-stone hover:decoration-obsidian transition-colors duration-[180ms]" href="#">دليل الألوان</a>
+</div>
+<div class="flex gap-3">
+<button aria-label="Select White" class="w-12 h-12 rounded-full bg-[#FFFFFF] border border-stone shadow-sm relative focus:outline-none ring-1 ring-offset-2 ring-obsidian transition-all duration-[180ms]"></button>
+<button aria-label="Select Beige" class="w-12 h-12 rounded-full bg-[#E5E0D8] border border-stone shadow-sm hover:scale-105 transition-transform duration-[180ms]"></button>
+<button aria-label="Select Light Grey" class="w-12 h-12 rounded-full bg-[#D1D5D8] border border-stone shadow-sm hover:scale-105 transition-transform duration-[180ms]"></button>
+<button aria-label="Select Slate" class="w-12 h-12 rounded-full bg-[#8C929D] border border-stone shadow-sm hover:scale-105 transition-transform duration-[180ms]"></button>
+<button class="w-12 h-12 rounded-full border border-dashed border-tertiary-container flex items-center justify-center text-secondary hover:text-obsidian hover:border-obsidian transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<!-- Size Selection -->
+<div class="mb-10">
+<span class="block font-label-md text-label-md text-obsidian font-bold mb-4">الحجم</span>
+<div class="grid grid-cols-3 gap-3">
+<button class="py-3 px-4 border border-obsidian rounded bg-gallery-white text-obsidian font-label-md text-label-md text-center transition-colors duration-[180ms]">
+                            1 لتر
+                        </button>
+<button class="py-3 px-4 border border-stone rounded bg-stone hover:border-obsidian hover:bg-gallery-white text-charcoal font-label-md text-label-md text-center transition-colors duration-[180ms]">
+                            3 لتر
+                        </button>
+<button class="py-3 px-4 border border-stone rounded bg-stone hover:border-obsidian hover:bg-gallery-white text-charcoal font-label-md text-label-md text-center transition-colors duration-[180ms]">
+                            9 لتر
+                        </button>
+</div>
+</div>
+<!-- Price & Purchase Section -->
+<div class="flex flex-col gap-6 p-6 border border-stone rounded-lg bg-surface-bright">
+<!-- Price Area -->
+<div class="flex flex-col gap-2">
+<div class="flex items-end gap-3 flex-wrap">
+<span class="font-headline-lg text-[48px] text-obsidian leading-none tracking-tight">٢٬٤٥٠ ج.م</span>
+<div class="flex items-center gap-2 pb-1">
+<span class="font-body-md text-[18px] text-secondary line-through">٢٬٧٥٠ ج.م</span>
+<span class="bg-obsidian text-gallery-white font-label-md text-[12px] px-2 py-1 rounded tracking-wide uppercase">15% OFF</span>
+</div>
+</div>
+<p class="font-label-md text-[13px] text-secondary">
+                        متاح للتقسيط ابتداءً من ٢٠٤ ج.م/شهر مع <a class="underline hover:text-obsidian transition-colors duration-[180ms]" href="#">فاليو</a>
+</p>
+</div>
+<!-- Add to Cart Row -->
+<div class="flex gap-3 h-14">
+<div class="flex items-center justify-between px-4 border border-stone rounded bg-gallery-white w-32 shrink-0">
+<button class="text-secondary hover:text-obsidian transition-colors duration-[180ms]"><span class="material-symbols-outlined">remove</span></button>
+<span class="font-body-md text-[18px] text-obsidian">1</span>
+<button class="text-secondary hover:text-obsidian transition-colors duration-[180ms]"><span class="material-symbols-outlined">add</span></button>
+</div>
+<button class="flex-grow bg-tashtep-orange text-gallery-white font-label-md text-label-md rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-[0.98] duration-[180ms]">
+                            أضف للسلة
+                        </button>
+</div>
+<!-- Supporting Actions -->
+<div class="grid grid-cols-2 gap-3 h-12">
+<button class="bg-gallery-white border border-stone text-obsidian font-label-md text-[14px] rounded flex items-center justify-center gap-2 hover:border-obsidian transition-colors duration-[180ms]">
+                            اطلب استشارة مجانية
+                        </button>
+<button class="border border-obsidian text-obsidian font-label-md text-[14px] rounded flex items-center justify-center gap-2 hover:bg-stone transition-colors duration-[180ms]">
+                            احسب كمية الدهان
+                        </button>
+</div>
+<button class="mt-2 text-secondary hover:text-obsidian font-label-md text-[14px] flex items-center justify-center gap-2 transition-colors duration-[180ms] mx-auto w-fit">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+                        تواصل واتساب
+                    </button>
+</div>
+<!-- Trust Row -->
+<div class="mt-8 pt-6 border-t border-stone flex flex-wrap gap-x-6 gap-y-4 justify-between items-center text-secondary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] font-light">local_shipping</span>
+<span class="font-label-md text-[13px]">شحن لجميع المحافظات</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] font-light">verified</span>
+<span class="font-label-md text-[13px]">أصلي 100%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] font-light">cached</span>
+<span class="font-label-md text-[13px]">إرجاع خلال 14 يوم</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] font-light">support_agent</span>
+<span class="font-label-md text-[13px]">دعم فني مجاني</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Below Product Layout (Full Width Context) -->
+<div class="mt-macro-lg">
+<!-- Elegant Horizontal Tabs -->
+<div class="border-b border-stone mb-8 flex overflow-x-auto hide-scrollbar gap-8">
+<button class="tab-button active pb-4 font-label-md text-[16px] text-secondary hover:text-obsidian border-b-2 border-transparent transition-colors duration-[180ms] whitespace-nowrap" onclick="openTab('desc-tab', this)">الوصف</button>
+<button class="tab-button pb-4 font-label-md text-[16px] text-secondary hover:text-obsidian border-b-2 border-transparent transition-colors duration-[180ms] whitespace-nowrap" onclick="openTab('specs-tab', this)">المواصفات</button>
+<button class="tab-button pb-4 font-label-md text-[16px] text-secondary hover:text-obsidian border-b-2 border-transparent transition-colors duration-[180ms] whitespace-nowrap" onclick="openTab('usage-tab', this)">طريقة الاستخدام</button>
+<button class="tab-button pb-4 font-label-md text-[16px] text-secondary hover:text-obsidian border-b-2 border-transparent transition-colors duration-[180ms] whitespace-nowrap" onclick="openTab('faq-tab', this)">الأسئلة الشائعة</button>
+<button class="tab-button pb-4 font-label-md text-[16px] text-secondary hover:text-obsidian border-b-2 border-transparent transition-colors duration-[180ms] whitespace-nowrap" onclick="openTab('reviews-tab', this)">المراجعات</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Side: Tab Content (7 cols) -->
+<div class="lg:col-span-7">
+<div class="tab-content active" id="desc-tab">
+<h3 class="font-headline-md text-[24px] text-obsidian mb-4">جوهر الأناقة</h3>
+<p class="font-body-md text-secondary leading-relaxed mb-4">
+                        فينوماتيك بيور كولرز من جوتن يمثل قمة التطور في عالم الدهانات الداخلية. مصمم ليمنح جدرانك مظهراً مخملياً ناعماً يعكس الضوء برقة، مما يخلق أجواءً دافئة ومريحة.
+                    </p>
+<p class="font-body-md text-secondary leading-relaxed">
+                        بفضل تقنية الألوان النقية المتقدمة، يضمن لك هذا الدهان ألواناً عميقة وحقيقية لا تبهت بمرور الزمن. إنه الخيار الأمثل لمن يقدرون الجودة الفائقة والتفاصيل الدقيقة في التصميم الداخلي.
+                    </p>
+</div>
+<div class="tab-content" id="specs-tab">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+<div class="flex flex-col gap-1 border-b border-stone pb-3">
+<span class="font-label-md text-[14px] text-secondary">الأساس</span>
+<span class="font-body-md text-obsidian">أكريليك مائي ممتاز</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-stone pb-3">
+<span class="font-label-md text-[14px] text-secondary">نسبة اللمعان</span>
+<span class="font-body-md text-obsidian">0-5 (مطفي تماماً)</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-stone pb-3">
+<span class="font-label-md text-[14px] text-secondary">معدل الانتشار</span>
+<span class="font-body-md text-obsidian">10-12 م²/لتر (للطبقة الواحدة)</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-stone pb-3">
+<span class="font-label-md text-[14px] text-secondary">المركبات العضوية المتطايرة (VOC)</span>
+<span class="font-body-md text-obsidian">أقل من 10 جرام/لتر (آمن بيئياً)</span>
+</div>
+</div>
+</div>
+<div class="tab-content" id="usage-tab">
+<ul class="list-disc list-inside space-y-3 font-body-md text-secondary">
+<li>تأكد من أن السطح نظيف وجاف وخالٍ من الغبار والزيوت قبل البدء.</li>
+<li>قم بمعالجة الشقوق والعيوب باستخدام معجون جوتن المناسب لتحضير سطح أملس.</li>
+<li>يفضل استخدام طبقة من أساس جوتن (البرايمر) لضمان أفضل التصاق وأعلى جودة للون.</li>
+<li>يمكن تخفيف الدهان بالماء النظيف بنسبة 10% إلى 15% كحد أقصى إذا لزم الأمر.</li>
+<li>ينصح بتطبيق طبقتين للحصول على أفضل النتائج، مع ترك 2-4 ساعات بين الطبقات ليجف.</li>
+</ul>
+</div>
+<div class="tab-content" id="faq-tab">
+<p class="font-body-md text-secondary">محتوى الأسئلة الشائعة يضاف هنا.</p>
+</div>
+<div class="tab-content" id="reviews-tab">
+<p class="font-body-md text-secondary">محتوى المراجعات يضاف هنا.</p>
+</div>
+</div>
+<!-- Right Side: Complete Your Project (5 cols) -->
+<div class="lg:col-span-5">
+<h3 class="font-headline-md text-[24px] text-obsidian mb-6">أكمل مشروعك</h3>
+<div class="flex flex-col gap-3">
+<!-- Accessory Item 1 -->
+<div class="flex items-center gap-4 p-3 bg-gallery-white rounded border border-stone hover:border-obsidian transition-colors duration-[180ms] group cursor-pointer">
+<div class="w-16 h-16 bg-stone rounded shrink-0 overflow-hidden">
+<img alt="Roller" class="w-full h-full object-cover mix-blend-multiply" data-alt="High quality close up of a premium professional paint roller with a wooden handle. Clean studio lighting, white background, precise focus. Light mode, editorial minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGQCIaAK7yChZyrQbtgh-0wBR7hKppD52dg56c8AbfymVMdCm9KWwoYL49OUaGAKcE-okP1YptxJiFWhwRZ2m-3jvPrZZhUuEDwJxgzQ6d8mLDY2pvy2-Wky76OWDneIy-0xu0Cely54Jdeb57jsP4xHyRmI4TKtsgBzbqTwfbigZ5gbr4RCOGBjZcsY1AHZdhhXtlnZsB9QycZgxUdTM1u7kYwQiNDMG33Q3KfcEUdDTKCljzdDUiE-wN-r-e634pfsQh6TRnZ-w0"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-label-md text-label-md text-obsidian line-clamp-1">رولة دهان احترافية 9 بوصة</span>
+<span class="font-body-md text-[14px] text-secondary mt-0.5">120 ج.م</span>
+</div>
+<button class="w-8 h-8 rounded-full border border-stone flex items-center justify-center text-obsidian group-hover:bg-obsidian group-hover:text-gallery-white transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Accessory Item 2 -->
+<div class="flex items-center gap-4 p-3 bg-gallery-white rounded border border-stone hover:border-obsidian transition-colors duration-[180ms] group cursor-pointer">
+<div class="w-16 h-16 bg-stone rounded shrink-0 overflow-hidden">
+<img alt="Tape" class="w-full h-full object-cover mix-blend-multiply" data-alt="Detail shot of professional blue painter's tape roll resting on a clean surface. Studio lighting, crisp minimal aesthetic, light mode. High resolution, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZvOHhhaDzDSPSqOuQR2mwzZWfZfaVHYOiTK2rgLzJMzAjuYz2tQ76ISyyn35qAMiu41zrrsVI3eTQsNhOIibo5OziuZj0urdqEeSD1PGuDihNVZC8frbyHBGXrBQcoTr3AwyciMhhR7QS4hOqHmM02xkfvRcEd_0p3eEidwsECWF3WCv8rzuAf2J0A-K_PzzF6bWVzRgCX7Op89Mhwo8lmmbFeFuxarb8jLPCN9wQZQQdT0rOiOpGSCC_tra6g5vRR_1ZcReFQGZY"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-label-md text-label-md text-obsidian line-clamp-1">شريط لاصق للحواف 2 بوصة</span>
+<span class="font-body-md text-[14px] text-secondary mt-0.5">45 ج.م</span>
+</div>
+<button class="w-8 h-8 rounded-full border border-stone flex items-center justify-center text-obsidian group-hover:bg-obsidian group-hover:text-gallery-white transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Accessory Item 3 -->
+<div class="flex items-center gap-4 p-3 bg-gallery-white rounded border border-stone hover:border-obsidian transition-colors duration-[180ms] group cursor-pointer">
+<div class="w-16 h-16 bg-stone rounded shrink-0 overflow-hidden">
+<img alt="Putty" class="w-full h-full object-cover mix-blend-multiply" data-alt="Small tub of premium white wall putty. Clean minimal studio shot, neutral light mode aesthetic. Sharp details showing texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnKJ8MBKhrr8zrWEbOMDyhEsGk0nWYojxpfiIy8ljqpjbMujcn-yBV6I1iFwqWksmSCfm0-Ka9QkjFtbVChYnZlg_uMpcrVW8hudIUtJ1sfXyMNdnIaUMmS04ou1tOJCZG04entwYmgcQ2pZ7j1LOK1zXxjRa_yooer9drxUaZTRXvzaMSjr9kUAHODpysozDbZ_6xGyJU5kQ0YRNZ9k4R5yRNixe1l3zB0eNrydOrpZ0rEJNXI-HnNYJtOt-SeV4rMcQ1j6bfxLYl"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-label-md text-label-md text-obsidian line-clamp-1">معجون جدران جاهز 1 كجم</span>
+<span class="font-body-md text-[14px] text-secondary mt-0.5">85 ج.م</span>
+</div>
+<button class="w-8 h-8 rounded-full border border-stone flex items-center justify-center text-obsidian group-hover:bg-obsidian group-hover:text-gallery-white transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Inspiration Gallery (Zara Home Editorial Style) -->
+<section class="mt-macro-lg pt-macro-lg border-t border-stone">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="font-headline-lg text-[32px] md:text-[40px] text-obsidian leading-tight">معرض الإلهام</h2>
+<p class="font-body-md text-secondary mt-2">شاهد كيف استخدم عملاؤنا ومصممونا هذا الدهان في مساحاتهم.</p>
+</div>
+<a class="hidden md:flex font-label-md text-label-md text-obsidian items-center gap-1 hover:opacity-70 transition-opacity" href="#">
+                    عرض الكل <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+</a>
+</div>
+<!-- Bento Grid Style -->
+<div class="grid grid-cols-2 md:grid-cols-4 grid-rows-[250px_250px] gap-4">
+<div class="col-span-2 row-span-2 rounded-lg bg-stone overflow-hidden group cursor-pointer relative">
+<img alt="Inspiration 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Expansive editorial interior photography of a luxurious, minimal bedroom. Walls painted in premium matte white. Natural light creating soft gradients. Zara Home aesthetic, warm neutral tones, light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDhwewv2MdzG9j1zv40ZxFg0YEHr_zGBId59aE4jIEchcUo6lIDgyD0LW-3OlL4Gyhw_hchoJ3oK5i1ctrbbYPMbeHJhkQO1QRcTQQkWBh5WLx5BRp4vlPJrAtELiiWtWJrQCW1YWmb2HrNCSX0O5LC6g_jPmGxitp6jfTVVXPCfzf4wNUfKxtA7G4LFCcnsnR-seGKgFb5YsodkjUewMeXGbJqZ2eFfyg2dyevNj2qfnwGJk5HKFZKEWKF0l3eKTjLzR8aVqpN6Gh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-obsidian/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+<span class="text-gallery-white font-label-md">غرفة نوم رئيسية - تصميم: ستوديو نون</span>
+</div>
+</div>
+<div class="col-span-1 row-span-1 rounded-lg bg-stone overflow-hidden group cursor-pointer relative">
+<img alt="Inspiration 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up architectural detail showing the intersection of a crisp matte painted wall and a wooden door frame. Technical precision, soft diffuse light, light mode editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCot7aSpv9GrhI_56OXytwu9TKvjlA8_sjU_QubFFyk83HfAYw1W1zzjQreAy4VbgO4jgb7lZc9GErH6AzwSaeONYLH0cf1MWAIZRblW8sXFPcmAq-oAguz4Hv-FoCpEAuRautl5obcpmANiyfF1EM1egDc51KCAAt0GZm_6-SL_I7zUZGjAR9yNCyy4h9eGgNV8r9xylzMzHAtbEwD5DDIFuwvU3jHpa3qpO4Mq6mJc4U_7pxv0TVEfUnrw73RWqshbGlPrDopkhX8"/>
+</div>
+<div class="col-span-1 row-span-1 rounded-lg bg-stone overflow-hidden group cursor-pointer relative">
+<img alt="Inspiration 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern minimalist home office corner with a clean white matte wall serving as a backdrop for a sleek wooden desk and a single green plant. Bright, airy, light mode, editorial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxvhqDgZHVf31cw6P79c6IQJKmA0Xg9H2ipeShfp6O-KAGTB9JNWeqfKWTfGeX64n_xwQe9HDhKTr3Kta2BFOr8-pF75rw0pWQA3fLKPtLa9J44N9EfzRVzSFqlgaPn_rsueK99V5-jWMGmceZwdJSiKFcHfQb5IWqk9jarWOcRZuvo2LbwkkN8zHmwnHS1P1F9TksLiPtGUTl1hhwhP4HeHeueeBuNyvHNlDImU2lz4AFcPT4gT7WnH6THAc1JSocqk22wdgFODBz"/>
+</div>
+<div class="col-span-2 md:col-span-2 row-span-1 rounded-lg bg-stone overflow-hidden group cursor-pointer relative">
+<img alt="Inspiration 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Wide shot of a contemporary hallway with matte painted walls and a subtle shadow play from a skylight above. Elegant, serene, gallery-like atmosphere. Light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjXD1uVyHzjJMMCjZ_-OvCL6tAZ3sFfg3EP2bFq_GQ6Tdo5uzwTVUEQ2YBRDxU9VGIdGEXAfhC9sl6UaEpTXyto_ENP609sL7u_q73JnQvqw6AsY_-w8nB0RGeYhrBHw4j0dBhJ-X0yzYF0j45nvWlZBFyXrYsup16CtN41xxAyImTxThYzbh85h0-_pBAUQIw-6L9UAo0OqHcVgEAxounY5qlUMygtYurkbKX2238BMgzd8E-Cj5N7onAgExoo9IKOXg2vPJcfygl"/>
+</div>
+</div>
+<a class="md:hidden mt-6 flex justify-center font-label-md text-label-md text-obsidian border border-stone py-3 rounded hover:bg-stone transition-colors" href="#">
+                عرض كل الإلهام
+            </a>
+</section>
+</main>
+<script>
+        // Simple Accordion Logic (Keep for fallback/other uses if needed)
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if(content && icon) {
+                content.classList.toggle('open');
+                icon.classList.toggle('open');
+            }
+        }
+        
+        // Tab Logic
+        function openTab(tabId, element) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active class from buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected content and activate button
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // Sticky Purchase Bar Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const stickyBar = document.getElementById('sticky-purchase-bar');
+            const productInfoPanel = document.getElementById('product-info-panel');
+            
+            if(stickyBar && productInfoPanel) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // If the product info panel is NOT intersecting (scrolled past it)
+                        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+                            stickyBar.classList.remove('-translate-y-full');
+                        } else {
+                            stickyBar.classList.add('-translate-y-full');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                observer.observe(productInfoPanel);
+            }
+        });
+    </script>
+</body></html>

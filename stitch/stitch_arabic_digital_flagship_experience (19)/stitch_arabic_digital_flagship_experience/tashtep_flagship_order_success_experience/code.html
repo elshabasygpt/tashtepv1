@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep - Order Success</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#dac2af",
+                        "stone": "#F8F8F9",
+                        "on-secondary-fixed-variant": "#474646",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-error-container": "#93000a",
+                        "gallery-white": "#FFFFFF",
+                        "primary": "#8d4f00",
+                        "surface": "#f9f9f7",
+                        "on-tertiary-container": "#3d3e42",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5d5e63",
+                        "surface-dim": "#dadad8",
+                        "outline": "#877363",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-container": "#eeeeec",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "obsidian": "#111111",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-primary-container": "#5e3300",
+                        "charcoal": "#333333",
+                        "primary-fixed": "#ffdcc0",
+                        "on-surface-variant": "#544435",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2f3130",
+                        "on-background": "#1a1c1b",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed": "#2d1600",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-container": "#f39223",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#a9a9ae",
+                        "primary-fixed-dim": "#ffb875",
+                        "inverse-primary": "#ffb875",
+                        "background": "#f9f9f7",
+                        "secondary": "#5f5e5e",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#e5e2e1",
+                        "on-surface": "#1a1c1b",
+                        "surface-variant": "#e2e3e1",
+                        "surface-container-low": "#f4f4f2",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-tint": "#8d4f00",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e3e1",
+                        "tashtep-orange": "#F39223",
+                        "inverse-on-surface": "#f1f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "micro-xs": "4px",
+                        "macro-lg": "128px",
+                        "macro-sm": "32px",
+                        "gutter": "24px",
+                        "micro-md": "16px",
+                        "macro-md": "64px",
+                        "container-max": "1440px",
+                        "micro-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "display-hero-mobile": ["Cairo"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "display-hero": ["Cairo"],
+                        "body-md": ["Tajawal"],
+                        "label-md": ["Tajawal"],
+                        "headline-lg": ["Cairo"],
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["Tajawal"],
+                        "headline-md": ["Cairo"]
+                    },
+                    "fontSize": {
+                        "display-hero-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "300"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "display-hero": ["80px", {"lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300"}],
+                        "body-md": ["16px", {"lineHeight": "1.625", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "technical-mono": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<!-- Custom Styles for Animations -->
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated Checkmark */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #F39223;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #F39223;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .success-checkmark .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #F39223;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .success-checkmark .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes scale {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+        @keyframes fill {
+            100% { box-shadow: inset 0px 0px 0px 30px rgba(243, 146, 35, 0.05); }
+        }
+
+        /* Ambient Background Blur */
+        .ambient-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -50px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen text-on-background font-body-md antialiased overflow-x-hidden relative">
+<!-- Background Showroom Atmosphere -->
+<div class="ambient-blob w-[600px] h-[600px] bg-stone top-[-100px] right-[-100px]"></div>
+<div class="ambient-blob w-[800px] h-[800px] bg-surface-container-low bottom-[-200px] left-[-200px] animation-delay-2000"></div>
+<main class="max-w-container-max mx-auto px-gutter py-macro-lg relative z-10">
+<!-- 1. SUCCESS HERO -->
+<section class="flex flex-col items-center justify-center text-center max-w-3xl mx-auto mb-macro-md animate-fade-in-up">
+<div class="mb-micro-md">
+<svg class="success-checkmark" viewbox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+<circle class="checkmark-circle" cx="26" cy="26" fill="none" r="25"></circle>
+<path class="checkmark-check" d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none"></path>
+</svg>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-obsidian mb-micro-sm">تم تأكيد طلبك بنجاح</h1>
+<p class="font-body-lg text-body-lg text-secondary">
+                شكراً لاختيارك Tashtep، بدأنا تجهيز طلبك وسيتم التواصل معك قريباً.
+            </p>
+</section>
+<!-- 2 & 3. ORDER SUMMARY CARD & TIMELINE -->
+<section class="w-full max-w-4xl mx-auto mb-macro-md animate-fade-in-up delay-100">
+<div class="bg-gallery-white rounded-[24px] border border-surface-variant shadow-[0_10px_40px_rgba(0,0,0,0.02)] p-macro-sm md:p-macro-md relative overflow-hidden">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:justify-between md:items-center mb-macro-sm pb-micro-md border-b border-surface-variant">
+<h2 class="font-headline-md text-headline-md text-obsidian mb-micro-xs md:mb-0">تفاصيل الطلب</h2>
+<div class="flex items-center gap-2 bg-surface p-2 rounded-DEFAULT border border-surface-variant">
+<span class="font-label-md text-label-md text-secondary">رقم الطلب:</span>
+<span class="font-technical-mono text-technical-mono text-obsidian font-bold">#TS-2026-004582</span>
+</div>
+</div>
+<!-- Details Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-micro-md mb-macro-md">
+<div>
+<span class="block font-label-md text-label-md text-secondary mb-1">تاريخ الطلب</span>
+<span class="block font-body-md text-body-md text-obsidian">١٥ أكتوبر ٢٠٢٦، ١٠:٣٠ صباحاً</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-secondary mb-1">تاريخ التوصيل المتوقع</span>
+<span class="block font-body-md text-body-md text-obsidian">١٨ - ٢٠ أكتوبر ٢٠٢٦</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-secondary mb-1">طريقة الدفع</span>
+<span class="block font-body-md text-body-md text-obsidian">الدفع عند الاستلام</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-secondary mb-1">عنوان الشحن</span>
+<span class="block font-body-md text-body-md text-obsidian text-balance">فيلا ٤٥، كمبوند الياسمين، التجمع الخامس، القاهرة</span>
+</div>
+</div>
+<!-- Timeline -->
+<div class="pt-micro-md relative">
+<h3 class="font-label-md text-label-md text-secondary mb-macro-sm">حالة الطلب</h3>
+<div class="relative flex justify-between items-center w-full">
+<!-- Connecting Line Background -->
+<div class="absolute top-1/2 left-0 right-0 h-[2px] bg-surface-variant -z-10 -translate-y-1/2"></div>
+<!-- Connecting Line Progress (25%) -->
+<div class="absolute top-1/2 right-0 w-[25%] h-[2px] bg-tashtep-orange -z-10 -translate-y-1/2 transition-all duration-1000 ease-in-out"></div>
+<!-- States -->
+<!-- State 1: Active/Done -->
+<div class="flex flex-col items-center gap-2 relative bg-gallery-white px-2">
+<div class="w-6 h-6 rounded-full bg-tashtep-orange flex items-center justify-center text-white ring-4 ring-gallery-white">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-md text-label-md text-obsidian font-bold text-center absolute top-8 whitespace-nowrap">تم استلام الطلب</span>
+</div>
+<!-- State 2: Current -->
+<div class="flex flex-col items-center gap-2 relative bg-gallery-white px-2">
+<div class="w-6 h-6 rounded-full bg-gallery-white border-2 border-tashtep-orange flex items-center justify-center ring-4 ring-gallery-white relative">
+<div class="w-2 h-2 rounded-full bg-tashtep-orange animate-pulse"></div>
+</div>
+<span class="font-label-md text-label-md text-tashtep-orange font-bold text-center absolute top-8 whitespace-nowrap">جاري المراجعة</span>
+</div>
+<!-- State 3: Pending -->
+<div class="flex flex-col items-center gap-2 relative bg-gallery-white px-2">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-surface-variant ring-4 ring-gallery-white"></div>
+<span class="font-label-md text-label-md text-secondary text-center absolute top-8 whitespace-nowrap">جاري التجهيز</span>
+</div>
+<!-- State 4: Pending -->
+<div class="flex flex-col items-center gap-2 relative bg-gallery-white px-2">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-surface-variant ring-4 ring-gallery-white"></div>
+<span class="font-label-md text-label-md text-secondary text-center absolute top-8 whitespace-nowrap">تم الشحن</span>
+</div>
+<!-- State 5: Pending -->
+<div class="flex flex-col items-center gap-2 relative bg-gallery-white px-2">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-surface-variant ring-4 ring-gallery-white"></div>
+<span class="font-label-md text-label-md text-secondary text-center absolute top-8 whitespace-nowrap">تم التسليم</span>
+</div>
+</div>
+<!-- Spacer for absolute text -->
+<div class="h-12"></div>
+</div>
+</div>
+</section>
+<!-- 4. PRIMARY ACTIONS -->
+<section class="flex flex-wrap justify-center items-center gap-micro-sm mb-macro-md animate-fade-in-up delay-200">
+<button class="bg-tashtep-orange text-white font-label-md text-label-md px-8 py-4 rounded-DEFAULT hover:opacity-80 transition-opacity duration-180 flex items-center gap-2 active:scale-95">
+<span>متابعة الطلب</span>
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</button>
+<button class="bg-transparent text-obsidian border border-surface-variant font-label-md text-label-md px-8 py-4 rounded-DEFAULT hover:border-obsidian transition-colors duration-180 flex items-center gap-2 active:scale-95">
+<span>متابعة التسوق</span>
+</button>
+<button class="bg-transparent text-obsidian border border-surface-variant font-label-md text-label-md px-8 py-4 rounded-DEFAULT hover:border-obsidian transition-colors duration-180 flex items-center gap-2 active:scale-95">
+<span>تحميل الفاتورة</span>
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</section>
+<!-- 5. PROJECT ASSISTANT -->
+<section class="w-full max-w-4xl mx-auto mb-macro-lg animate-fade-in-up delay-300">
+<div class="bg-surface border border-surface-variant rounded-[16px] p-macro-sm flex flex-col md:flex-row items-center justify-between gap-micro-md">
+<div class="flex items-center gap-micro-md">
+<div class="w-12 h-12 rounded-full bg-gallery-white flex items-center justify-center shadow-sm text-tashtep-orange">
+<span class="material-symbols-outlined">support_agent</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-obsidian font-bold">هل تحتاج إلى مساعدة في استكمال مشروعك؟</h4>
+<p class="font-body-md text-body-md text-secondary">فريقنا الهندسي جاهز لتقديم استشارة مجانية لضمان أفضل نتيجة.</p>
+</div>
+</div>
+<div class="flex items-center gap-micro-sm shrink-0">
+<button class="bg-obsidian text-white font-label-md text-label-md px-6 py-3 rounded-DEFAULT hover:bg-charcoal transition-colors duration-180">استشارة مجانية</button>
+<button class="bg-[#25D366]/10 text-[#25D366] font-label-md text-label-md px-6 py-3 rounded-DEFAULT hover:bg-[#25D366]/20 transition-colors duration-180 flex items-center gap-2">
+<span>واتساب</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 6. RECOMMENDATIONS -->
+<section class="w-full animate-fade-in-up delay-400 border-t border-surface-variant pt-macro-lg mb-macro-lg">
+<div class="flex justify-between items-end mb-macro-sm">
+<h3 class="font-headline-md text-headline-md text-obsidian">قد يعجبك أيضاً</h3>
+<a class="font-label-md text-label-md text-secondary hover:text-obsidian flex items-center gap-1 transition-colors" href="#">
+                    عرض الكل
+                    <span class="material-symbols-outlined text-[18px] rotate-180">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-micro-md">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-surface rounded-[16px] overflow-hidden relative mb-micro-sm border border-surface-variant">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up, high-end editorial shot of a textured stone wall finish in warm beige tones. Soft natural lighting emphasizes the tactile, earthy surface. Zara Home aesthetic, minimalist, premium construction materials context. 8k resolution, photorealistic, light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnXCQ0hXMpebQPSDCA7XwdGFZXJx0ZfBe-8Bep-GosDSZ1GZvgu2V0YHHg7VSuBp4-o8rQ-P4vKFlSD7Tvl0Q1tt1m4-iGJ58Ulid0gwH37MrvNNlV1b0PW16A33KqY-VgYalHkHbU4F0Ra-WRS-0fjqfxGEZggKKxP0Pc-qaPGtXtancmn1uxVjJ4Ly1pSDrM4j2MxFmWbZapznl3eZjpx2cVqa0oLE4u-hG0twvmbUsmiWfclgd2NUmgedhhPoTOXKtGpWEjQaLB"/>
+<div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute bottom-4 left-4 right-4 bg-gallery-white text-obsidian font-label-md text-label-md py-3 rounded-DEFAULT opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-sm">
+                            إضافة سريعة
+                        </button>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary mb-1">تشطيبات حوائط</span>
+<span class="font-body-md text-body-md text-obsidian font-bold">حجر جيري إسباني فاخر</span>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-surface rounded-[16px] overflow-hidden relative mb-micro-sm border border-surface-variant">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A luxurious matte black plumbing fixture installed against a pristine white marble backsplash. Clean lines, Apple-like precision, elegant and modern bathroom setting. Soft diffuse lighting highlighting the metallic finish. Editorial style photography, light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV9MbLwwFAtIwgZ5oVotk7dSb8hEnVx6_1FppmUM4rhb55SKU7_9DvAJPTjFTWrBaz8AsaJSGhtyOMRW5RvvFip7K5WRIMw6N40khdFQ5wnxV708WpUuFgPGyTSInsCOJUHisvm7-tTssdYe0WLIOWNdwuh_QrbW4OGJVG_1DjS1HJUJzG7nG9os-y7-wPTPk_fhkui0_uTORd4Wv0OE6xx9t0DuQT2mQ18zRsiU125zzMwrBv1m2I1vC5zm8iPweoEESpyGzsqEKf"/>
+<div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute bottom-4 left-4 right-4 bg-gallery-white text-obsidian font-label-md text-label-md py-3 rounded-DEFAULT opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-sm">
+                            إضافة سريعة
+                        </button>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary mb-1">أدوات صحية</span>
+<span class="font-body-md text-body-md text-obsidian font-bold">خلاط حوض مطفي أسود</span>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer hidden md:block">
+<div class="aspect-[4/5] bg-surface rounded-[16px] overflow-hidden relative mb-micro-sm border border-surface-variant">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A set of premium wood flooring planks arranged aesthetically in a showroom setting. Warm oak color with natural grain. Warm, inviting lighting, minimalist styling, high-end interior design context. 8k resolution, editorial composition, light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8auNoHa1IYAxNU71HbxLJhdNym7PAmKHm_xWRIjW4d1oB1QTUTXyV2NxAGtArlZs0KyR5QYeeTzQRAr5gqSb7nCkxwtLieZO_53eZuML51U3fw0slP7PPehByPWLYm626LAG8kQEJjqiEIYU_N-XuvNEPA1AN5TutBGDhI-Zo4yStB2_ksFZ5c5nCJuIw8dWV-VdooCM0cVtGLVryZ17uWlrWWR5kNTtGI5EQJ4t4IuUZ8QKApUOLVILI8VuqA4HrR9j7tHzLwo3p"/>
+<div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute bottom-4 left-4 right-4 bg-gallery-white text-obsidian font-label-md text-label-md py-3 rounded-DEFAULT opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-sm">
+                            إضافة سريعة
+                        </button>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-secondary mb-1">أرضيات خشبية</span>
+<span class="font-body-md text-body-md text-obsidian font-bold">باركيه بلوط أوروبي</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. TRUST FOOTER -->
+<section class="w-full border-t border-surface-variant pt-macro-sm pb-macro-md animate-fade-in-up delay-400">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-micro-md text-center divide-x divide-x-reverse divide-surface-variant">
+<div class="flex flex-col items-center justify-center gap-2 px-4">
+<span class="material-symbols-outlined text-secondary text-[24px]">verified</span>
+<span class="font-label-md text-label-md text-obsidian">منتجات أصلية</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-2 px-4">
+<span class="material-symbols-outlined text-secondary text-[24px]">local_shipping</span>
+<span class="font-label-md text-label-md text-obsidian">شحن لجميع المحافظات</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-2 px-4">
+<span class="material-symbols-outlined text-secondary text-[24px]">replay</span>
+<span class="font-label-md text-label-md text-obsidian">استرجاع 14 يوم</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-2 px-4">
+<span class="material-symbols-outlined text-secondary text-[24px]">support_agent</span>
+<span class="font-label-md text-label-md text-obsidian">دعم مجاني</span>
+</div>
+</div>
+</section>
+</main>
+</body></html>

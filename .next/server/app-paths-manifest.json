@@ -1,0 +1,20 @@
+{
+  "/api/webhooks/paymob/route": "app/api/webhooks/paymob/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/reset-password/page": "app/reset-password/page.js",
+  "/verify-email/page": "app/verify-email/page.js",
+  "/account/profile/page": "app/account/profile/page.js",
+  "/account/orders/page": "app/account/orders/page.js",
+  "/categories/page": "app/categories/page.js",
+  "/cart/page": "app/cart/page.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/page": "app/page.js",
+  "/products/[id]/page": "app/products/[id]/page.js",
+  "/products/page": "app/products/page.js",
+  "/search/page": "app/search/page.js",
+  "/wishlist/page": "app/wishlist/page.js"
+}

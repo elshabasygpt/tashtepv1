@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep Footer Component</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-surface-variant": "#544435",
+                        "inverse-surface": "#2f3130",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "surface-bright": "#f9f9f7",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5d5e63",
+                        "surface": "#f9f9f7",
+                        "primary-fixed": "#ffdcc0",
+                        "surface-dim": "#dadad8",
+                        "on-background": "#1a1c1b",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eeeeec",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "secondary": "#5f5e5e",
+                        "inverse-on-surface": "#f1f1ef",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#8d4f00",
+                        "inverse-primary": "#ffb875",
+                        "secondary-container": "#e5e2e1",
+                        "primary-container": "#f39223",
+                        "tashtep-orange": "#F39223",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "background": "#f9f9f7",
+                        "surface-variant": "#e2e3e1",
+                        "error": "#ba1a1a",
+                        "outline": "#877363",
+                        "on-tertiary-container": "#3d3e42",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "surface-container-highest": "#e2e3e1",
+                        "charcoal": "#333333",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#dac2af",
+                        "obsidian": "#111111",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "stone": "#F8F8F9",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed": "#2d1600",
+                        "surface-container-low": "#f4f4f2",
+                        "primary": "#8d4f00",
+                        "primary-fixed-dim": "#ffb875",
+                        "tertiary-container": "#a9a9ae",
+                        "on-primary-container": "#5e3300",
+                        "gallery-white": "#FFFFFF",
+                        "on-tertiary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "macro-md": "64px",
+                        "micro-sm": "8px",
+                        "gutter": "24px",
+                        "macro-sm": "32px",
+                        "micro-md": "16px",
+                        "macro-lg": "128px",
+                        "container-max": "1440px",
+                        "micro-xs": "4px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Tajawal"],
+                        "headline-lg": ["Cairo"],
+                        "display-hero": ["Cairo"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["Cairo"],
+                        "display-hero-mobile": ["Cairo"],
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { lineHeight: "1.2", fontWeight: "500" }],
+                        "headline-lg": ["48px", { lineHeight: "1.2", fontWeight: "400" }],
+                        "display-hero": ["80px", { lineHeight: "1.1", letterSpacing: "0", fontWeight: "300" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "1.2", fontWeight: "400" }],
+                        "technical-mono": ["13px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "400" }],
+                        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "display-hero-mobile": ["48px", { lineHeight: "1.1", fontWeight: "300" }],
+                        "body-md": ["16px", { lineHeight: "1.625", fontWeight: "400" }],
+                        "body-lg": ["20px", { lineHeight: "1.7", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAF8] text-obsidian font-body-md antialiased min-h-screen flex flex-col justify-end">
+<!-- Start Footer Component -->
+<footer class="w-full bg-[#FAFAF8] text-[#222222] transition-all duration-300">
+<div class="max-w-container-max mx-auto px-macro-sm md:px-macro-md"><!-- SECTION 01: Large Editorial Closing Statement -->
+<div class="py-macro-lg text-center max-w-4xl mx-auto mb-macro-md">
+<h2 class="font-headline-lg text-display-hero-mobile md:text-display-hero text-[#222222] mb-macro-sm">كل مساحة تستحق لمسة استثنائية.</h2>
+<p class="font-body-lg text-body-lg text-[#7A7A7A] mb-macro-md max-w-2xl mx-auto">من اختيار اللون المناسب وحتى آخر تفاصيل التشطيب، نرافقك في كل خطوة لبناء مساحة تعكس ذوقك وتدوم لسنوات.</p>
+<div class="flex flex-col md:flex-row justify-center gap-micro-md">
+<button class="bg-[#F39223] text-white font-label-md text-label-md px-macro-sm py-4 rounded-full hover:opacity-90 transition-all">استكشف المنتجات</button>
+<button class="bg-white text-[#222222] border border-[#222222] font-label-md text-label-md px-macro-sm py-4 rounded-full hover:bg-[#222222] hover:text-white transition-all">احجز استشارة مجانية</button>
+</div>
+</div>
+<!-- SECTION 02: Trust Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-macro-lg">
+<div class="bg-white border border-surface-container-high rounded-full py-3 px-6 flex items-center justify-center gap-2 shadow-sm">
+<span class="text-lg">🚚</span>
+<span class="font-label-md text-label-md">شحن لجميع المحافظات</span>
+</div>
+<div class="bg-white border border-surface-container-high rounded-full py-3 px-6 flex items-center justify-center gap-2 shadow-sm">
+<span class="text-lg">⭐</span>
+<span class="font-label-md text-label-md">منتجات أصلية 100%</span>
+</div>
+<div class="bg-white border border-surface-container-high rounded-full py-3 px-6 flex items-center justify-center gap-2 shadow-sm">
+<span class="text-lg">📞</span>
+<span class="font-label-md text-label-md">استشارة مجانية</span>
+</div>
+<div class="bg-white border border-surface-container-high rounded-full py-3 px-6 flex items-center justify-center gap-2 shadow-sm">
+<span class="text-lg">↩️</span>
+<span class="font-label-md text-label-md">استرجاع خلال 14 يوم</span>
+</div>
+</div>
+<!-- SECTION 03 & 04: Navigation & Newsletter -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-macro-md mb-macro-lg border-t border-black/5 pt-macro-md">
+<!-- Navigation Columns -->
+<div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-gutter">
+<div>
+<h4 class="font-bold text-label-md mb-macro-sm uppercase tracking-wider">الشركة</h4>
+<ul class="space-y-3">
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">عن Tashtep</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">المشاريع</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">المدونة</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">العلامات التجارية</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-label-md mb-macro-sm uppercase tracking-wider">التسوق</h4>
+<ul class="space-y-3">
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">الدهانات</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">التشطيبات</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">ورق الحائط</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">الأدوات</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-label-md mb-macro-sm uppercase tracking-wider">خدمة العملاء</h4>
+<ul class="space-y-3">
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">الشحن</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">الاسترجاع</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">الأسئلة الشائعة</a></li>
+<li><a class="text-body-md text-[#7A7A7A] hover:text-[#F39223] transition-colors" href="#">تواصل معنا</a></li>
+</ul>
+</div>
+</div>
+<!-- Newsletter Card -->
+<div class="lg:col-span-5 bg-white rounded-[28px] p-8 border border-surface-container-high shadow-sm">
+<h3 class="font-headline-md text-[24px] text-[#222222] mb-2">اشترك للحصول على أحدث أفكار الديكور والعروض.</h3>
+<p class="text-body-md text-[#7A7A7A] mb-6">لن نرسل أكثر من رسالة أسبوعياً.</p>
+<form class="flex flex-col gap-3">
+<input class="w-full bg-[#FAFAF8] border-none rounded-xl py-4 px-6 focus:ring-1 focus:ring-[#F39223] outline-none" placeholder="بريدك الإلكتروني" type="email"/>
+<button class="w-full bg-[#F39223] text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity" type="submit">اشتراك</button>
+</form>
+</div>
+</div>
+<!-- SECTION 05: Social -->
+<div class="flex justify-center gap-4 mb-macro-md">
+<a class="w-12 h-12 rounded-full border border-surface-container-highest flex items-center justify-center text-[#7A7A7A] hover:border-[#F39223] hover:text-[#F39223] hover:scale-105 transition-all duration-200" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="w-12 h-12 rounded-full border border-surface-container-highest flex items-center justify-center text-[#7A7A7A] hover:border-[#F39223] hover:text-[#F39223] hover:scale-105 transition-all duration-200" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+</a>
+<a class="w-12 h-12 rounded-full border border-surface-container-highest flex items-center justify-center text-[#7A7A7A] hover:border-[#F39223] hover:text-[#F39223] hover:scale-105 transition-all duration-200" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path></svg>
+</a>
+<a class="w-12 h-12 rounded-full border border-surface-container-highest flex items-center justify-center text-[#7A7A7A] hover:border-[#F39223] hover:text-[#F39223] hover:scale-105 transition-all duration-200" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.168 0 7.41 2.967 7.41 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.592 0 12.017 0z"></path></svg>
+</a>
+</div>
+<!-- SECTION 06: Bottom Bar -->
+<div class="py-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+<p class="text-body-md text-[13px] text-[#7A7A7A]">© 2026 Tashtep. جميع الحقوق محفوظة.</p>
+<div class="flex gap-6">
+<a class="text-body-md text-[13px] text-[#7A7A7A] hover:text-[#222222] transition-colors" href="#">سياسة الخصوصية</a>
+<a class="text-body-md text-[13px] text-[#7A7A7A] hover:text-[#222222] transition-colors" href="#">الشروط والأحكام</a>
+<a class="text-body-md text-[13px] text-[#7A7A7A] hover:text-[#222222] transition-colors" href="#">ملفات تعريف الارتباط</a>
+</div>
+</div>
+<p class="text-body-md text-[12px] text-[#7A7A7A] italic">Made with attention to detail.</p>
+</div></div>
+</footer>
+<!-- End Footer Component -->
+</body></html>

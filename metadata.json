@@ -1,0 +1,6 @@
+{
+  "name": "Tashtep",
+  "description": "A premium Egyptian ecommerce platform specialized in paints, decorative materials, and finishing supplies. Built with an architecture reflecting editorial luxury.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

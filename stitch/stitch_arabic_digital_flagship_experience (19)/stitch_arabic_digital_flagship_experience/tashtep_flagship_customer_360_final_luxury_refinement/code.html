@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer 360 Workspace - Tashtep Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&amp;family=Tajawal:wght@400;500&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "gallery-white": "#FFFFFF",
+                    "primary-fixed-dim": "#ffb875",
+                    "inverse-surface": "#2f3130",
+                    "outline": "#877363",
+                    "surface-variant": "#e2e3e1",
+                    "secondary-fixed": "#e5e2e1",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#eeeeec",
+                    "on-primary-fixed-variant": "#6b3b00",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f9f9f7",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-secondary-fixed-variant": "#474646",
+                    "primary-fixed": "#ffdcc0",
+                    "primary": "#8d4f00",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#544435",
+                    "surface": "#f9f9f7",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "primary-container": "#f39223",
+                    "on-primary-container": "#5e3300",
+                    "on-primary-fixed": "#2d1600",
+                    "on-tertiary-container": "#3d3e42",
+                    "surface-tint": "#8d4f00",
+                    "background": "#f9f9f7",
+                    "tashtep-orange": "#F39223",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e8e8e6",
+                    "error": "#ba1a1a",
+                    "stone": "#F8F8F9",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-low": "#f4f4f2",
+                    "tertiary": "#5d5e63",
+                    "tertiary-fixed": "#e3e2e7",
+                    "tertiary-fixed-dim": "#c7c6cb",
+                    "tertiary-container": "#a9a9ae",
+                    "secondary": "#5f5e5e",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "on-secondary-container": "#656464",
+                    "inverse-primary": "#ffb875",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#1a1b1f",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#dac2af",
+                    "charcoal": "#333333",
+                    "obsidian": "#111111",
+                    "secondary-container": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#46464b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "macro-md": "64px",
+                    "macro-lg": "128px",
+                    "micro-md": "16px",
+                    "macro-sm": "32px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "micro-sm": "8px",
+                    "micro-xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Cairo"
+                    ],
+                    "display-hero-mobile": [
+                            "Cairo"
+                    ],
+                    "body-lg": [
+                            "Tajawal"
+                    ],
+                    "technical-mono": [
+                            "IBM Plex Sans Arabic"
+                    ],
+                    "label-md": [
+                            "Tajawal"
+                    ],
+                    "display-hero": [
+                            "Cairo"
+                    ],
+                    "body-md": [
+                            "Tajawal"
+                    ],
+                    "headline-lg-mobile": [
+                            "Cairo"
+                    ],
+                    "headline-lg": [
+                            "Cairo"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-hero-mobile": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "body-lg": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.7",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "technical-mono": [
+                            "13px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-hero": [
+                            "80px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.625",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Editorial & Luxury UI Enhancements */
+        body {
+            background-color: #FAFAF8; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        /* Premium Card Hover Effect */
+        .premium-card {
+            transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid theme('colors.stone');
+        }
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+            border-color: theme('colors.surface-variant');
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            direction: ltr; 
+        }
+        
+        .rounded-card {
+            border-radius: 24px;
+        }
+        
+        .text-gradient-premium {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(135deg, theme('colors.obsidian'), theme('colors.charcoal'));
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAF8] text-on-surface font-body-md min-h-screen flex selection:bg-tashtep-orange/20 selection:text-obsidian overflow-x-hidden">
+<nav class="bg-stone dark:bg-inverse-surface text-tashtep-orange font-label-md text-label-md h-screen w-64 fixed right-0 top-0 border-l border-stone flex flex-col py-macro-sm px-micro-md gap-micro-md z-40 hidden md:flex">
+<div class="flex items-center gap-4 mb-macro-sm px-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-obsidian">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<div>
+<h1 class="font-headline-md text-[20px] leading-tight text-obsidian dark:text-gallery-white font-bold">تشطيب</h1>
+<p class="text-[12px] text-secondary">نظام إدارة الموارد</p>
+</div>
+</div>
+<button class="w-full bg-obsidian text-gallery-white rounded-lg py-3 px-4 font-label-md hover:opacity-90 transition-opacity duration-[180ms] flex items-center justify-center gap-2 mb-4 hover:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            طلب جديد
+        </button>
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-obsidian hover:bg-surface-container-low transition-colors duration-[180ms] group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-[180ms]">dashboard</span>
+<span>لوحة التحكم</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-obsidian hover:bg-surface-container-low transition-colors duration-[180ms] group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-[180ms]">shopping_cart</span>
+<span>الطلبات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-obsidian hover:bg-surface-container-low transition-colors duration-[180ms] group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-[180ms]">inventory_2</span>
+<span>المخزون</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-gallery-white dark:bg-surface-container-highest text-tashtep-orange rounded-lg shadow-sm scale-[0.98] transition-all duration-[180ms] font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>العملاء</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-obsidian hover:bg-surface-container-low transition-colors duration-[180ms] group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-[180ms]">analytics</span>
+<span>التقارير</span>
+</a>
+</div>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-obsidian hover:bg-surface-container-low transition-colors duration-[180ms] group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-[180ms]">help_outline</span>
+<span>المساعدة</span>
+</a>
+</div>
+</nav>
+<div class="flex-1 md:mr-64 flex flex-col min-h-screen">
+<header class="sticky top-0 z-50 flex justify-between items-center px-macro-sm h-20 w-full bg-gallery-white/80 backdrop-blur-md border-b border-stone font-body-md text-body-md">
+<div class="flex items-center gap-2">
+<a class="text-secondary hover:text-obsidian transition-colors duration-[180ms] font-label-md" href="#">العملاء</a>
+<span class="text-stone">/</span>
+<span class="text-obsidian font-label-md">ملف العميل</span>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+<input class="pl-4 pr-10 py-2 bg-stone border-none rounded-full text-label-md focus:ring-1 focus:ring-obsidian w-64 transition-all duration-[180ms] focus:w-72 bg-opacity-50" placeholder="بحث..." type="text"/>
+</div>
+<div class="flex items-center gap-2 text-secondary">
+<button class="p-2 hover:bg-stone rounded-full transition-colors duration-[180ms] relative group">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-tashtep-orange rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-stone rounded-full transition-colors duration-[180ms]">
+<span class="material-symbols-outlined">apps</span>
+</button>
+<button class="p-2 hover:bg-stone rounded-full transition-colors duration-[180ms]">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<button class="bg-obsidian text-gallery-white px-4 py-2 rounded-lg font-label-md hover:opacity-80 transition-opacity duration-[180ms] hover:scale-95">
+                    Quick Action
+                </button>
+<button class="w-10 h-10 rounded-full bg-surface-container-low overflow-hidden border border-stone hover:opacity-80 transition-opacity duration-[180ms]">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A clean, professional headshot of a business executive against a neutral studio background, high quality lighting, optimistic expression, corporate aesthetic, highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-aAH08zact3sgX9grKgGxoJZDo7_ILZ0tBacxOyM6NGepWPX-Gs9awT0CkC54FhJlaqVnUpLiqBm0Y2HIegCZ6C2COhCJVGYCPnbi9q6P96NTXmea_SARYpo_FfCTomcJLAGbuuQM8YMoe09ctpn0bqQL7iaNIls_PPPoT2CI5STA_VvaPcW-DJ4y-AckLQGGgseJcVN4E6beMsDjoFaSh6xL2VfPLbGODd6msLrZDXDdLeyiAGG2K1W7Dq5WgMdzeeBUQvyjFYV3"/>
+</button>
+</div>
+</header>
+<main class="flex-1 p-gutter md:p-macro-sm max-w-container-max mx-auto w-full flex flex-col lg:flex-row gap-8">
+<div class="flex-1 flex flex-col gap-[36px]">
+<section class="bg-gallery-white rounded-card p-macro-sm premium-card flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-64 h-64 bg-tashtep-orange/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+<div class="flex items-center gap-6 z-10">
+<div class="w-24 h-24 rounded-full border-4 border-gallery-white shadow-sm overflow-hidden relative">
+<img alt="أحمد منصور" class="w-full h-full object-cover" data-alt="A high-end studio portrait of a Middle Eastern male in his 30s, wearing smart casual attire, well-groomed beard, soft natural lighting, warm welcoming expression, professional editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqfYnnzC9emsdg_75ikjWMnbo-eYTvgArmfLUfHumX2f3XTAptyDRAiAUhlqqvmFyY4_XTbjxi2P0UT-XP61uTiOY0A1uPkwEZJfx6MXWSz5q_X5NZ86zdb3n1J9MTWjEB8mbqqwsCWPyPzPm9ayz_GrC2iYDPAU6XqDyKH2LrXScqu3kb8sy-0p7TYo5ngvh1eSLYjZFXtmPn2zHReqejbf7fSfRifaksd8qT-1BCa7ufFQGpj3nmjhp61Z2_kPUvw6Vn6-VVUCGY"/>
+<div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-full"></div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="font-headline-md text-headline-md text-obsidian">أحمد منصور</h2>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full font-label-md text-[12px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">workspace_premium</span>
+                                    VIP Gold
+                                </span>
+</div>
+<p class="text-secondary font-body-md mb-3">عضو منذ يناير 2023</p>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-full border border-stone flex items-center justify-center text-secondary hover:text-[#25D366] hover:border-[#25D366] transition-colors duration-[180ms] bg-gallery-white" title="WhatsApp">
+<i class="w-5 h-5" data-lucide="message-circle"></i>
+</button>
+<button class="w-10 h-10 rounded-full border border-stone flex items-center justify-center text-secondary hover:text-obsidian hover:border-obsidian transition-colors duration-[180ms] bg-gallery-white" title="Email">
+<i class="w-5 h-5" data-lucide="mail"></i>
+</button>
+<button class="w-10 h-10 rounded-full border border-stone flex items-center justify-center text-secondary hover:text-obsidian hover:border-obsidian transition-colors duration-[180ms] bg-gallery-white" title="Call">
+<i class="w-5 h-5" data-lucide="phone"></i>
+</button>
+<button class="px-4 h-10 rounded-full border border-stone flex items-center gap-2 text-secondary hover:bg-stone transition-colors duration-[180ms] bg-gallery-white font-label-md">
+<i class="w-4 h-4" data-lucide="copy"></i>
+                                    نسخ البيانات
+                                </button>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-[1px] h-24 bg-stone mx-4 z-10"></div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full z-10">
+<div class="flex flex-col">
+<span class="text-secondary font-label-md text-[13px] mb-1">القيمة مدى الحياة (LTV)</span>
+<span class="font-headline-md text-[24px] text-obsidian">45,200 ج.م</span>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-label-md text-[13px] mb-1">إجمالي الطلبات</span>
+<span class="font-headline-md text-[24px] text-obsidian">12</span>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-label-md text-[13px] mb-1">إجمالي الإنفاق</span>
+<span class="font-headline-md text-[24px] text-obsidian">42,800 ج.م</span>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-label-md text-[13px] mb-1">آخر طلب</span>
+<span class="font-headline-md text-[24px] text-obsidian">منذ يومين</span>
+</div>
+</div>
+</section>
+<section class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-[18px] text-obsidian">رحلة العميل</h3>
+<span class="text-tashtep-orange font-label-md text-[13px]">مستوى VIP Gold</span>
+</div>
+<div class="relative flex items-center justify-between px-4">
+<div class="absolute top-1/2 left-0 right-0 h-0.5 bg-stone -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 right-0 h-0.5 bg-tashtep-orange -translate-y-1/2 z-0 w-[80%]"></div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-tashtep-orange ring-4 ring-tashtep-orange/20"></div>
+<span class="text-[11px] text-obsidian font-label-md">زيارة</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-tashtep-orange ring-4 ring-tashtep-orange/20"></div>
+<span class="text-[11px] text-obsidian font-label-md">قائمة الأمنيات</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-tashtep-orange ring-4 ring-tashtep-orange/20"></div>
+<span class="text-[11px] text-obsidian font-label-md">سلة التسوق</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-tashtep-orange ring-4 ring-tashtep-orange/20"></div>
+<span class="text-[11px] text-obsidian font-label-md">شراء</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-tashtep-orange ring-4 ring-tashtep-orange/20"></div>
+<span class="text-[11px] text-obsidian font-label-md">تكرار الشراء</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-stone border-2 border-gallery-white"></div>
+<span class="text-[11px] text-secondary font-label-md">VIP</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-[36px]">
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-secondary font-label-md text-[13px]">متوسط قيمة الطلب</p>
+<p class="font-headline-md text-[28px] text-obsidian mt-1">3,566 ج.م</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-obsidian">
+<i class="w-5 h-5 text-tashtep-orange" data-lucide="trending-up"></i>
+</div>
+</div>
+<div class="h-10 w-full mt-auto opacity-60">
+<svg class="w-full h-full stroke-tashtep-orange stroke-2 fill-none" preserveaspectratio="none" viewbox="0 0 100 30">
+<path d="M0 25 L15 20 L30 22 L45 10 L60 15 L75 5 L100 10"></path>
+</svg>
+</div>
+</div>
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-secondary font-label-md text-[13px]">معدل تكرار الشراء</p>
+<p class="font-headline-md text-[28px] text-obsidian mt-1">85%</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-obsidian">
+<i class="w-5 h-5 text-obsidian" data-lucide="repeat"></i>
+</div>
+</div>
+<div class="mt-auto pt-4">
+<div class="h-2 w-full bg-stone rounded-full overflow-hidden">
+<div class="h-full bg-obsidian rounded-full w-[85%]"></div>
+</div>
+<p class="text-secondary font-technical-mono text-[11px] mt-2 text-left w-full" dir="ltr">+12% vs last year</p>
+</div>
+</div>
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-secondary font-label-md text-[13px]">تقييم الدعم الفني</p>
+<p class="font-headline-md text-[28px] text-obsidian mt-1">4.8<span class="text-secondary text-[16px]">/5</span></p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-obsidian">
+<i class="w-5 h-5 text-error" data-lucide="heart"></i>
+</div>
+</div>
+<div class="flex gap-1 mt-auto pt-4">
+<i class="w-5 h-5 text-tashtep-orange fill-tashtep-orange" data-lucide="star"></i>
+<i class="w-5 h-5 text-tashtep-orange fill-tashtep-orange" data-lucide="star"></i>
+<i class="w-5 h-5 text-tashtep-orange fill-tashtep-orange" data-lucide="star"></i>
+<i class="w-5 h-5 text-tashtep-orange fill-tashtep-orange" data-lucide="star"></i>
+<i class="w-5 h-5 text-tashtep-orange fill-tashtep-orange opacity-50" data-lucide="star"></i>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-[36px]">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline-md text-[20px] text-obsidian">الطلبات الأخيرة</h3>
+<button class="text-tashtep-orange font-label-md hover:underline">عرض الكل</button>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-gallery-white p-5 rounded-card premium-card flex items-center justify-between cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center text-obsidian group-hover:bg-obsidian group-hover:text-gallery-white transition-colors duration-[180ms]">
+<i class="w-6 h-6" data-lucide="package"></i>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-technical-mono text-[14px] font-bold">#ORD-9021</span>
+<span class="bg-surface-container-high text-on-surface px-2 py-0.5 rounded-full text-[11px] font-label-md">تم التوصيل</span>
+</div>
+<p class="text-secondary font-label-md text-[13px]">24 أكتوبر 2023 • 3 منتجات</p>
+</div>
+</div>
+<div class="text-left font-headline-md text-[18px] text-obsidian" dir="ltr">
+                                    12,400 <span class="text-[14px] text-secondary">EGP</span>
+</div>
+</div>
+<div class="bg-gallery-white p-5 rounded-card premium-card flex items-center justify-between cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center text-obsidian group-hover:bg-obsidian group-hover:text-gallery-white transition-colors duration-[180ms]">
+<i class="w-6 h-6" data-lucide="truck"></i>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-technical-mono text-[14px] font-bold">#ORD-8842</span>
+<span class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded-full text-[11px] font-label-md">قيد التجهيز</span>
+</div>
+<p class="text-secondary font-label-md text-[13px]">15 أكتوبر 2023 • منتج واحد</p>
+</div>
+</div>
+<div class="text-left font-headline-md text-[18px] text-obsidian" dir="ltr">
+                                    3,200 <span class="text-[14px] text-secondary">EGP</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline-md text-[20px] text-obsidian">المشاريع المحفوظة</h3>
+<button class="text-secondary font-label-md hover:text-obsidian transition-colors duration-[180ms] flex items-center gap-1">
+<i class="w-4 h-4" data-lucide="plus"></i> جديد
+                            </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="group relative rounded-card overflow-hidden aspect-[4/3] premium-card cursor-pointer">
+<img alt="تشطيب شقة التجمع" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A luxury modern apartment living room in New Cairo, featuring neutral beige walls, elegant minimalist furniture, large windows with bright natural light, hardwood flooring, editorial interior design photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeFSqEdsl_n-Jbs-Tt2jhpc_x-OOy9yUgVQhEdCicME2QUF6f-_MRBQT8iRnWGnBpx-7Q6qFkT5SUdM8BhVCzTNrHoVBJNxK7z_upSe6xng6d4IbZBpyOAo1gO6UwxeHsElYIhBtJ0olN2WWF5NA9kdAH6FDulicAeXRYbcFH4a6D9vVymp1QqtTcymmGGHfB3zEPISYgp7D_IYF-QaP1hoM6xwOVCjh28_Xwis8Ihb38kCeK3yMtmkbpFYIL8CD1okC2UsBHhCsmz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-4">
+<p class="text-gallery-white font-label-md font-bold text-[16px]">تشطيب شقة التجمع</p>
+<p class="text-gallery-white/80 font-label-md text-[12px] mb-2">12 عنصر محفوظ</p>
+<div class="h-1 w-full bg-gallery-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-tashtep-orange w-[75%]"></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-[10px] text-gallery-white/70">75% مكتمل</p>
+<span class="text-[10px] text-tashtep-orange font-bold hover:underline">متابعة المشروع</span>
+</div>
+</div>
+</div>
+<div class="group relative rounded-card overflow-hidden aspect-[4/3] premium-card cursor-pointer">
+<img alt="ديكور مكتب المعادي" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A premium executive office interior design in Maadi, featuring dark wood paneling, modern ergonomic leather chairs, sleek glass desk, sophisticated lighting, corporate luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALOxxIU1gavXexXTuHk5HwcwvH9NQc69zGHrfnBqmC6oBH8y0XMuLqXY1XuT5-m_8r8QhQxj3pZu37Aof9fm7hQmRPyKnyUFlU4-tFpch9PM_swYidh40ZOskDAw0wp6ihhyIuAYP0E771qkUxe-9sXfa_DcPuqLY0_aVZenwiRE-skn0HYM4Qd9BSw852er7CSQmDMPUN9wqHngGRYfzGN4jdpeHjLHjyrtA3tC_puOoh3-QAcF_vl0pim6NuZdcyY1WYovml4jnL"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-4">
+<p class="text-gallery-white font-label-md font-bold text-[16px]">ديكور مكتب المعادي</p>
+<p class="text-gallery-white/80 font-label-md text-[12px] mb-2">8 عناصر محفوظة</p>
+<div class="h-1 w-full bg-gallery-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-tashtep-orange w-[40%]"></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-[10px] text-gallery-white/70">40% مكتمل</p>
+<span class="text-[10px] text-tashtep-orange font-bold hover:underline">متابعة المشروع</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="font-headline-md text-[20px] text-obsidian px-2">العناوين المحفوظة</h3>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mb-4 px-1">
+<div class="min-w-[280px] flex-1 bg-gallery-white p-5 rounded-card premium-card border border-stone flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-obsidian">
+<i class="w-5 h-5" data-lucide="home"></i>
+<span class="font-label-md font-bold">المنزل</span>
+</div>
+<span class="bg-surface-container text-secondary px-2 py-0.5 rounded-full text-[10px] font-label-md">الافتراضي</span>
+</div>
+<p class="text-secondary font-body-md text-[14px] leading-relaxed">
+                                شقة 14، عمارة 5<br/>شارع التسعين الشمالي، التجمع الخامس<br/>القاهرة
+                            </p>
+<button class="mt-auto pt-2 text-tashtep-orange font-label-md text-[13px] hover:underline flex items-center gap-1">
+<i class="w-4 h-4" data-lucide="map-pin"></i> فتح الخريطة
+                            </button>
+</div>
+<div class="min-w-[280px] flex-1 bg-gallery-white p-5 rounded-card premium-card border border-stone flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-obsidian">
+<i class="w-5 h-5" data-lucide="hard-hat"></i>
+<span class="font-label-md font-bold">الموقع (قيد الإنشاء)</span>
+</div>
+</div>
+<p class="text-secondary font-body-md text-[14px] leading-relaxed">
+                                فيلا 22، كمبوند الياسمين<br/>الشيخ زايد<br/>الجيزة
+                            </p>
+<button class="mt-auto pt-2 text-tashtep-orange font-label-md text-[13px] hover:underline flex items-center gap-1">
+<i class="w-4 h-4" data-lucide="map-pin"></i> فتح الخريطة
+                            </button>
+</div>
+<div class="min-w-[280px] flex-1 border border-dashed border-tertiary-fixed-dim bg-transparent p-5 rounded-card flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-stone/50 transition-colors duration-[180ms] opacity-70 hover:opacity-100">
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-obsidian">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</div>
+<span class="font-label-md text-obsidian">إضافة عنوان جديد</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-[36px]">
+<div class="flex flex-col gap-4">
+<h3 class="font-headline-md text-[20px] text-obsidian px-2">سجل النشاط</h3>
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-6">
+<div class="relative border-r-2 border-stone pr-6 space-y-8">
+<div class="relative">
+<div class="absolute -right-[31px] top-1 w-3 h-3 rounded-full bg-tashtep-orange ring-4 ring-gallery-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-obsidian font-label-md">تم إنشاء طلب جديد #ORD-9021</p>
+<p class="text-secondary text-[12px]">منذ ساعتين • بواسطة النظام</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">package</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -right-[31px] top-1 w-3 h-3 rounded-full bg-stone ring-4 ring-gallery-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-obsidian font-label-md">إضافة منتج لقائمة الأمنيات</p>
+<p class="text-secondary text-[12px]">أمس، 4:30 م</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">favorite</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -right-[31px] top-1 w-3 h-3 rounded-full bg-stone ring-4 ring-gallery-white"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-obsidian font-label-md">تم الرد على تذكرة دعم #SUP-442</p>
+<p class="text-secondary text-[12px]">18 أكتوبر 2023</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">support_agent</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="font-headline-md text-[20px] text-obsidian px-2">الملاحظات المثبتة</h3>
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col gap-4">
+<div class="bg-surface p-4 rounded-xl border border-stone relative group cursor-pointer hover:border-surface-variant transition-colors duration-[180ms]">
+<div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-tashtep-orange"></div>
+<p class="font-label-md text-obsidian mb-1 pr-4">تفضيلات المبيعات</p>
+<p class="text-secondary text-[13px] leading-relaxed">يفضل العميل التواصل عبر الواتساب في الفترة المسائية. يميل للمنتجات العصرية من دهانات جوتن.</p>
+</div>
+<div class="bg-surface p-4 rounded-xl border border-stone cursor-pointer hover:border-surface-variant transition-colors duration-[180ms]">
+<p class="font-label-md text-obsidian mb-1">ملاحظات التوصيل</p>
+<p class="text-secondary text-[13px] leading-relaxed">الرجاء الاتصال قبل التوصيل بساعة للموقع قيد الإنشاء.</p>
+</div>
+<button class="flex items-center gap-2 text-tashtep-orange font-label-md text-[13px] hover:underline mt-2">
+<i class="w-4 h-4" data-lucide="plus"></i> إضافة ملاحظة جديدة
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-80 flex flex-col gap-[36px] shrink-0">
+<div class="sticky top-28 flex flex-col gap-[36px]">
+<div class="bg-gallery-white rounded-card p-6 premium-card flex flex-col items-center gap-6">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-stone" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-tashtep-orange" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="15" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[28px] font-headline-md text-obsidian">94</span>
+<span class="text-[11px] text-secondary font-label-md">من 100</span>
+</div>
+</div>
+<div class="w-full space-y-4">
+<h4 class="font-headline-md text-[16px] text-obsidian text-center">مؤشر صحة العميل</h4>
+<div class="grid grid-cols-3 gap-2 text-center">
+<div>
+<p class="text-[10px] text-secondary mb-1">الولاء</p>
+<p class="text-[13px] font-bold text-obsidian">98%</p>
+</div>
+<div>
+<p class="text-[10px] text-secondary mb-1">الاحتفاظ</p>
+<p class="text-[13px] font-bold text-obsidian">92%</p>
+</div>
+<div>
+<p class="text-[10px] text-secondary mb-1">المخاطر</p>
+<p class="text-[#25D366] text-[13px] font-bold">1.2%</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-card p-6 border border-stone flex flex-col gap-4">
+<div class="flex items-center gap-2 text-obsidian mb-2">
+<i class="w-5 h-5 text-tashtep-orange" data-lucide="sparkles"></i>
+<h4 class="font-headline-md text-[18px]">توصيات ذكية</h4>
+</div>
+<button class="w-full bg-gallery-white border border-stone p-3 rounded-lg flex items-center justify-between hover:border-obsidian transition-colors duration-[180ms] text-right group">
+<div class="flex flex-col">
+<span class="font-label-md text-obsidian">إرسال خصم VIP</span>
+<span class="text-[11px] text-secondary mt-0.5">العميل لم يشتري منذ شهرين</span>
+</div>
+<i class="w-4 h-4 text-secondary group-hover:text-obsidian transition-colors duration-[180ms]" data-lucide="chevron-left"></i>
+</button>
+<button class="w-full bg-gallery-white border border-stone p-3 rounded-lg flex items-center justify-between hover:border-obsidian transition-colors duration-[180ms] text-right group">
+<div class="flex flex-col">
+<span class="font-label-md text-obsidian">اقتراح إعادة شراء (Restock)</span>
+<span class="text-[11px] text-secondary mt-0.5">Jotun Fenomastic (غالباً نفد)</span>
+</div>
+<i class="w-4 h-4 text-secondary group-hover:text-obsidian transition-colors duration-[180ms]" data-lucide="chevron-left"></i>
+</button>
+<button class="w-full bg-gallery-white border border-stone p-3 rounded-lg flex items-center justify-between hover:border-obsidian transition-colors duration-[180ms] text-right group">
+<div class="flex flex-col">
+<span class="font-label-md text-obsidian">التوصية بتشكيلة جديدة</span>
+<span class="text-[11px] text-secondary mt-0.5">أدوات صحية فاخرة وصلت حديثاً</span>
+</div>
+<i class="w-4 h-4 text-secondary group-hover:text-obsidian transition-colors duration-[180ms]" data-lucide="chevron-left"></i>
+</button>
+<button class="w-full bg-gallery-white border border-stone p-3 rounded-lg flex items-center justify-between hover:border-obsidian transition-colors duration-[180ms] text-right group">
+<div class="flex flex-col">
+<span class="font-label-md text-obsidian">متابعة مشروع التجمع (Follow-up)</span>
+<span class="text-[11px] text-secondary mt-0.5">مشروع معلق بنسبة 75%</span>
+</div>
+<i class="w-4 h-4 text-secondary group-hover:text-obsidian transition-colors duration-[180ms]" data-lucide="chevron-left"></i>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-obsidian text-gallery-white rounded-lg py-3 px-4 font-label-md hover:opacity-90 transition-opacity duration-[180ms] flex items-center justify-center gap-2 hover:scale-[0.98] shadow-sm">
+<i class="w-4 h-4" data-lucide="plus-circle"></i>
+                            إنشاء طلب جديد
+                        </button>
+<button class="w-full bg-gallery-white border border-stone text-obsidian rounded-lg py-3 px-4 font-label-md hover:bg-stone transition-colors duration-[180ms] flex items-center justify-center gap-2">
+<i class="w-4 h-4" data-lucide="tag"></i>
+                            إصدار كوبون خصم
+                        </button>
+<button class="w-full bg-transparent border border-transparent text-secondary hover:text-obsidian rounded-lg py-2 px-4 font-label-md transition-colors duration-[180ms] flex items-center justify-center gap-2 mt-2">
+<i class="w-4 h-4" data-lucide="download"></i>
+                            تصدير البيانات
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        lucide.createIcons();
+    </script>
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-obsidian/90 backdrop-blur-md text-gallery-white px-6 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center gap-6 border border-gallery-white/10">
+<button class="flex items-center gap-2 hover:text-tashtep-orange transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">call</span>
+<span class="text-[13px] font-label-md">اتصال</span>
+</button>
+<div class="w-[1px] h-4 bg-gallery-white/20"></div>
+<button class="flex items-center gap-2 hover:text-[#25D366] transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+<span class="text-[13px] font-label-md">واتساب</span>
+</button>
+<div class="w-[1px] h-4 bg-gallery-white/20"></div>
+<button class="flex items-center gap-2 hover:text-tashtep-orange transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+<span class="text-[13px] font-label-md">طلب</span>
+</button>
+<div class="w-[1px] h-4 bg-gallery-white/20"></div>
+<button class="flex items-center gap-2 hover:text-tashtep-orange transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="text-[13px] font-label-md">كوبون</span>
+</button>
+<div class="w-[1px] h-4 bg-gallery-white/20"></div>
+<button class="flex items-center gap-2 hover:text-tashtep-orange transition-colors duration-[180ms]">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="text-[13px] font-label-md">تصدير</span>
+</button>
+</div></body></html>

@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;       /* Gallery White #FFFFFF */
+    --foreground: 0 0% 7%;         /* Obsidian Black #111111 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 0 0% 7%;            /* Obsidian Black */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 97%;         /* Stone Off-White #F8F8F9 */
+    --secondary-foreground: 0 0% 20%; /* Charcoal #333333 */
+
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 55%;  /* Tashtep Grey #8C8C91 */
+
+    --accent: 32 90% 55%;          /* Tashtep Orange #F39223 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 7%;
+
+    --radius: 0.125rem;            /* rounded-sm for subtle Zara edges */
+  }
+
+  .dark {
+    /* Intentionally skipping dark mode for this purely light aesthetic */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

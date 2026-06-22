@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>الأدوار والصلاحيات - تشتيب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;family=Tajawal:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#ffdcc0",
+                        "surface-container-low": "#f4f4f2",
+                        "surface-container-high": "#e8e8e6",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "background": "#f9f9f7",
+                        "inverse-on-surface": "#f1f1ef",
+                        "primary-container": "#f39223",
+                        "surface": "#f9f9f7",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container-highest": "#e2e3e1",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1b",
+                        "surface-container": "#eeeeec",
+                        "obsidian": "#111111",
+                        "on-secondary-container": "#656464",
+                        "secondary-container": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "primary-fixed-dim": "#ffb875",
+                        "on-primary-container": "#5e3300",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "outline": "#877363",
+                        "surface-dim": "#dadad8",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#dac2af",
+                        "inverse-primary": "#ffb875",
+                        "secondary": "#5f5e5e",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-container": "#3d3e42",
+                        "tashtep-orange": "#F39223",
+                        "tertiary": "#5d5e63",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-surface-variant": "#544435",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-bright": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "stone": "#F8F8F9",
+                        "gallery-white": "#FFFFFF",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#2d1600",
+                        "surface-tint": "#8d4f00",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-variant": "#e2e3e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#a9a9ae",
+                        "inverse-surface": "#2f3130",
+                        "primary": "#8d4f00",
+                        "charcoal": "#333333"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "macro-lg": "128px",
+                        "micro-sm": "8px",
+                        "micro-md": "16px",
+                        "micro-xs": "4px",
+                        "macro-sm": "32px",
+                        "macro-md": "64px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Tajawal"],
+                        "label-md": ["Tajawal"],
+                        "headline-lg": ["Cairo"],
+                        "technical-mono": ["IBM Plex Sans Arabic"],
+                        "display-hero": ["Cairo"],
+                        "headline-md": ["Cairo"],
+                        "body-md": ["Tajawal"],
+                        "headline-lg-mobile": ["Cairo"],
+                        "display-hero-mobile": ["Cairo"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "technical-mono": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "display-hero": ["80px", { "lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.625", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-hero-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "300" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FAFAF8; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface flex w-full">
+<!-- SideNavBar -->
+<aside class="fixed right-0 top-0 h-screen w-80 flex flex-col p-micro-md z-40 bg-stone dark:bg-surface-container border-l border-stone dark:border-secondary-container">
+<div class="flex items-center gap-4 mb-macro-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">diamond</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-tashtep-orange">تشتيب</h1>
+<p class="font-label-md text-label-md text-secondary">إدارة النظام</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md hover:opacity-80 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                لوحة التحكم
+            </a>
+<a class="flex items-center gap-4 bg-gallery-white dark:bg-obsidian text-obsidian dark:text-gallery-white rounded-lg px-4 py-3 shadow-sm font-label-md text-label-md transition-colors hover:opacity-80 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+                الأدوار والصلاحيات
+            </a>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md hover:opacity-80 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+                المستخدمين
+            </a>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md hover:opacity-80 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                التقارير
+            </a>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md hover:opacity-80 scale-98 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                الإعدادات
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 border-t border-stone pt-4">
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                الدعم
+            </a>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                تسجيل الخروج
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="mr-80 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-macro-sm h-20 w-full bg-gallery-white/80 backdrop-blur-md border-b border-stone dark:border-secondary"><div class="flex items-center gap-8"><div class="flex flex-col"><h1 class="font-headline-md text-[24px] font-semibold text-obsidian">الأدوار والصلاحيات</h1><div class="flex items-center gap-3 mt-1"><span class="flex items-center gap-1.5 text-xs text-secondary font-label-md"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> النظام يعمل بشكل طبيعي</span><span class="text-stone">|</span><span class="text-xs text-secondary font-label-md">آخر تحديث: منذ 5 دقائق</span></div></div><div class="relative group"><span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary text-[20px] transition-colors group-focus-within:text-obsidian">search</span><input class="bg-surface-container-low border border-stone/50 rounded-xl px-10 py-2.5 w-[400px] text-sm outline-none focus:border-obsidian focus:bg-gallery-white transition-all duration-200" placeholder="البحث في الصلاحيات والمستخدمين..." type="text"/><div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 px-1.5 py-0.5 bg-surface-container-high rounded border border-stone/50 text-[10px] font-technical-mono text-secondary"><span>⌘</span><span>K</span></div></div></div><div class="flex items-center gap-4"><div class="flex gap-2"><button class="p-2 text-secondary hover:text-obsidian hover:bg-surface-container-low rounded-lg transition-all duration-180"><span class="material-symbols-outlined">notifications</span></button><button class="p-2 text-secondary hover:text-obsidian hover:bg-surface-container-low rounded-lg transition-all duration-180"><span class="material-symbols-outlined">settings</span></button></div><div class="h-10 w-10 rounded-full border-2 border-gallery-white shadow-sm overflow-hidden"><img alt="Admin" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGvcM_EUPq_r0mhe3odT5QVR6YAeQy9-JB4mx839usUllHEPvsF3rZQieG4tlzPb9NPRd3uOf5FiGhutH_br191W_W2pq3lD3Rhci_HTLbx-qecQ6NBdl2QPU1uUSSDrXxryhVwhA0QciTA6GHdlMaqE1vfUSY-mEiNtNdA-6a5_96MyDWKAC_3RqrJtfyLFkPee1k1DR9gRrECVl824a1WtngQy5RRjKjAjkol5wEtK_KmzK4fYLE2wrFjOa146e7YgFSAebKm1Xg"/></div></div></header>
+<!-- Workspace Layout -->
+<div class="flex-1 p-macro-sm grid grid-cols-12 gap-gutter max-w-[1440px] mx-auto w-full">
+<!-- Left Column: Role Navigation (3 cols) -->
+<div class="col-span-3 flex flex-col gap-4">
+<div class="flex justify-between items-center mb-2">
+<h2 class="font-headline-md text-[24px] font-semibold text-obsidian">الأدوار</h2>
+<span class="bg-surface-container-high text-charcoal font-label-md px-2 py-1 rounded-full text-xs">12 دور</span>
+</div>
+<div class="relative mb-2">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="w-full bg-gallery-white border border-stone rounded-lg py-2 pr-10 pl-4 font-body-md text-sm focus:border-obsidian outline-none transition-colors" placeholder="ابحث عن دور..." type="text"/>
+</div>
+<div class="flex flex-col gap-2 overflow-y-auto hide-scrollbar max-h-[600px] pr-2 -mr-2">
+<!-- Active Role -->
+<button class="flex justify-between items-center p-4 bg-obsidian text-gallery-white rounded-xl text-right transition-transform scale-98 hover:opacity-90">
+<div>
+<p class="font-label-md text-base mb-1">مدير النظام</p>
+<p class="font-technical-mono text-secondary-fixed-dim text-xs">وصول كامل</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-variant/20 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">group</span>
+<span class="font-technical-mono text-xs">4</span>
+</div>
+</button>
+<!-- Inactive Roles -->
+<button class="flex justify-between items-center p-4 bg-gallery-white border border-stone rounded-xl text-right transition-transform hover:bg-surface-container-low scale-98 active:scale-95 group">
+<div>
+<p class="font-label-md text-base text-obsidian mb-1">مدير المتجر</p>
+<p class="font-technical-mono text-secondary text-xs">صلاحيات مخصصة</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low group-hover:bg-surface-container px-2 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[14px] text-secondary">group</span>
+<span class="font-technical-mono text-xs text-secondary">12</span>
+</div>
+</button>
+<button class="flex justify-between items-center p-4 bg-gallery-white border border-stone rounded-xl text-right transition-transform hover:bg-surface-container-low scale-98 active:scale-95 group">
+<div>
+<p class="font-label-md text-base text-obsidian mb-1">المبيعات</p>
+<p class="font-technical-mono text-secondary text-xs">صلاحيات مخصصة</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low group-hover:bg-surface-container px-2 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[14px] text-secondary">group</span>
+<span class="font-technical-mono text-xs text-secondary">45</span>
+</div>
+</button>
+<button class="flex justify-between items-center p-4 bg-gallery-white border border-stone rounded-xl text-right transition-transform hover:bg-surface-container-low scale-98 active:scale-95 group">
+<div>
+<p class="font-label-md text-base text-obsidian mb-1">المخزون</p>
+<p class="font-technical-mono text-secondary text-xs">صلاحيات مخصصة</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low group-hover:bg-surface-container px-2 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[14px] text-secondary">group</span>
+<span class="font-technical-mono text-xs text-secondary">18</span>
+</div>
+</button>
+<button class="flex justify-between items-center p-4 bg-gallery-white border border-stone rounded-xl text-right transition-transform hover:bg-surface-container-low scale-98 active:scale-95 group">
+<div>
+<p class="font-label-md text-base text-obsidian mb-1">دعم العملاء</p>
+<p class="font-technical-mono text-secondary text-xs">صلاحيات مخصصة</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low group-hover:bg-surface-container px-2 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[14px] text-secondary">group</span>
+<span class="font-technical-mono text-xs text-secondary">30</span>
+</div>
+</button>
+<button class="flex justify-between items-center p-4 bg-gallery-white border border-stone rounded-xl text-right transition-transform hover:bg-surface-container-low scale-98 active:scale-95 group">
+<div>
+<p class="font-label-md text-base text-obsidian mb-1">التسويق</p>
+<p class="font-technical-mono text-secondary text-xs">صلاحيات مخصصة</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low group-hover:bg-surface-container px-2 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[14px] text-secondary">group</span>
+<span class="font-technical-mono text-xs text-secondary">8</span>
+</div>
+</button>
+</div>
+<div class="flex flex-col gap-3 mt-6"><button class="w-full bg-tashtep-orange text-white font-label-md py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-tashtep-orange/20 hover:opacity-90 transition-all duration-180 active:scale-95"><span class="material-symbols-outlined text-[20px]">add</span> إنشاء دور جديد</button><div class="grid grid-cols-2 gap-3"><button class="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-stone/40 text-xs font-label-md text-secondary hover:bg-surface-container-low transition-all duration-180"><span class="material-symbols-outlined text-[18px]">upload</span> استيراد</button><button class="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-stone/40 text-xs font-label-md text-secondary hover:bg-surface-container-low transition-all duration-180"><span class="material-symbols-outlined text-[18px]">download</span> تصدير</button></div></div>
+</div>
+<!-- Center Column: Permissions Matrix (6 cols) -->
+<div class="col-span-6 flex flex-col bg-gallery-white rounded-[24px] border border-stone p-6 shadow-[0_10px_40px_rgba(0,0,0,0.02)] h-[calc(100vh-144px)] overflow-y-auto hide-scrollbar"><div class="flex justify-between items-center mb-8 pb-6 border-b border-stone/40"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-obsidian flex items-center justify-center text-white shadow-lg"><span class="material-symbols-outlined text-[28px]">shield_person</span></div><div><h2 class="font-headline-md text-[22px] font-semibold text-obsidian">مدير النظام</h2><p class="text-sm text-secondary">إدارة كاملة لجميع وحدات النظام والتحكم في الوصول</p></div></div><div class="flex gap-3"><button class="px-5 py-2.5 rounded-xl font-label-md text-secondary hover:bg-surface-container-low transition-all duration-180">تجاهل</button><button class="px-6 py-2.5 rounded-xl font-label-md bg-obsidian text-white shadow-md hover:opacity-90 transition-all duration-180">حفظ التغييرات</button></div></div><div class="flex flex-col gap-4"><!-- Group: Products --><div class="border border-stone/40 rounded-2xl overflow-hidden bg-stone/30"><div class="flex items-center justify-between p-4 bg-gallery-white cursor-pointer hover:bg-surface-container-lowest transition-colors"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-secondary">inventory_2</span><span class="font-label-md font-semibold">إدارة المنتجات</span></div><span class="material-symbols-outlined text-secondary">expand_more</span></div><div class="p-6 flex flex-wrap gap-3 bg-gallery-white/50 border-t border-stone/20"><label class="flex items-center gap-2 px-4 py-2 bg-obsidian text-white rounded-full text-xs font-label-md cursor-pointer"><span class="material-symbols-outlined text-sm">visibility</span> عرض</label><label class="flex items-center gap-2 px-4 py-2 bg-obsidian text-white rounded-full text-xs font-label-md cursor-pointer"><span class="material-symbols-outlined text-sm">add</span> إضافة</label><label class="flex items-center gap-2 px-4 py-2 bg-obsidian text-white rounded-full text-xs font-label-md cursor-pointer"><span class="material-symbols-outlined text-sm">edit</span> تعديل</label><label class="flex items-center gap-2 px-4 py-2 bg-surface-container text-secondary rounded-full text-xs font-label-md cursor-pointer"><span class="material-symbols-outlined text-sm">delete</span> حذف</label></div></div><!-- Group: Orders --><div class="border border-stone/40 rounded-2xl overflow-hidden bg-stone/30"><div class="flex items-center justify-between p-4 bg-gallery-white cursor-pointer hover:bg-surface-container-lowest transition-colors"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-secondary">shopping_cart</span><span class="font-label-md font-semibold">إدارة الطلبات</span></div><span class="material-symbols-outlined text-secondary">expand_more</span></div></div><!-- Group: Customers --><div class="border border-stone/40 rounded-2xl overflow-hidden bg-stone/30"><div class="flex items-center justify-between p-4 bg-gallery-white cursor-pointer hover:bg-surface-container-lowest transition-colors"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-secondary">group</span><span class="font-label-md font-semibold">إدارة العملاء</span></div><span class="material-symbols-outlined text-secondary">expand_more</span></div></div><!-- Group: Marketing --><div class="border border-stone/40 rounded-2xl overflow-hidden bg-stone/30"><div class="flex items-center justify-between p-4 bg-gallery-white cursor-pointer hover:bg-surface-container-lowest transition-colors"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-secondary">campaign</span><span class="font-label-md font-semibold">التسويق</span></div><span class="material-symbols-outlined text-secondary">expand_more</span></div></div></div></div>
+<!-- Right Column: Summary Panel (3 cols) -->
+<div class="col-span-3 flex flex-col gap-6">
+<!-- Summary Card -->
+<div class="bg-gallery-white rounded-[24px] border border-stone p-6 shadow-[0_10px_40px_rgba(0,0,0,0.02)]"><h3 class="font-label-md text-[18px] font-semibold text-obsidian mb-6">ملخص الدور</h3><div class="grid grid-cols-2 gap-4 mb-8"><div class="p-4 bg-surface-container-low rounded-2xl border border-stone/30"><p class="text-[10px] text-secondary font-label-md mb-1">المستخدمين</p><p class="text-xl font-semibold text-obsidian">4</p></div><div class="p-4 bg-surface-container-low rounded-2xl border border-stone/30"><p class="text-[10px] text-secondary font-label-md mb-1">الصلاحيات</p><p class="text-xl font-semibold text-obsidian">24</p></div></div><div class="flex flex-col gap-3 mb-8"><div class="flex justify-between text-xs"><span class="text-secondary">تاريخ الإنشاء</span><span class="text-obsidian font-medium">12 يناير 2024</span></div><div class="flex justify-between text-xs"><span class="text-secondary">آخر تعديل</span><span class="text-obsidian font-medium">منذ يومين</span></div></div><div class="flex flex-col gap-2"><button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-label-md text-obsidian hover:bg-surface-container-low transition-all duration-180 border border-stone/20"><span class="material-symbols-outlined text-[18px] text-secondary">content_copy</span> تكرار الدور</button><button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-label-md text-obsidian hover:bg-surface-container-low transition-all duration-180 border border-stone/20"><span class="material-symbols-outlined text-[18px] text-secondary">archive</span> أرشفة الدور</button><button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-label-md text-error hover:bg-error/5 transition-all duration-180 border border-error/10"><span class="material-symbols-outlined text-[18px]">delete</span> حذف الدور</button></div></div>
+<!-- Recent Changes Timeline -->
+<div class="bg-gallery-white rounded-[24px] border border-stone p-6 shadow-[0_10px_40px_rgba(0,0,0,0.02)] flex-1"><h3 class="font-label-md text-[16px] font-semibold text-obsidian mb-6">سجل التغييرات</h3><div class="flex flex-col gap-6 relative pr-4 border-r border-stone/30"><div class="relative"><div class="absolute -right-[21px] top-1 w-2.5 h-2.5 rounded-full bg-tashtep-orange ring-4 ring-gallery-white"></div><div class="flex items-start gap-3"><img class="w-6 h-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlxuHBbWlKfw9qa8rlWxq1oLVaJLHoGmYSMGX7iuGXYwBsannUGf-VN9Y0YwE_nnLizHbTlGqrp3aMe6j1sP94yH9z-jtIv_nfHwlh_Nq44XSQcRrL8zprRUdV7LH1Hew1karluxv1ooSvsWRO4KqDkly3PLhQ3NddYFpVxcdtmPa2Z4BH86UPN7hUbxHDoRovDVBseX6KxJAgmlPH7754_GZ7bIeIgthwz4ReoeKDy4Bz0nISe1giZqcgaKHZTqFVdeP0pVLpaW4m"/><div class="flex flex-col"><p class="text-xs font-label-md text-obsidian">تمت إضافة صلاحية <span class="font-semibold">حذف المنتجات</span></p><p class="text-[10px] text-secondary mt-1">أحمد س. • 12 مايو، 10:30 ص</p></div></div></div><div class="relative"><div class="absolute -right-[21px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-gallery-white"></div><div class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-[14px] text-secondary">robot_2</span></div><div class="flex flex-col"><p class="text-xs font-label-md text-secondary">تمت إزالة صلاحية <span class="font-medium">تعديل الإعدادات</span></p><p class="text-[10px] text-secondary mt-1">النظام • 10 مايو، 02:15 م</p></div></div></div></div></div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tashtep - Header</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&amp;family=IBM+Plex+Sans+Arabic:wght@400&amp;family=Tajawal:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e2e3e1",
+                        "charcoal": "#333333",
+                        "primary-fixed": "#ffdcc0",
+                        "on-surface-variant": "#544435",
+                        "tertiary": "#5d5e63",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#877363",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-container": "#656464",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-variant": "#e2e3e1",
+                        "surface": "#f9f9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#3d3e42",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#8d4f00",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#f39223",
+                        "inverse-primary": "#ffb875",
+                        "primary": "#8d4f00",
+                        "surface-bright": "#f9f9f7",
+                        "tertiary-container": "#a9a9ae",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-primary-container": "#5e3300",
+                        "secondary": "#5f5e5e",
+                        "on-background": "#1a1c1b",
+                        "inverse-surface": "#2f3130",
+                        "surface-container-low": "#f4f4f2",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-primary-fixed-variant": "#6b3b00",
+                        "background": "#f9f9f7",
+                        "gallery-white": "#FFFFFF",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#dac2af",
+                        "stone": "#F8F8F9",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "surface-container": "#eeeeec",
+                        "on-secondary-fixed-variant": "#474646",
+                        "tashtep-orange": "#F39A1F",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8e6",
+                        "on-primary-fixed": "#2d1600",
+                        "secondary-container": "#e5e2e1",
+                        "obsidian": "#111111",
+                        "primary-fixed-dim": "#ffb875",
+                        "surface-dim": "#dadad8",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "editorial-text": "#222222",
+                        "soft-border": "#F0F0F0",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "macro-sm": "32px",
+                        "macro-lg": "128px",
+                        "macro-md": "64px",
+                        "micro-sm": "8px",
+                        "micro-xs": "4px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "micro-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Cairo", "sans-serif"],
+                        "label-md": ["Tajawal", "sans-serif"],
+                        "technical-mono": ["IBM Plex Sans Arabic", "sans-serif"],
+                        "headline-lg": ["Cairo", "sans-serif"],
+                        "display-hero": ["Cairo", "sans-serif"],
+                        "headline-lg-mobile": ["Cairo", "sans-serif"],
+                        "display-hero-mobile": ["Cairo", "sans-serif"],
+                        "body-md": ["Tajawal", "sans-serif"],
+                        "body-lg": ["Tajawal", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "technical-mono": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "display-hero": ["80px", {"lineHeight": "1.1", "letterSpacing": "0", "fontWeight": "300"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "display-hero-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "300"}],
+                        "body-md": ["16px", {"lineHeight": "1.625", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "1.7", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        input[type="search"]::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-editorial-text antialiased min-h-screen">
+<!-- TopNavBar Component -->
+<header class="bg-white border-b border-soft-border sticky top-0 z-50 w-full transition-all duration-300 shadow-sm">
+<div class="max-w-container-max mx-auto px-12 md:px-16 h-[88px] flex justify-between items-center w-full rtl"><!-- Right Section: Logo & Nav -->
+<div class="flex items-center gap-8 flex-shrink-0">
+<a class="focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-DEFAULT transition-transform duration-150 hover:scale-[0.98]" href="#">
+<img alt="Tashtep Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfBFrjhfb00UMBeqpphIFKFZkREBR7w_3peFSBDZUZqnd-pMa4U0F9FAMz409vcHqJC8EzU6HpBE1V5BDCF3JjGrZEqSwDsglIYxtzUP-_zVKE9gJpQPIajZzP7iPqAmfTsSBLtxesb8erw8OqUBSarw_9xZ5WyC-vquqL_gZZFNxDgfFUhllcm4qzaUTeEvotHkXngBJW36ljSaBTNCnfmgPTnSeYgTbNH66BWaBa4hbsLPLICjvk_5VpN_r6Vp8EJi-7vU-mp7N2"/>
+</a>
+<nav class="hidden md:flex items-center gap-6 font-label-md text-editorial-text">
+<a class="hover:text-tashtep-orange transition-colors duration-200 text-tashtep-orange" href="#">الرئيسية</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200 flex items-center gap-1 group" href="#">
+            المنتجات
+            <i class="w-4 h-4 group-hover:text-tashtep-orange transition-colors duration-200" data-lucide="chevron-down" stroke-width="1.5"></i>
+</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200 flex items-center gap-1 group" href="#">
+            الدهانات
+            <i class="w-4 h-4 group-hover:text-tashtep-orange transition-colors duration-200" data-lucide="chevron-down" stroke-width="1.5"></i>
+</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200" href="#">التشطيبات</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200" href="#">الديكورات</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200" href="#">العلامات التجارية</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200" href="#">المشاريع</a>
+<a class="hover:text-tashtep-orange transition-colors duration-200" href="#">المدونة</a>
+</nav>
+</div>
+<!-- Center Section: Dominant Search -->
+<div class="flex-grow flex justify-center px-8">
+<div class="w-full max-w-[640px] hidden md:block">
+<div class="relative group">
+<div class="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none pr-4">
+<i class="w-5 h-5 text-tertiary-container group-focus-within:text-obsidian transition-colors duration-200" data-lucide="search" stroke-width="1.5"></i>
+</div>
+<input class="block w-full rounded-xl border-soft-border bg-stone h-[48px] pl-4 pr-12 text-editorial-text focus:border-tashtep-orange focus:bg-white focus:ring-0 text-sm font-label-md transition-all duration-300 ease-in-out placeholder:text-tertiary-container shadow-sm" dir="rtl" id="search" name="search" placeholder="ابحث عن دهان، معجون، ورق حائط، أداة أو ماركة..." type="search"/>
+</div>
+</div>
+</div>
+<!-- Left Section: Utility Icons -->
+<div class="flex items-center gap-4 flex-shrink-0">
+<button aria-label="المفضلة" class="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full" type="button">
+<i class="w-6 h-6" data-lucide="heart" stroke-width="1.5"></i>
+</button>
+<button aria-label="الحساب الشخصي" class="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full" type="button">
+<i class="w-6 h-6" data-lucide="user" stroke-width="1.5"></i>
+</button>
+<button aria-label="عربة التسوق" class="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full relative" type="button">
+<i class="w-6 h-6" data-lucide="shopping-cart" stroke-width="1.5"></i>
+<span class="absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-tashtep-orange text-white text-[10px] font-bold border border-white">2</span>
+</button>
+<button aria-label="القائمة الرئيسية" class="md:hidden p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full" type="button">
+<i class="w-6 h-6" data-lucide="menu" stroke-width="1.5"></i>
+</button>
+</div></div>
+<!-- Mobile Search (Visible only on small screens below header) -->
+<div class="md:hidden px-12 pb-4 border-b border-soft-border">
+<div class="relative group">
+<div class="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none pr-4">
+<i class="w-5 h-5 text-tertiary-container" data-lucide="search" stroke-width="1.5"></i>
+</div>
+<input class="block w-full rounded-full border-stone bg-stone py-2 pl-4 pr-12 text-editorial-text focus:border-obsidian focus:bg-white focus:ring-0 text-sm font-label-md placeholder:text-tertiary-container shadow-sm" dir="rtl" id="mobile-search" name="mobile-search" placeholder="ابحث..." type="search"/>
+</div>
+</div>
+</header>
+<script>
+    lucide.createIcons();
+</script>
+</body></html>
