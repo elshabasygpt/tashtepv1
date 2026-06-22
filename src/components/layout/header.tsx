@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Search, ShoppingCart, User, Menu } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,15 +19,12 @@ export function Header() {
   });
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
+    <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
+        "sticky top-0 z-50 w-full transition-colors duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b shadow-sm"
-          : "bg-background border-transparent"
+          ? "bg-background/95 backdrop-blur-md border-b shadow-sm"
+          : "bg-background border-b"
       )}
     >
       <Container>
@@ -92,6 +89,6 @@ export function Header() {
           </div>
         </div>
       </Container>
-    </motion.header>
+    </header>
   );
 }

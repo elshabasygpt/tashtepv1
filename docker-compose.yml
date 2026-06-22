@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tashtep-next-app
+    restart: unless-stopped
+    ports:
+      # Expose locally for debug, but traffic typically routes through nginx
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost}
+      - PAYMOB_API_KEY=${PAYMOB_API_KEY}
+      - PAYMOB_IFRAME_ID=${PAYMOB_IFRAME_ID}
+      - PAYMOB_INTEGRATION_ID=${PAYMOB_INTEGRATION_ID}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+    networks:
+      - tashtep-network
+    depends_on:
+      - mysql-db
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - next-app
+    networks:
+      - tashtep-network
+
+  # Optional: Local Database Container. If you use a managed DB, remove this service.
+  mysql-db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: tashtep
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - tashtep-network
+
+networks:
+  tashtep-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
