@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { getCurrentUser, type SessionUser } from "./auth";
 import { UserRole } from "@prisma/client";
+import { logger } from "@/lib/logger";
 
 export type ActionState<T> = {
   success: boolean;
@@ -31,10 +32,10 @@ export function publicAction<TInput, TOutput>(
       const data = await handler(result.data);
       return { success: true, data };
     } catch (error) {
+      logger.error({ action: "publicAction", error }, "Action Execution Error");
       if (error instanceof Error) {
         return { success: false, error: error.message };
       }
-      console.error("[publicAction] Error:", error);
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };
@@ -67,10 +68,10 @@ export function protectedAction<TInput, TOutput>(
       const data = await handler(result.data, user);
       return { success: true, data };
     } catch (error) {
+      logger.error({ action: "protectedAction", error }, "Action Execution Error");
       if (error instanceof Error) {
         return { success: false, error: error.message };
       }
-      console.error("[protectedAction] Error:", error);
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };
@@ -108,10 +109,10 @@ export function roleAction<TInput, TOutput>(
       const data = await handler(result.data, user);
       return { success: true, data };
     } catch (error) {
+      logger.error({ action: "roleAction", error }, "Action Execution Error");
       if (error instanceof Error) {
         return { success: false, error: error.message };
       }
-      console.error("[roleAction] Error:", error);
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };

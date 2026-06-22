@@ -22,6 +22,7 @@ export interface Product {
   rating: number;
   reviewsCount: number;
   isNew?: boolean;
+  description?: string;
 }
 
 interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {

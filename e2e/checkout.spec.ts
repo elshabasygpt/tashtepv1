@@ -1,28 +1,48 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Checkout Flow', () => {
-  test('should allow a guest user to browse products and add to cart', async ({ page }) => {
-    // 1. Visit homepage
+test.describe('Enterprise E2E Coverage', () => {
+  test('Guest checkout redirection', async ({ page }) => {
     await page.goto('/');
     
-    // 2. Go to products
+    // Go to products
     await page.getByRole('link', { name: 'المنتجات' }).first().click();
     await expect(page).toHaveURL(/.*\/products/);
 
-    // 3. Wait for products to load and click the first product
+    // Wait for products to load and click the first product
     const productCard = page.locator('a[href^="/products/"]').first();
     await productCard.waitFor();
     await productCard.click();
 
-    // 4. Click Add to Cart button
+    // Click Add to Cart button
     const addToCartBtn = page.getByRole('button', { name: /إضافة للسلة/i });
     await addToCartBtn.waitFor();
     
-    // If not authenticated, adding to cart should redirect to login or show error.
-    // Assuming adding to cart as a guest works or redirects to login
+    // Not authenticated, adding to cart redirects to login
     await addToCartBtn.click();
+    await expect(page).toHaveURL(/.*\/login/);
+  });
 
-    // If redirected to login, verify
-    // await expect(page).toHaveURL(/.*\/login/);
+  test('Authentication Flow - Register and Login', async ({ page }) => {
+    await page.goto('/register');
+    
+    await page.getByPlaceholder('الاسم الكامل').fill('Test User');
+    await page.getByPlaceholder('البريد الإلكتروني').fill(`test_${Date.now()}@example.com`);
+    await page.getByPlaceholder('كلمة المرور').fill('password123');
+    await page.getByPlaceholder('تأكيد كلمة المرور').fill('password123');
+    
+    await page.getByRole('button', { name: 'إنشاء حساب' }).click();
+    
+    // Should go to verification page or show success
+    // Wait for network idle or URL change
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('Search Flow', async ({ page }) => {
+    await page.goto('/');
+    const searchInput = page.getByPlaceholder('ابحث عن منتجات، ألوان، أو مواد بناء...');
+    await searchInput.fill('سيراميك');
+    await searchInput.press('Enter');
+    
+    await expect(page).toHaveURL(/.*\/products\?q=/);
   });
 });

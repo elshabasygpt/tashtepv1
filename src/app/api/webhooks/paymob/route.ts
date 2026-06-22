@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { OrderService } from "@/services/order.service";
 import crypto from "crypto";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: Request) {
   try {
@@ -66,11 +67,11 @@ export async function POST(req: Request) {
         .digest("hex");
 
       if (calculatedHmac !== hmac) {
-        console.error("HMAC validation failed");
+        logger.error({ hmac, calculatedHmac }, "HMAC validation failed");
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
     } else {
-      console.warn("Paymob webhook received without HMAC validation due to missing secret");
+      logger.warn("Paymob webhook received without HMAC validation due to missing secret");
     }
 
     // Process the payment
@@ -88,7 +89,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error) {
-    console.error("Paymob Webhook Error:", error);
+    logger.error({ error }, "Paymob Webhook Error");
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

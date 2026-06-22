@@ -78,8 +78,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             </div>
 
             <p className="text-charcoal text-lg mb-8 leading-relaxed">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {(product as any).description || "تفاصيل المنتج ومواصفاته الفنية غير متوفرة حالياً. نوفر أفضل خامات التشطيب لضمان الجودة والمتانة الفائقة لعملائنا في كافة أنحاء الجمهورية."}
+              {product.description || "تفاصيل المنتج ومواصفاته الفنية غير متوفرة حالياً. نوفر أفضل خامات التشطيب لضمان الجودة والمتانة الفائقة لعملائنا في كافة أنحاء الجمهورية."}
             </p>
 
             <ProductActions productId={product.id} />

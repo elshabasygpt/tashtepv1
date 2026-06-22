@@ -39,6 +39,7 @@ export const ProductService = {
       rating: prismaProduct.rating || 0,
       reviewsCount: prismaProduct.reviewsCount || 0,
       isNew: prismaProduct.isNew,
+      description: prismaProduct.description || undefined,
     };
   },
 

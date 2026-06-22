@@ -1,3 +1,13 @@
+import { env } from "@/lib/env";
+import { logger } from "@/lib/logger";
+
+export class ConfigurationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ConfigurationError";
+  }
+}
+
 export interface BillingData {
   apartment: string;
   email: string;
@@ -19,7 +29,7 @@ export const PaymobService = {
     const response = await fetch("https://accept.paymob.com/api/auth/tokens", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ api_key: process.env.PAYMOB_API_KEY }),
+      body: JSON.stringify({ api_key: env.PAYMOB_API_KEY }),
     });
 
     if (!response.ok) throw new Error("Paymob authentication failed");
@@ -56,7 +66,7 @@ export const PaymobService = {
         order_id: orderId,
         billing_data: billingData,
         currency: "EGP",
-        integration_id: process.env.PAYMOB_INTEGRATION_ID,
+        integration_id: env.PAYMOB_INTEGRATION_ID,
       }),
     });
 
@@ -67,10 +77,9 @@ export const PaymobService = {
 
   async generateIframeUrl(amount: number, orderId: string, billingData: BillingData): Promise<string> {
     try {
-      if (!process.env.PAYMOB_API_KEY) {
-        // Fallback for development if env vars are missing
-        console.warn("PAYMOB_API_KEY is missing. Using mock payment URL.");
-        return `https://accept.paymob.com/api/acceptance/iframes/mock?order=${orderId}`;
+      if (!env.PAYMOB_API_KEY || !env.PAYMOB_INTEGRATION_ID || !env.PAYMOB_IFRAME_ID) {
+        logger.error({ action: "generateIframeUrl", orderId }, "Missing Paymob configuration");
+        throw new ConfigurationError("Paymob configuration is missing");
       }
 
       const amountCents = Math.round(amount * 100);
@@ -78,9 +87,10 @@ export const PaymobService = {
       const paymobOrderId = await this.registerOrder(token, amountCents, orderId);
       const paymentKey = await this.getPaymentKey(token, amountCents, paymobOrderId, billingData);
       
-      return `https://accept.paymob.com/api/acceptance/iframes/${process.env.PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
+      return `https://accept.paymob.com/api/acceptance/iframes/${env.PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
     } catch (error) {
-      console.error("Paymob Error:", error);
+      logger.error({ action: "generateIframeUrl", orderId, error }, "Paymob Error");
+      if (error instanceof ConfigurationError) throw error;
       throw new Error("Failed to initialize payment gateway");
     }
   }

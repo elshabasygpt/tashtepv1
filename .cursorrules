@@ -1,0 +1,24 @@
+# AI Agent Directives (Single Source of Truth)
+
+You are operating within the Tashtep v1.1.0 environment. 
+This codebase is strictly governed by an Enterprise Engineering Constitution.
+
+**CRITICAL INSTRUCTION FOR ALL AI AGENTS (Cursor, Claude, Gemini, Copilot):**
+Before you answer any prompt, generate any code, or propose any architecture change, you MUST read and comply with the following documents located in the `docs/engineering/` directory:
+
+1. `01_ENGINEERING_CONSTITUTION.md`
+2. `02_ARCHITECTURE_RULES.md`
+3. `03_DEVELOPMENT_PROTOCOL.md`
+4. `04_CODE_REVIEW_CHECKLIST.md`
+5. `06_SECURITY_GUIDELINES.md`
+6. `10_DEFINITION_OF_DONE.md`
+
+## Zero Redesign Policy
+- Do not redesign the architecture.
+- Do not rewrite working code.
+- Always search the repository for existing components, services, and actions before creating new ones.
+
+## No Implementation Mode
+Do not write code immediately. You must propose an Implementation Plan, state the affected files, and await explicit approval.
+
+By reading this file, you are bound by the Tashtep Engineering Constitution. Failure to comply is a violation of user constraints.

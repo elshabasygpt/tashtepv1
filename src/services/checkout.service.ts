@@ -40,6 +40,15 @@ export const CheckoutService = {
       const shipping = 50;
       const totalAmount = subtotal + shipping;
 
+      const user = await prisma.user.findUnique({
+        where: { id: data.userId },
+        select: { email: true }
+      });
+
+      if (!user?.email) {
+        throw new DatabaseError("User email not found");
+      }
+
       // Process inside a Prisma Transaction to guarantee atomicity
       const order = await prisma.$transaction(async (tx) => {
         // 1. Create the Order
@@ -75,7 +84,7 @@ export const CheckoutService = {
       if (data.paymentMethod === "card") {
         const billingData = {
           apartment: "NA",
-          email: data.userId + "@placeholder.com", // Mock email if not provided in checkout
+          email: user.email,
           floor: "NA",
           first_name: data.shippingDetails.fullName.split(" ")[0] || "User",
           street: data.shippingDetails.address,

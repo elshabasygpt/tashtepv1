@@ -55,6 +55,7 @@ describe('ProductService', () => {
       rating: 4.5,
       reviewsCount: 10,
       isNew: true,
+      description: 'A test product',
     });
   });
 
@@ -62,7 +63,7 @@ describe('ProductService', () => {
     const mockData = [
       { id: '1', name: 'Product A', price: 100, isNew: true, rating: 5, reviewsCount: 0, categoryId: 'cat1', slug: 'a', stock: 10, createdAt: new Date(), updatedAt: new Date() }
     ];
-    vi.mocked(prisma.product.findMany).mockResolvedValueOnce(mockData as any);
+    vi.mocked(prisma.product.findMany).mockResolvedValueOnce(mockData as unknown as never);
 
     const result = await ProductService.getProducts({ page: 2, limit: 10 });
     
