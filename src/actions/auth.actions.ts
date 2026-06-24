@@ -331,3 +331,45 @@ export const verifyEmailAction = publicAction(
     return { success: true };
   }
 );
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, "كلمة المرور الحالية مطلوبة"),
+  newPassword: z.string().min(6, "كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل"),
+});
+
+export const changePasswordAction = protectedAction(
+  changePasswordSchema,
+  async (parsedInput, user) => {
+    // 1. Rate Limiting
+    const headersList = await headers();
+    const ip = headersList.get("x-forwarded-for") || "unknown";
+    const rateLimitResult = await rateLimiter.limit(`changePass:${ip}`, { maxRequests: 5, windowMs: 60 * 1000 });
+    
+    if (!rateLimitResult.success) {
+      throw new Error("عذراً، تجاوزت الحد المسموح به من الطلبات.");
+    }
+
+    const dbUser = await prisma.user.findUnique({
+      where: { id: user.id }
+    });
+
+    if (!dbUser || !dbUser.passwordHash) {
+      throw new Error("حدث خطأ غير متوقع.");
+    }
+
+    const isValid = await bcrypt.compare(parsedInput.currentPassword, dbUser.passwordHash);
+    
+    if (!isValid) {
+      throw new Error("كلمة المرور الحالية غير صحيحة.");
+    }
+
+    const passwordHash = await bcrypt.hash(parsedInput.newPassword, 10);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { passwordHash }
+    });
+
+    return { success: true };
+  }
+);

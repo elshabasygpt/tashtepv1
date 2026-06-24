@@ -42,9 +42,9 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-soft-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gallery-white text-obsidian;
   }
 }

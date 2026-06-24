@@ -1,10 +1,12 @@
-import { CategoryService } from "@/services/category.service";
+import { CategoryService, CategoryWithRelations } from "@/services/category.service";
 import { ProductService } from "@/services/product.service";
 import { ProductGrid } from "@/features/products/components/product-grid";
 import { ProductCard } from "@/features/products/components/product-card";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CategoryList } from "@/features/categories/components/category-list";
+import { CategoryCard } from "@/features/categories/components/category-card";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -46,6 +48,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <p className="mt-2 text-obsidian/70 max-w-2xl">{category.description}</p>
             )}
           </div>
+
+          {(category as CategoryWithRelations).subcategories && (category as CategoryWithRelations).subcategories.length > 0 && (
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-obsidian mb-6">الأقسام الفرعية</h2>
+              <CategoryList>
+                {(category as CategoryWithRelations).subcategories.map((sub) => (
+                  <CategoryCard key={sub.id} category={{ ...sub, image: sub.image || "" }} />
+                ))}
+              </CategoryList>
+            </div>
+          )}
 
           {products.length > 0 ? (
             <ProductGrid>

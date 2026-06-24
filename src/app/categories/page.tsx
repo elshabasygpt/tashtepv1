@@ -16,9 +16,12 @@ export const metadata: Metadata = {
 
 async function AllCategories() {
   const categories = await CategoryService.getCategories();
+  // Show only main categories at the root categories page
+  const mainCategories = categories.filter(c => c.parentId === null);
+
   return (
     <CategoryList>
-      {categories.map((category) => (
+      {mainCategories.map((category) => (
         <CategoryCard key={category.id} category={{ ...category, image: category.image || "" }} />
       ))}
     </CategoryList>

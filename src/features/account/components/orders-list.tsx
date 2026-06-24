@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +15,14 @@ export interface OrderListDto {
 interface OrdersListProps {
   orders: OrderListDto[];
 }
+
+const STATUS_LABELS: Record<string, string> = {
+  PENDING: "تم الاستلام",
+  PROCESSING: "قيد التجهيز",
+  SHIPPED: "تم الشحن",
+  DELIVERED: "تم التسليم",
+  CANCELLED: "ملغي",
+};
 
 export function OrdersList({ orders }: OrdersListProps) {
 
@@ -31,9 +40,13 @@ export function OrdersList({ orders }: OrdersListProps) {
         ) : (
           <div className="space-y-4">
             {orders.map((order) => (
-              <div key={order.id} className="flex justify-between items-center p-4 border rounded-lg hover:shadow-sm transition-shadow">
+              <Link
+                key={order.id}
+                href={`/account/orders/${order.id}`}
+                className="flex justify-between items-center p-4 border rounded-lg hover:shadow-sm hover:border-obsidian transition-all"
+              >
                 <div className="flex flex-col gap-1">
-                  <p className="font-bold text-obsidian">{order.id}</p>
+                  <p className="font-bold text-obsidian font-technical-mono">#{order.id.slice(-8).toUpperCase()}</p>
                   <p className="text-xs text-muted-foreground">
                     {new Intl.DateTimeFormat("ar-EG", { dateStyle: "long" }).format(new Date(order.createdAt))}
                   </p>
@@ -41,15 +54,15 @@ export function OrdersList({ orders }: OrdersListProps) {
                 <div className="flex flex-col items-end gap-2">
                   <p className="font-bold text-lg">{order.totalAmount} <span className="text-xs font-normal">ج.م</span></p>
                   <div className="flex gap-2">
-                    <Badge variant={order.status === "DELIVERED" ? "default" : "secondary"}>
-                      {order.status === "DELIVERED" ? "مكتمل" : order.status === "CANCELLED" ? "ملغي" : "قيد التجهيز"}
+                    <Badge variant={order.status === "DELIVERED" ? "default" : order.status === "CANCELLED" ? "outline" : "secondary"}>
+                      {STATUS_LABELS[order.status] || order.status}
                     </Badge>
                     <Badge variant={order.paymentStatus === "PAID" ? "default" : "outline"} className={order.paymentStatus === "PAID" ? "bg-green-600 hover:bg-green-700" : ""}>
                       {order.paymentStatus === "PAID" ? "مدفوع" : order.paymentStatus === "FAILED" ? "فشل الدفع" : "غير مدفوع"}
                     </Badge>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

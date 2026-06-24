@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { getCurrentUser, type SessionUser } from "./auth";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@/types";
 import { logger } from "@/lib/logger";
 
 export type ActionState<T> = {

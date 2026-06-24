@@ -18,6 +18,7 @@ const checkoutSchema = z.object({
   cartItems: z.array(
     z.object({
       productId: z.string().min(1),
+      variantId: z.string().min(1).optional(),
       quantity: z.number().int().positive(),
       price: z.number().nonnegative(),
     })

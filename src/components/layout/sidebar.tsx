@@ -76,44 +76,16 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 >
                   الأقسام
                 </Link>
-                <Link
-                  href="#"
-                  className="text-lg font-medium text-destructive p-2 hover:bg-secondary rounded-md transition-colors"
-                  onClick={onClose}
-                >
-                  العروض
-                </Link>
-                <Link
-                  href="#"
-                  className="text-lg font-medium p-2 hover:bg-secondary rounded-md transition-colors"
-                  onClick={onClose}
-                >
-                  أفكار وتصاميم
-                </Link>
               </nav>
 
               <div className="mt-8 pt-8 border-t">
                 <nav className="flex flex-col gap-4">
                   <Link
-                    href="/account"
+                    href="/account/orders"
                     className="text-base text-muted-foreground p-2 hover:text-foreground transition-colors"
                     onClick={onClose}
                   >
-                    حسابي
-                  </Link>
-                  <Link
-                    href="/orders"
-                    className="text-base text-muted-foreground p-2 hover:text-foreground transition-colors"
-                    onClick={onClose}
-                  >
-                    طلباتي
-                  </Link>
-                  <Link
-                    href="/settings"
-                    className="text-base text-muted-foreground p-2 hover:text-foreground transition-colors"
-                    onClick={onClose}
-                  >
-                    الإعدادات
+                    حسابي (الطلبات)
                   </Link>
                 </nav>
               </div>

@@ -4,12 +4,12 @@ import { type CartItemType } from "@/features/cart/components/cart-item";
 
 interface OrderSummaryProps {
   items: CartItemType[];
+  shippingCost?: number;
 }
 
-export function OrderSummary({ items }: OrderSummaryProps) {
+export function OrderSummary({ items, shippingCost = 0 }: OrderSummaryProps) {
   const subtotal = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const shipping = subtotal > 0 ? 50 : 0; // Flat shipping rate
-  const total = subtotal + shipping;
+  const total = subtotal + shippingCost;
 
   return (
     <Card className="w-full bg-secondary/20 border-transparent shadow-none">
@@ -20,7 +20,10 @@ export function OrderSummary({ items }: OrderSummaryProps) {
         {items.map((item) => (
           <div key={item.id} className="flex justify-between items-center text-sm">
             <span className="text-muted-foreground line-clamp-1 max-w-[70%]">
-              {item.name} <span className="text-xs font-bold px-1 bg-background rounded-md ml-1">x{item.quantity}</span>
+              {item.name}
+              {item.variantLabel && <span className="text-xs"> ({item.variantLabel})</span>}
+              {" "}
+              <span className="text-xs font-bold px-1 bg-background rounded-md ml-1">x{item.quantity}</span>
             </span>
             <span className="font-medium whitespace-nowrap">{item.price * item.quantity} ج.م</span>
           </div>
@@ -37,7 +40,7 @@ export function OrderSummary({ items }: OrderSummaryProps) {
           </div>
           <div className="flex justify-between items-center text-sm">
             <span className="text-muted-foreground">تكلفة الشحن</span>
-            <span className="font-medium">{shipping} ج.م</span>
+            <span className="font-medium">{shippingCost} ج.م</span>
           </div>
         </div>
 

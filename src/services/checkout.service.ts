@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { DatabaseError, UnauthorizedError } from "@/lib/errors";
 import { PaymobService } from "@/lib/paymob";
+import { GovernorateService } from "./governorate.service";
 
 export interface CheckoutRequest {
   userId?: string;
@@ -12,6 +13,7 @@ export interface CheckoutRequest {
   };
   cartItems: Array<{
     productId: string;
+    variantId?: string;
     quantity: number;
     price: number;
   }>;
@@ -37,7 +39,7 @@ export const CheckoutService = {
 
     try {
       const subtotal = data.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-      const shipping = 50;
+      const shipping = await GovernorateService.getShippingCost(data.shippingDetails.city);
       const totalAmount = subtotal + shipping;
 
       const user = await prisma.user.findUnique({
@@ -48,6 +50,13 @@ export const CheckoutService = {
       if (!user?.email) {
         throw new DatabaseError("User email not found");
       }
+
+      // Snapshot variant labels from the DB (never trust client-supplied labels)
+      const variantIds = data.cartItems.map((i) => i.variantId).filter((id): id is string => Boolean(id));
+      const variants = variantIds.length > 0
+        ? await prisma.productVariant.findMany({ where: { id: { in: variantIds } } })
+        : [];
+      const variantLabelMap = new Map(variants.map((v) => [v.id, v.label]));
 
       // Process inside a Prisma Transaction to guarantee atomicity
       const order = await prisma.$transaction(async (tx) => {
@@ -65,6 +74,8 @@ export const CheckoutService = {
             items: {
               create: data.cartItems.map((item) => ({
                 productId: item.productId,
+                variantId: item.variantId,
+                variantLabel: item.variantId ? variantLabelMap.get(item.variantId) : undefined,
                 quantity: item.quantity,
                 price: item.price,
               })),

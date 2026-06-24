@@ -3,7 +3,6 @@ import { OrderService } from "@/services/order.service";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Order } from "@prisma/client";
-import { Container } from "@/components/layout/container";
 
 // For build compatibility with db-reliant pages
 export const dynamic = "force-dynamic";
@@ -28,11 +27,9 @@ export default async function OrdersPage() {
   }));
 
   return (
-    <Container className="py-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-obsidian">حسابي - الطلبات</h1>
-        <OrdersList orders={orderDtos} />
-      </div>
-    </Container>
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-macro-sm">طلباتي</h1>
+      <OrdersList orders={orderDtos} />
+    </div>
   );
 }

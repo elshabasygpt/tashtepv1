@@ -12,6 +12,7 @@ export interface CartItemType {
   price: number;
   quantity: number;
   image: string;
+  variantLabel?: string;
 }
 
 interface CartItemProps {
@@ -45,7 +46,12 @@ export function CartItem({ item }: CartItemProps) {
       </div>
       <div className="flex flex-1 flex-col justify-between">
         <div className="flex justify-between gap-2">
-          <h3 className="font-bold text-lg line-clamp-2">{item.name}</h3>
+          <div>
+            <h3 className="font-bold text-lg line-clamp-2">{item.name}</h3>
+            {item.variantLabel && (
+              <p className="text-sm text-secondary mt-0.5">{item.variantLabel}</p>
+            )}
+          </div>
           <p className="text-lg font-bold text-charcoal whitespace-nowrap">{item.price} ج.م</p>
         </div>
         <div className="flex items-center justify-between mt-2">

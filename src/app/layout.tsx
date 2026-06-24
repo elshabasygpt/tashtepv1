@@ -1,20 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Tajawal } from "next/font/google";
-import { cn } from "@/lib/utils";
 import "./globals.css";
 import Providers from "./providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-
-const tajawal = Tajawal({
-  subsets: ["arabic", "latin"],
-  weight: ["200", "300", "400", "500", "700", "800", "900"],
-  variable: "--font-tajawal",
-  display: "swap",
-});
+import { Toaster } from "sonner";
+import { CategoryService } from "@/services/category.service";
 
 export const viewport: Viewport = {
-  themeColor: "#111111", // Obsidian Black for premium feel
+  themeColor: "#ffffff", // Updated to match Stitch gallery-white
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -22,8 +15,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Tashtep",
-    default: "Tashtep | Premium Finishing Materials",
+    template: "%s | تشطيب",
+    default: "تشطيب - Tashtep Digital Flagship",
   },
   description:
     "A premium Egyptian ecommerce platform specialized in paints, decorative materials, and finishing supplies. Operating natively in Arabic.",
@@ -50,27 +43,51 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch categories and filter top-level ones
+  const allCategories = await CategoryService.getCategories();
+  const topLevelCategories = allCategories.filter(c => !c.parent);
+
   return (
     <html lang="ar" dir="rtl" className="antialiased scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+          }
+          .icon-fill {
+            font-variation-settings: 'FILL' 1;
+          }
+          .hide-scroll::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}} />
+      </head>
       <body
-        className={cn(
-          "min-h-screen bg-gallery text-obsidian font-sans selection:bg-obsidian selection:text-gallery",
-          tajawal.variable
-        )}
+        className="bg-gallery-white text-on-background font-body-md antialiased overflow-x-hidden selection:bg-tashtep-orange selection:text-gallery-white"
       >
         <Providers>
-          <div className="relative flex min-h-screen flex-col mx-auto max-w-[1440px] w-full">
-            <Header />
+          <div className="relative flex min-h-screen flex-col w-full">
+            <Header categories={topLevelCategories} />
             <main className="flex-1">
               {children}
             </main>
             <Footer />
           </div>
+          <Toaster richColors position="top-center" dir="rtl" />
         </Providers>
       </body>
     </html>

@@ -29,7 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (!user || !user.passwordHash) return null;
 
           const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
-          if (passwordsMatch) return user;
+          if (passwordsMatch) return { ...user, role: user.role as import("@/types").UserRole };
         }
 
         return null;

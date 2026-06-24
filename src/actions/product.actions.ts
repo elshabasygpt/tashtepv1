@@ -35,12 +35,18 @@ export async function filterProductsRedirectAction(formData: FormData) {
   const minPrice = formData.get("minPrice")?.toString();
   const maxPrice = formData.get("maxPrice")?.toString();
   const inStock = formData.get("inStock") === "on";
-  
+  const categoryId = formData.get("categoryId")?.toString();
+  const sort = formData.get("sort")?.toString();
+  const q = formData.get("q")?.toString();
+
   const searchParams = new URLSearchParams();
   if (minPrice) searchParams.set("minPrice", minPrice);
   if (maxPrice) searchParams.set("maxPrice", maxPrice);
   if (inStock) searchParams.set("inStock", "true");
-  
+  if (categoryId) searchParams.set("categoryId", categoryId);
+  if (sort) searchParams.set("sort", sort);
+  if (q) searchParams.set("q", q);
+
   redirect(`/products?${searchParams.toString()}`);
 }
 

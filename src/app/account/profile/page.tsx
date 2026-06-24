@@ -1,8 +1,8 @@
 import { ProfileForm } from "@/features/account/components/profile-form";
+import { ChangePasswordForm } from "@/features/account/components/change-password-form";
 import { UserService } from "@/services/user.service";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Container } from "@/components/layout/container";
 
 export const dynamic = "force-dynamic";
 
@@ -27,11 +27,10 @@ export default async function ProfilePage() {
   };
 
   return (
-    <Container className="py-8">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-obsidian">حسابي - البيانات الشخصية</h1>
-        <ProfileForm defaultValues={defaultValues} />
-      </div>
-    </Container>
+    <div className="max-w-3xl mx-auto pb-10">
+      <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-macro-sm">البيانات الشخصية</h1>
+      <ProfileForm defaultValues={defaultValues} />
+      <ChangePasswordForm />
+    </div>
   );
 }

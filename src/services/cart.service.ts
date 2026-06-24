@@ -5,6 +5,7 @@ export interface CartSyncDTO {
   userId: string;
   items: Array<{
     productId: string;
+    variantId?: string | null;
     quantity: number;
   }>;
 }
@@ -22,22 +23,26 @@ export const CartService = {
       });
 
       for (const item of data.items) {
-        await prisma.cartItem.upsert({
-          where: {
-            cartId_productId: {
+        const variantId = item.variantId ?? null;
+        const existing = await prisma.cartItem.findFirst({
+          where: { cartId: cart.id, productId: item.productId, variantId },
+        });
+
+        if (existing) {
+          await prisma.cartItem.update({
+            where: { id: existing.id },
+            data: { quantity: item.quantity },
+          });
+        } else {
+          await prisma.cartItem.create({
+            data: {
               cartId: cart.id,
               productId: item.productId,
+              variantId,
+              quantity: item.quantity,
             },
-          },
-          create: {
-            cartId: cart.id,
-            productId: item.productId,
-            quantity: item.quantity,
-          },
-          update: {
-            quantity: item.quantity,
-          },
-        });
+          });
+        }
       }
     } catch {
       throw new DatabaseError("Failed to sync cart");
@@ -56,7 +61,8 @@ export const CartService = {
             include: {
               product: {
                 include: { images: true }
-              }
+              },
+              variant: true,
             }
           }
         }

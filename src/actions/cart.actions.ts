@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 const addToCartSchema = z.object({
   productId: z.string().min(1),
+  variantId: z.string().min(1).optional(),
   quantity: z.number().int().positive().default(1),
 });
 
@@ -19,12 +20,13 @@ export const addToCartAction = protectedAction(
       update: {},
     });
 
-    const existingItem = await prisma.cartItem.findUnique({
+    const variantId = parsedInput.variantId ?? null;
+
+    const existingItem = await prisma.cartItem.findFirst({
       where: {
-        cartId_productId: {
-          cartId: cart.id,
-          productId: parsedInput.productId,
-        },
+        cartId: cart.id,
+        productId: parsedInput.productId,
+        variantId,
       },
     });
 
@@ -38,6 +40,7 @@ export const addToCartAction = protectedAction(
         data: {
           cartId: cart.id,
           productId: parsedInput.productId,
+          variantId,
           quantity: parsedInput.quantity ?? 1,
         },
       });

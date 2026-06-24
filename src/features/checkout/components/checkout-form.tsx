@@ -12,6 +12,9 @@ import { useRouter } from "next/navigation";
 import { Loader2, CreditCard, Banknote } from "lucide-react";
 import { Label } from "@/components/ui/label";
 
+import { Select } from "@/components/ui/select";
+import { Governorate } from "@prisma/client";
+
 const checkoutSchema = z.object({
   fullName: z.string().min(2, "الاسم يجب أن يكون حرفين على الأقل"),
   phone: z.string().min(10, "رقم الهاتف غير صالح"),
@@ -25,18 +28,31 @@ type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 interface CheckoutFormProps {
   cartItems: {
     productId: string;
+    variantId?: string;
     quantity: number;
     price: number;
   }[];
+  defaultValues?: {
+    fullName?: string;
+    phone?: string;
+  };
+  governorates: Governorate[];
+  onCityChange: (cityName: string) => void;
 }
 
-export function CheckoutForm({ cartItems }: CheckoutFormProps) {
+export function CheckoutForm({ cartItems, defaultValues, governorates, onCityChange }: CheckoutFormProps) {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
-  
+
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
-    defaultValues: { fullName: "", phone: "", address: "", city: "", paymentMethod: "cod" },
+    defaultValues: {
+      fullName: defaultValues?.fullName || "",
+      phone: defaultValues?.phone || "",
+      address: "",
+      city: "",
+      paymentMethod: "cod",
+    },
   });
 
   async function onSubmit(data: CheckoutFormValues) {
@@ -57,8 +73,10 @@ export function CheckoutForm({ cartItems }: CheckoutFormProps) {
       if (result.data.paymentUrl) {
         // Redirect to Paymob iframe
         window.location.href = result.data.paymentUrl;
+      } else if (result.data.orderId) {
+        router.push(`/order-success/${result.data.orderId}`);
       } else {
-        router.push("/account/orders"); // Redirect to actual orders page
+        router.push("/account/orders");
       }
     } else {
       setError(result?.error || result?.data?.message || "حدث خطأ غير متوقع. حاول مرة أخرى.");
@@ -92,7 +110,16 @@ export function CheckoutForm({ cartItems }: CheckoutFormProps) {
             {form.formState.errors.address && <p className="text-sm text-destructive">{form.formState.errors.address.message}</p>}
           </div>
           <div className="space-y-2">
-            <Input placeholder="المدينة / المحافظة" {...form.register("city")} />
+            <Select 
+              {...form.register("city", { 
+                onChange: (e) => onCityChange(e.target.value) 
+              })}
+            >
+              <option value="" disabled>المدينة / المحافظة</option>
+              {governorates.map((gov) => (
+                <option key={gov.id} value={gov.name}>{gov.name}</option>
+              ))}
+            </Select>
             {form.formState.errors.city && <p className="text-sm text-destructive">{form.formState.errors.city.message}</p>}
           </div>
 

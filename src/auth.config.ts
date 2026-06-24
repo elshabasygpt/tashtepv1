@@ -1,5 +1,5 @@
 import type { NextAuthConfig, User } from "next-auth";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@/types";
 
 export const authConfig = {
   pages: {
@@ -9,7 +9,7 @@ export const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as User).role || UserRole.CUSTOMER;
+        token.role = (user as User).role || "CUSTOMER";
       }
       return token;
     },

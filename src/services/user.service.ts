@@ -59,5 +59,32 @@ export const UserService = {
     } catch {
       throw new DatabaseError("Failed to deactivate user");
     }
+  },
+
+  /**
+   * Admin: Fetch all users
+   */
+  async getAllUsers(): Promise<User[]> {
+    try {
+      return await prisma.user.findMany({
+        orderBy: { createdAt: "desc" },
+      });
+    } catch {
+      throw new DatabaseError("Failed to fetch all users");
+    }
+  },
+
+  /**
+   * Admin: Update user role
+   */
+  async updateUserRole(id: string, role: string): Promise<User> {
+    try {
+      return await prisma.user.update({
+        where: { id },
+        data: { role },
+      });
+    } catch {
+      throw new DatabaseError("Failed to update user role");
+    }
   }
 };

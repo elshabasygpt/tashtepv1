@@ -16,6 +16,21 @@ const CATEGORIES = [
 const PRODUCT_PREFIXES = ['جوتن', 'سايبس', 'سكيب', 'كليوباترا', 'الجوهرة', 'مظلوم', 'فينوماستيك', 'رويال'];
 const PRODUCT_SUFFIXES = ['فاخر', 'مطفي', 'لامع', 'نصف لمعة', 'مقاوم للماء', 'إيطالي', 'إسباني', 'عالي الجودة'];
 
+const PAINT_CATEGORY_SLUGS = ['interior-paints', 'exterior-paints'];
+
+const PAINT_COLORS = [
+  { label: 'أبيض كلاسيكي', value: '#FFFFFF' },
+  { label: 'بيج رملي', value: '#E5E0D8' },
+  { label: 'رمادي فاتح', value: '#D1D5D8' },
+  { label: 'أزرق سلت', value: '#8C929D' },
+];
+
+const PAINT_SIZES = [
+  { label: '1 لتر', value: '1L' },
+  { label: '3 لتر', value: '3L' },
+  { label: '9 لتر', value: '9L' },
+];
+
 function generateProducts(categories) {
   const products = [];
   for (let i = 1; i <= 50; i++) {
@@ -35,6 +50,7 @@ function generateProducts(categories) {
       rating: (Math.random() * 2 + 3).toFixed(1) * 1, // 3.0 to 5.0
       reviewsCount: Math.floor(Math.random() * 50),
       categoryId: category.id,
+      isPaint: PAINT_CATEGORY_SLUGS.includes(category.slug),
     });
   }
   return products;
@@ -87,16 +103,23 @@ async function main() {
   const createdProducts = [];
   
   for (const pData of productData) {
+    const { isPaint, ...productFields } = pData;
     const product = await prisma.product.create({
       data: {
-        ...pData,
+        ...productFields,
         images: {
           create: [
             { url: `https://placehold.co/600x600/png?text=${encodeURIComponent(pData.name)}`, alt: pData.name, isMain: true },
             { url: `https://placehold.co/600x600/png?text=Side+View`, alt: 'Side View', isMain: false },
             { url: `https://placehold.co/600x600/png?text=Details`, alt: 'Details', isMain: false }
           ]
-        }
+        },
+        variants: isPaint ? {
+          create: [
+            ...PAINT_COLORS.map((c, idx) => ({ type: 'COLOR', label: c.label, value: c.value, order: idx })),
+            ...PAINT_SIZES.map((s, idx) => ({ type: 'SIZE', label: s.label, value: s.value, order: idx })),
+          ]
+        } : undefined,
       }
     });
     createdProducts.push(product);

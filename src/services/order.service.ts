@@ -61,5 +61,40 @@ export const OrderService = {
     } catch {
       throw new DatabaseError("Failed to update payment status");
     }
+  },
+
+  /**
+   * Admin: Fetch all orders
+   */
+  async getAllOrders(options?: ProductFilterOptions): Promise<unknown[]> {
+    try {
+      const take = options?.limit || 50;
+      const skip = options?.page ? (options.page - 1) * take : 0;
+      return await prisma.order.findMany({
+        take,
+        skip,
+        orderBy: { createdAt: "desc" },
+        include: {
+          user: { select: { name: true, email: true } },
+          items: { include: { product: { select: { name: true, price: true } } } }
+        }
+      });
+    } catch {
+      throw new DatabaseError("Failed to fetch all orders");
+    }
+  },
+
+  /**
+   * Admin: Update order
+   */
+  async updateOrder(orderId: string, data: Record<string, unknown>): Promise<unknown> {
+    try {
+      return await prisma.order.update({
+        where: { id: orderId },
+        data,
+      });
+    } catch {
+      throw new DatabaseError("Failed to update order");
+    }
   }
 };
