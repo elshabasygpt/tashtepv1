@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -108,7 +108,7 @@ model Product {
   id                String    @id @default(cuid())
   name              String
   slug              String    @unique
-  description       String?
+  description       String?   @db.Text
   price             Float
   originalPrice     Float?
   salePrice         Float?
@@ -126,7 +126,7 @@ model Product {
   unitSize          Float?
   deliveryDays      String?
   maxOrderQty       Int?
-  specs             String?
+  specs             String?   @db.Text
   categoryId        String
   brandId           String?
   createdAt         DateTime  @default(now())
@@ -262,7 +262,7 @@ model Order {
   shippingPhone   String
   shippingAddress String
   shippingCity    String
-  customerNotes   String?
+  customerNotes   String?  @db.Text
   trackingNumber  String?
   createdAt       DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
@@ -321,7 +321,7 @@ model LoyaltyTransaction {
   userId      String
   points      Int
   type        String   // EARNED | REDEEMED | ADJUSTED
-  description String?
+  description String?  @db.Text
   orderId     String?
   createdAt   DateTime @default(now())
 
@@ -364,8 +364,8 @@ model Article {
   id          String   @id @default(cuid())
   title       String
   slug        String   @unique
-  description String?
-  content     String
+  description String?  @db.Text
+  content     String   @db.LongText
   image       String?
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -442,7 +442,7 @@ model ContactMessage {
   name      String
   email     String
   subject   String
-  message   String
+  message   String   @db.Text
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 
@@ -458,10 +458,10 @@ model ReturnRequest {
   id        String   @id @default(cuid())
   orderId   String
   userId    String
-  reason    String
-  details   String
+  reason    String   @db.Text
+  details   String   @db.Text
   status    String   @default("PENDING") // PENDING | APPROVED | REJECTED | COMPLETED
-  adminNote String?
+  adminNote String?  @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
