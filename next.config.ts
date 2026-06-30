@@ -52,4 +52,6 @@ const sentryOptions = {
   disableServerWebpackPlugin: process.env.NODE_ENV !== "production",
 };
 
-export default withSentryConfig(nextConfig, sentryOptions);
+export default process.env.SENTRY_ORG
+  ? withSentryConfig(nextConfig, sentryOptions)
+  : nextConfig;
