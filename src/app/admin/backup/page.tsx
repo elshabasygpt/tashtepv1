@@ -277,7 +277,7 @@ export default async function BackupPage() {
             "اعمل backup JSON + ZIP الصور يومياً في وقت منخفض الحركة",
             "احفظ النسخ الاحتياطية على Google Drive أو أي سحابة خارجية",
             "عند استعادة الموقع: أعد أولاً قاعدة البيانات (JSON) ثم الصور (ZIP)",
-            "الـ backup SQLite للكوارث فقط — احتفظ بنسخ أسبوعية",
+            "لـ backup قاعدة البيانات بشكل كامل: استخدم mysqldump من SSH أو hPanel",
             "اختبر الاستعادة دورياً للتأكد من أن الـ backup يعمل",
             "قبل أي تحديث كبير أو migration، اعمل backup فوراً",
           ].map((tip, i) => (

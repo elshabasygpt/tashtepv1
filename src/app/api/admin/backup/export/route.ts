@@ -92,11 +92,17 @@ export async function GET() {
     },
   };
 
-  // Record last backup timestamp
+  // Record last backup timestamps (backup_last_db mirrors json for MySQL — no separate file backup)
+  const now = new Date().toISOString();
   await prisma.systemSetting.upsert({
     where: { key: "backup_last_json" },
-    update: { value: new Date().toISOString() },
-    create: { key: "backup_last_json", value: new Date().toISOString() },
+    update: { value: now },
+    create: { key: "backup_last_json", value: now },
+  }).catch(() => {});
+  await prisma.systemSetting.upsert({
+    where: { key: "backup_last_db" },
+    update: { value: now },
+    create: { key: "backup_last_db", value: now },
   }).catch(() => {});
 
   const filename = `tashtep-backup-${new Date().toISOString().slice(0, 10)}.json`;

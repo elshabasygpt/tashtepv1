@@ -27,6 +27,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "ADMIN فقط — الاستعادة عملية خطيرة" }, { status: 401 });
   }
 
+  const contentLength = Number(req.headers.get("content-length") ?? 0);
+  if (contentLength > 100 * 1024 * 1024) {
+    return NextResponse.json({ error: "حجم الـ backup كبير جداً (الحد الأقصى 100MB)" }, { status: 413 });
+  }
+
   let backup: { version: string; tables: Record<string, BackupRow[]> };
   try {
     backup = await req.json();
@@ -307,6 +312,11 @@ export async function POST(req: NextRequest) {
           reviewsCount: Number(r.reviewsCount ?? 0),
           oemNumber: r.oemNumber as string | null ?? null,
           b2bPrice: r.b2bPrice != null ? Number(r.b2bPrice) : null,
+          unitLabel: r.unitLabel as string | null ?? null,
+          unitSize: r.unitSize != null ? Number(r.unitSize) : null,
+          deliveryDays: r.deliveryDays as string | null ?? null,
+          maxOrderQty: r.maxOrderQty != null ? Number(r.maxOrderQty) : null,
+          specs: r.specs as string | null ?? null,
           categoryId: r.categoryId as string,
           brandId: r.brandId as string | null ?? null,
           createdAt: dr(r.createdAt),
@@ -315,14 +325,18 @@ export async function POST(req: NextRequest) {
       });
 
       // Restore crossSells many-to-many
+      const crossSellErrors: string[] = [];
       for (const r of productRows) {
         const ids = r.crossSellIds as string[] | undefined;
         if (ids && ids.length > 0) {
           await prisma.product.update({
             where: { id: r.id as string },
             data: { crossSells: { connect: ids.map((id) => ({ id })) } },
-          }).catch(() => {});
+          }).catch((e: Error) => { crossSellErrors.push(`${r.id}: ${e.message}`); });
         }
+      }
+      if (crossSellErrors.length > 0) {
+        console.warn("Cross-sell restore partial failures:", crossSellErrors);
       }
     }
 
@@ -477,6 +491,8 @@ export async function POST(req: NextRequest) {
           shippingPhone: r.shippingPhone as string,
           shippingAddress: r.shippingAddress as string,
           shippingCity: r.shippingCity as string,
+          customerNotes: r.customerNotes as string | null ?? null,
+          trackingNumber: r.trackingNumber as string | null ?? null,
           createdAt: dr(r.createdAt),
           updatedAt: dr(r.updatedAt),
         })),

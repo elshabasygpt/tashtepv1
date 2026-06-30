@@ -10,16 +10,16 @@ echo "==> [1/6] Pulling latest code..."
 git pull origin main
 
 echo "==> [2/6] Installing dependencies..."
-npm install --include=dev
+npm install
 
-echo "==> [3/6] Generating Prisma client..."
-npx prisma generate
-
-echo "==> [4/6] Running database migrations..."
+echo "==> [3/6] Running database migrations..."
 npx prisma db push
 
-echo "==> [5/6] Building Next.js..."
+echo "==> [4/6] Building Next.js..."
 npm run build
+
+echo "==> [5/6] Pruning dev dependencies..."
+npm prune --production
 
 echo "==> [6/6] Restarting app with PM2..."
 if pm2 list | grep -q "tashtep"; then
@@ -31,5 +31,12 @@ fi
 pm2 save
 
 echo ""
-echo "✓ Deployment complete!"
-echo "  Run 'pm2 logs tashtep' to watch logs"
+echo "==> Verifying app is running..."
+sleep 3
+if pm2 list | grep -q "online"; then
+  echo "✓ Deployment complete! App is online."
+  echo "  Run 'pm2 logs tashtep' to watch logs"
+else
+  echo "✗ WARNING: App may not be running. Check: pm2 logs tashtep"
+  exit 1
+fi
