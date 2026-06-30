@@ -8,8 +8,12 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const articles = await ArticleService.getArticles({ publishedOnly: true });
-  return articles.map((a: { slug: string }) => ({ slug: a.slug }));
+  try {
+    const articles = await ArticleService.getArticles({ publishedOnly: true });
+    return articles.map((a: { slug: string }) => ({ slug: a.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
