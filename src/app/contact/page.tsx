@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { SettingsService } from "@/services/settings.service";
+import { ContactForm } from "@/features/contact/components/contact-form";
 
 export const metadata = {
   title: "اتصل بنا",
@@ -35,47 +35,7 @@ export default async function ContactPage() {
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-soft-border">
             <h2 className="text-2xl font-headline-md text-obsidian mb-6">أرسل لنا رسالة</h2>
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-label-md text-obsidian mb-2">الاسم بالكامل</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  className="w-full rounded-xl border border-soft-border bg-stone py-3 px-4 focus:ring-0 focus:border-tashtep-orange focus:bg-white transition-colors outline-none"
-                  placeholder="محمد أحمد"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-label-md text-obsidian mb-2">البريد الإلكتروني</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  className="w-full rounded-xl border border-soft-border bg-stone py-3 px-4 focus:ring-0 focus:border-tashtep-orange focus:bg-white transition-colors outline-none"
-                  placeholder="mohamed@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="subject" className="block text-label-md text-obsidian mb-2">الموضوع</label>
-                <input 
-                  type="text" 
-                  id="subject" 
-                  className="w-full rounded-xl border border-soft-border bg-stone py-3 px-4 focus:ring-0 focus:border-tashtep-orange focus:bg-white transition-colors outline-none"
-                  placeholder="استفسار عن المنتجات"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-label-md text-obsidian mb-2">الرسالة</label>
-                <textarea 
-                  id="message" 
-                  rows={5}
-                  className="w-full rounded-xl border border-soft-border bg-stone py-3 px-4 focus:ring-0 focus:border-tashtep-orange focus:bg-white transition-colors outline-none resize-none"
-                  placeholder="اكتب رسالتك هنا..."
-                ></textarea>
-              </div>
-              <Button type="button" className="w-full bg-tashtep-orange text-white hover:bg-obsidian transition-colors h-12 rounded-xl text-lg">
-                إرسال الرسالة
-              </Button>
-            </form>
+            <ContactForm />
           </div>
 
           {/* Contact Info */}

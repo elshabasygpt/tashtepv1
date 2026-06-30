@@ -3,93 +3,82 @@ import { OrderService } from "@/services/order.service";
 import crypto from "crypto";
 import { logger } from "@/lib/logger";
 
+async function updateWithRetry(
+  orderId: string,
+  status: "PAID" | "FAILED",
+  attempts = 3
+): Promise<void> {
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      await OrderService.updatePaymentStatus(orderId, status);
+      return;
+    } catch (err) {
+      logger.error({ err, orderId, status, attempt: i }, "updatePaymentStatus failed");
+      if (i === attempts) throw err;
+      await new Promise(r => setTimeout(r, i * 500));
+    }
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const searchParams = new URL(req.url).searchParams;
     const hmac = searchParams.get("hmac");
-    
-    // In Paymob, the actual callback data comes as JSON body
     const body = await req.json();
 
-    // Verify HMAC if you have the secret (assuming PAYMOB_HMAC_SECRET in env)
-    // The HMAC is calculated using the concatenated values of specific fields.
-    // For now, if no HMAC secret exists, we'll process the data, but log a warning.
     const hmacSecret = process.env.PAYMOB_HMAC_SECRET;
-    
-    if (hmacSecret && hmac) {
-      const {
-        amount_cents,
-        created_at,
-        currency,
-        error_occured,
-        has_parent_transaction,
-        id,
-        integration_id,
-        is_3d_secure,
-        is_auth,
-        is_capture,
-        is_refunded,
-        is_standalone_payment,
-        is_voided,
-        order,
-        owner,
-        pending,
-        source_data,
-        success
-      } = body.obj;
 
-      const concatenatedString = [
-        amount_cents,
-        created_at,
-        currency,
-        error_occured,
-        has_parent_transaction,
-        id,
-        integration_id,
-        is_3d_secure,
-        is_auth,
-        is_capture,
-        is_refunded,
-        is_standalone_payment,
-        is_voided,
-        order.id,
-        owner,
-        pending,
-        source_data.pan,
-        source_data.sub_type,
-        source_data.type,
-        success,
+    if (hmacSecret) {
+      if (!hmac) {
+        logger.error("Paymob webhook missing HMAC parameter");
+        return NextResponse.json({ error: "Missing HMAC" }, { status: 400 });
+      }
+
+      const obj = body.obj;
+      const concatenated = [
+        obj.amount_cents, obj.created_at, obj.currency, obj.error_occured,
+        obj.has_parent_transaction, obj.id, obj.integration_id, obj.is_3d_secure,
+        obj.is_auth, obj.is_capture, obj.is_refunded, obj.is_standalone_payment,
+        obj.is_voided, obj.order?.id, obj.owner, obj.pending,
+        obj.source_data?.pan, obj.source_data?.sub_type, obj.source_data?.type,
+        obj.success,
       ].join("");
 
-      const calculatedHmac = crypto
+      const calculated = crypto
         .createHmac("sha512", hmacSecret)
-        .update(concatenatedString)
+        .update(concatenated)
         .digest("hex");
 
-      if (calculatedHmac !== hmac) {
-        logger.error({ hmac, calculatedHmac }, "HMAC validation failed");
+      if (calculated !== hmac) {
+        logger.error({ hmac, calculated }, "Paymob HMAC mismatch");
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
     } else {
-      logger.warn("Paymob webhook received without HMAC validation due to missing secret");
+      logger.error("PAYMOB_HMAC_SECRET not configured — rejecting webhook");
+      return NextResponse.json({ error: "Webhook authentication not configured" }, { status: 400 });
     }
 
-    // Process the payment
-    const { success, pending, order: paymobOrder } = body.obj;
-    const merchantOrderId = paymobOrder.merchant_order_id; // This is our DB Order ID
+    const { success, pending, order: paymobOrder } = body.obj ?? {};
+    const merchantOrderId: string | undefined = paymobOrder?.merchant_order_id;
 
-    if (merchantOrderId) {
-      if (success && !pending) {
-        await OrderService.updatePaymentStatus(merchantOrderId, "PAID");
-      } else if (!success && !pending) {
-        await OrderService.updatePaymentStatus(merchantOrderId, "FAILED");
-      }
+    if (!merchantOrderId) {
+      logger.warn({ body }, "Paymob webhook missing merchant_order_id");
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    if (success && !pending) {
+      await updateWithRetry(merchantOrderId, "PAID");
+      logger.info({ orderId: merchantOrderId }, "Payment marked PAID");
+    } else if (!success && !pending) {
+      await updateWithRetry(merchantOrderId, "FAILED");
+      logger.info({ orderId: merchantOrderId }, "Payment marked FAILED");
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error) {
-    logger.error({ error }, "Paymob Webhook Error");
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    logger.error({ error }, "Paymob webhook unhandled error");
+    // Return 200 so Paymob doesn't keep retrying on our own DB errors
+    return NextResponse.json({ error: "Internal error — logged" }, { status: 200 });
   }
 }

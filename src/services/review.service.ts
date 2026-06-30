@@ -21,12 +21,27 @@ export const ReviewService = {
         orderBy: { createdAt: "desc" }
       });
     } catch {
-      throw new DatabaseError("Failed to fetch reviews");
+      throw new DatabaseError("حدث خطأ أثناء جلب التقييمات.");
     }
+  },
+
+  async hasVerifiedPurchase(userId: string, productId: string): Promise<boolean> {
+    const count = await prisma.orderItem.count({
+      where: {
+        productId,
+        order: {
+          userId,
+          status: { in: ["DELIVERED"] },
+        },
+      },
+    });
+    return count > 0;
   },
 
   async createReview(data: CreateReviewDTO) {
     try {
+      const verifiedPurchase = await ReviewService.hasVerifiedPurchase(data.userId, data.productId);
+
       // Create the review
       const review = await prisma.review.create({
         data: {
@@ -34,6 +49,7 @@ export const ReviewService = {
           userId: data.userId,
           rating: data.rating,
           comment: data.comment,
+          verifiedPurchase,
         }
       });
 
@@ -54,7 +70,7 @@ export const ReviewService = {
 
       return review;
     } catch {
-      throw new DatabaseError("Failed to create review. You may have already reviewed this product.");
+      throw new DatabaseError("حدث خطأ أثناء إضافة التقييم. ربما قمت بتقييم هذا المنتج من قبل.");
     }
   }
 };

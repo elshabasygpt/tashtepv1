@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default async function NewProductPage() {
   const categories = await prisma.category.findMany({ select: { id: true, name: true } });
+  const brands = await prisma.brand.findMany({ select: { id: true, name: true } });
 
   return (
     <div className="space-y-6">
@@ -17,7 +18,7 @@ export default async function NewProductPage() {
         <h2 className="text-2xl font-headline-md font-bold text-obsidian">إضافة منتج جديد</h2>
       </div>
 
-      <AdminProductForm categories={categories} />
+      <AdminProductForm categories={categories} brands={brands} />
     </div>
   );
 }

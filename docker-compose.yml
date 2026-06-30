@@ -8,7 +8,6 @@ services:
     image: tashtep-next-app
     restart: unless-stopped
     ports:
-      # Expose locally for debug, but traffic typically routes through nginx
       - "3000:3000"
     environment:
       - NODE_ENV=production
@@ -22,7 +21,8 @@ services:
     networks:
       - tashtep-network
     depends_on:
-      - mysql-db
+      postgres-db:
+        condition: service_healthy
 
   nginx:
     image: nginx:alpine
@@ -36,23 +36,28 @@ services:
     networks:
       - tashtep-network
 
-  # Optional: Local Database Container. If you use a managed DB, remove this service.
-  mysql-db:
-    image: mysql:8.0
+  postgres-db:
+    image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
-      MYSQL_DATABASE: tashtep
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: tashtep
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - tashtep-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d tashtep"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   tashtep-network:
     driver: bridge
 
 volumes:
-  mysql_data:
+  postgres_data:

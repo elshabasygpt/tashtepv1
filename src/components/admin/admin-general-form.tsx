@@ -72,6 +72,20 @@ export function AdminGeneralForm({ initialData }: AdminGeneralFormProps) {
       </div>
 
       <div className="bg-white p-6 rounded-xl border border-stone shadow-sm space-y-6">
+        <h3 className="text-xl font-headline-md text-obsidian border-b pb-4">بيانات الفاتورة الضريبية</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-obsidian">الرقم الضريبي</label>
+            <Input {...register("taxId")} className="bg-stone" dir="ltr" placeholder="مثال: 123-456-789" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-obsidian">نسبة الضريبة (%)</label>
+            <Input {...register("taxRate", { valueAsNumber: true })} type="number" className="bg-stone" dir="ltr" placeholder="14" />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-xl border border-stone shadow-sm space-y-6">
         <h3 className="text-xl font-headline-md text-obsidian border-b pb-4">روابط وسائل التواصل الاجتماعي</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
@@ -85,6 +99,32 @@ export function AdminGeneralForm({ initialData }: AdminGeneralFormProps) {
           <div className="space-y-2">
             <label className="text-sm font-bold text-obsidian">إكس (تويتر)</label>
             <Input {...register("twitterUrl")} className="bg-stone" dir="ltr" placeholder="https://..." />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-xl border border-stone shadow-sm space-y-6">
+        <h3 className="text-xl font-headline-md text-obsidian border-b pb-4">أيقونة الدردشة الفورية (WhatsApp Widget)</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2 flex items-center gap-3">
+            <input 
+              type="checkbox" 
+              {...register("whatsappEnabled")} 
+              id="whatsappEnabled" 
+              className="w-5 h-5 accent-tashtep-orange"
+            />
+            <label htmlFor="whatsappEnabled" className="text-sm font-bold text-obsidian cursor-pointer">
+              تفعيل أيقونة الواتساب العائمة في جميع الصفحات
+            </label>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-obsidian">رقم الواتساب</label>
+            <Input {...register("whatsappNumber")} className="bg-stone" dir="ltr" placeholder="201000000000" />
+            <p className="text-xs text-secondary mt-1">يجب أن يشمل كود الدولة بدون علامة (+) أو أصفار (مثال: 2010...)</p>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-obsidian">الرسالة الافتراضية</label>
+            <Input {...register("whatsappMessage")} className="bg-stone" placeholder="مرحباً فريق تشطيب..." />
           </div>
         </div>
       </div>

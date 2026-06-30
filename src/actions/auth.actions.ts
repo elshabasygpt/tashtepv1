@@ -11,11 +11,8 @@ import { headers } from "next/headers";
 import { UserService } from "@/services/user.service";
 import { revalidatePath } from "next/cache";
 import crypto from "crypto";
-import { Resend } from "resend";
-import { env } from "@/lib/env";
+import { EmailService } from "@/lib/email";
 import { logger } from "@/lib/logger";
-
-const resend = new Resend(env.RESEND_API_KEY);
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -116,19 +113,11 @@ export const registerAction = publicAction(
       }
     });
 
-    // Send email via Resend
-    try {
-      await resend.emails.send({
-        from: "Tashtep <noreply@tashtep.com>",
-        to: user.email!,
-        subject: "تفعيل حسابك في تشطيب",
-        html: `<p>مرحباً ${user.name}،</p><p>الرجاء النقر على الرابط التالي لتفعيل حسابك:</p><p><a href="http://localhost:3000/verify-email?token=${token}">تفعيل الحساب</a></p>`,
-      });
-      logger.info({ userId: user.id }, "Verification email sent successfully");
-    } catch (error) {
-      logger.error({ userId: user.id, error }, "Failed to send verification email");
-      // Even if email fails, we don't expose token to console
-    }
+    await EmailService.sendVerificationEmail(user.email!, user.name || "عزيزي العميل", token);
+    logger.info({ userId: user.id }, "Verification email sent");
+
+    // Welcome email (fire-and-forget)
+    EmailService.sendWelcomeEmail(user.email!, user.name || "عزيزي العميل").catch(() => {});
 
     return { success: true };
   }
@@ -215,18 +204,8 @@ export const requestPasswordResetAction = publicAction(
       }
     });
 
-    // Send email via Resend
-    try {
-      await resend.emails.send({
-        from: "Tashtep <noreply@tashtep.com>",
-        to: user.email!,
-        subject: "إعادة تعيين كلمة المرور",
-        html: `<p>مرحباً،</p><p>لقد طلبت إعادة تعيين كلمة المرور. الرجاء النقر على الرابط التالي لتغيير كلمة المرور الخاصة بك:</p><p><a href="http://localhost:3000/reset-password?token=${token}">إعادة تعيين كلمة المرور</a></p>`,
-      });
-      logger.info({ userId: user.id }, "Password reset email sent successfully");
-    } catch (error) {
-      logger.error({ userId: user.id, error }, "Failed to send password reset email");
-    }
+    await EmailService.sendPasswordResetEmail(user.email!, token);
+    logger.info({ userId: user.id }, "Password reset email sent");
 
     return { success: true };
   }

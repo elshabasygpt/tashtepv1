@@ -13,23 +13,30 @@ export interface CartItemType {
   quantity: number;
   image: string;
   variantLabel?: string;
+  productId?: string;
+  variantId?: string;
 }
 
 interface CartItemProps {
   item: CartItemType;
+  /** Override for the default DB-backed update/remove (used for the guest/local cart). */
+  onUpdateQuantity?: (quantity: number) => void;
+  onRemove?: () => void;
 }
 
-export function CartItem({ item }: CartItemProps) {
+export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   const [isPending, startTransition] = React.useTransition();
 
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity < 1) return;
+    if (onUpdateQuantity) return onUpdateQuantity(newQuantity);
     startTransition(async () => {
       await updateCartItemQuantityAction({ itemId: item.id, quantity: newQuantity });
     });
   };
 
   const handleRemove = () => {
+    if (onRemove) return onRemove();
     startTransition(async () => {
       await removeCartItemAction({ itemId: item.id });
     });

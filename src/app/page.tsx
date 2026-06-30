@@ -1,10 +1,7 @@
 import { ProductService } from "@/services/product.service";
 import { CategoryService } from "@/services/category.service";
-
 import { SettingsService } from "@/services/settings.service";
 import { ArticleService } from "@/services/article.service";
-
-export const dynamic = "force-dynamic";
 import { ProductGrid } from "@/features/products/components/product-grid";
 import { ProductCard } from "@/features/products/components/product-card";
 import { CategoryList } from "@/features/categories/components/category-list";
@@ -12,6 +9,10 @@ import { CategoryCard } from "@/features/categories/components/category-card";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { NewsletterForm } from "@/components/newsletter-form";
+
+export const dynamic = "force-dynamic";
 
 async function FeaturedProducts() {
   const products = await ProductService.getProducts({ limit: 8 });
@@ -43,11 +44,31 @@ function SectionLoader() {
   );
 }
 
+const DEFAULT_HERO = {
+  image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCQAlwS6NiyipnZbqYPVSnGFEh9RnPdQPdBYrlAWXhvBMXgsUFdh7h0YVzgELzcS97x2Dl1ja1_XzLQ_7Jmi3TofYVneNw0CQgs0mTZRZ1U0peh2IQrzATzxtvCoGzucv5MpIzc0eC__o00K4Ynaz_vIjHRWym5nDZJJOW7i0ykCsAYALNqxXgj7Q2WtMHKdkw8YhYFDK1eoKtNOiO0J2vCcLld2EHdGhQ69_sGPRXM3uOAXmv5CvLYDfeaATYXM2q9oDcj9sBZ12J1",
+  badge: "التشطيبات الفاخرة",
+  title: "حوّل مساحتك إلى لوحة فنية",
+  subtitle: "اكتشف أرقى خامات الدهانات والتشطيب الداخلي بأسعار تناسب جميع الميزانيات.",
+  ctaText: "تسوق الآن",
+  ctaLink: "/products",
+  secondaryCtaText: "تعرف علينا",
+};
+
 export default async function HomePage() {
-  const heroContent = await SettingsService.getHomePageHero();
+  let heroContent = DEFAULT_HERO;
+  try {
+    heroContent = await SettingsService.getHomePageHero();
+  } catch {
+    // use default fallback
+  }
 
   // Fetch real articles, fallback to default static articles if none
-  const dbArticles = await ArticleService.getArticles({ publishedOnly: true, limit: 3 });
+  let dbArticles: Awaited<ReturnType<typeof ArticleService.getArticles>> = [];
+  try {
+    dbArticles = await ArticleService.getArticles({ publishedOnly: true, limit: 3 });
+  } catch {
+    // use static fallback below
+  }
   const articles = dbArticles.length > 0 ? dbArticles : [
     {
       id: "1",
@@ -76,7 +97,15 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative w-full h-[870px] min-h-[600px] flex items-center justify-center overflow-hidden bg-stone">
         <div className="absolute inset-0 z-0">
-          <div className="bg-cover bg-center w-full h-full transform scale-105 transition-transform duration-1000 ease-out hover:scale-100" style={{ backgroundImage: `url('${heroContent.image}')` }}></div>
+          <Image
+            src={heroContent.image || DEFAULT_HERO.image}
+            alt={heroContent.badge}
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover scale-105 transition-transform duration-1000 ease-out hover:scale-100"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/20 to-transparent"></div>
         </div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter flex flex-col items-center text-center mt-macro-md">
@@ -174,11 +203,13 @@ export default async function HomePage() {
               { name: "SIPES", domain: "sipes.net" },
               { name: "NATIONAL", domain: "nationalpaints.com" },
             ].map((brand, i) => (
-              <li key={i} className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                <img 
+              <li key={i} className="flex items-center justify-center opacity-70 hover:opacity-100 transition-all duration-300 hover:scale-105">
+                <Image 
                   src={`https://logo.clearbit.com/${brand.domain}`} 
                   alt={brand.name} 
                   className="h-10 md:h-14 w-auto object-contain"
+                  width={150}
+                  height={56}
                 />
                 <span className="hidden text-headline-md font-bold tracking-tighter text-obsidian px-4">
                   {brand.name}
@@ -193,10 +224,12 @@ export default async function HomePage() {
       <section className="my-macro-md max-w-container-max mx-auto px-gutter">
         <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-obsidian flex items-center">
           <div className="absolute inset-0 w-full h-full">
-            <img
+            <Image
               alt="Luxury Interior"
-              className="w-full h-full object-cover opacity-60"
+              className="object-cover opacity-60"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQAlwS6NiyipnZbqYPVSnGFEh9RnPdQPdBYrlAWXhvBMXgsUFdh7h0YVzgELzcS97x2Dl1ja1_XzLQ_7Jmi3TofYVneNw0CQgs0mTZRZ1U0peh2IQrzATzxtvCoGzucv5MpIzc0eC__o00K4Ynaz_vIjHRWym5nDZJJOW7i0ykCsAYALNqxXgj7Q2WtMHKdkw8YhYFDK1eoKtNOiO0J2vCcLld2EHdGhQ69_sGPRXM3uOAXmv5CvLYDfeaATYXM2q9oDcj9sBZ12J1"
+              fill
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-obsidian/90 via-obsidian/50 to-transparent"></div>
           </div>
@@ -230,7 +263,7 @@ export default async function HomePage() {
             <Link key={article.title} href={`/blog/${article.slug}`} className="group block">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-stone">
                 {article.image ? (
-                  <img alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src={article.image} />
+                  <Image alt={article.title} className="object-cover transition-transform duration-500 group-hover:scale-105" src={article.image} fill />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-secondary opacity-50">
                     <span className="material-symbols-outlined text-4xl">image</span>
@@ -255,6 +288,32 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Newsletter */}
+      <section className="py-macro-lg bg-gradient-to-b from-obsidian via-obsidian to-[#1a1208] relative overflow-hidden">
+        {/* Decorative glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-tashtep-orange/5 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-container-max mx-auto px-gutter text-center relative">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="material-symbols-outlined text-tashtep-orange text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+            <span className="inline-block px-4 py-1.5 bg-tashtep-orange/20 text-tashtep-orange rounded-full text-label-md font-label-md tracking-wider">
+              عروض حصرية للمشتركين
+            </span>
+          </div>
+          <h2 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-gallery-white mb-3">
+            كن أول من يعرف بالعروض الجديدة
+          </h2>
+          <p className="text-body-md font-body-md text-gallery-white/70 mb-8 max-w-md mx-auto">
+            اشترك الآن واحصل على خصم 10% على أول طلب لك، وكن أول من يعرف بأحدث المنتجات والعروض الحصرية.
+          </p>
+          <div className="max-w-lg mx-auto">
+            <NewsletterForm />
+          </div>
+          <p className="text-xs text-white/40 mt-4">لن نرسل لك بريداً مزعجاً. يمكنك إلغاء الاشتراك في أي وقت.</p>
+        </div>
+      </section>
+
       {/* About Us */}
       <section className="py-macro-lg max-w-container-max mx-auto px-gutter">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-macro-md items-center">
@@ -268,6 +327,7 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="order-1 md:order-2 relative aspect-[4/5] rounded-2xl overflow-hidden shadow-sm">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               alt="Editorial Interior"
               className="w-full h-full object-cover"

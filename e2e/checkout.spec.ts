@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Enterprise E2E Coverage', () => {
-  test('Guest checkout redirection', async ({ page }) => {
+  test('Guest checkout - add to cart without an account', async ({ page }) => {
     // Navigate directly rather than via the nav link, since the desktop nav
     // is hidden on mobile viewports (covered separately by the responsive suite).
     await page.goto('/products');
@@ -10,16 +10,22 @@ test.describe('Enterprise E2E Coverage', () => {
     // Wait for products to load and click the first product
     const productCard = page.locator('a[href^="/products/"]').first();
     await productCard.waitFor();
-    await productCard.click();
+    // Click the top area to avoid hitting the "Quick Add" button overlay on hover
+    await productCard.click({ position: { x: 10, y: 10 } });
     await page.waitForURL(/\/products\/.+/);
 
     // Click Add to Cart button
-    const addToCartBtn = page.getByRole('button', { name: /أضف إلى السلة/i });
+    const addToCartBtn = page.getByRole('button', { name: /أضف.*لسلة/i }).first();
     await addToCartBtn.waitFor();
 
-    // Not authenticated, adding to cart redirects to login
+    // Guests can add to cart without being redirected to login.
     await addToCartBtn.click();
-    await expect(page).toHaveURL(/.*\/login/, { timeout: 10000 });
+    await expect(page.getByText('تمت الإضافة إلى السلة بنجاح')).toBeVisible({ timeout: 10000 });
+    await expect(page).not.toHaveURL(/.*\/login/);
+
+    // The item should persist in the guest (localStorage) cart.
+    await page.goto('/cart');
+    await expect(page.getByText('السلة فارغة')).not.toBeVisible();
   });
 
   test('Authentication Flow - Register and Login', async ({ page }) => {
@@ -32,8 +38,8 @@ test.describe('Enterprise E2E Coverage', () => {
     
     await page.getByRole('button', { name: 'إنشاء الحساب' }).click();
 
-    // Should navigate away from /register on success (e.g. to a verification page)
-    await page.waitForURL((url) => !url.pathname.startsWith('/register'), { timeout: 15000 });
+    // Should navigate to /login on success
+    await page.waitForURL(/\/login.*/, { timeout: 20000 });
   });
 
   test('Search Flow', async ({ page }) => {

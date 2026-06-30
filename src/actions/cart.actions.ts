@@ -2,8 +2,9 @@
 
 import { z } from "zod";
 import { protectedAction } from "@/lib/safe-action";
-import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { CartService } from "@/services/cart.service";
+import { parseCartItemId } from "@/lib/cart-utils";
 
 const addToCartSchema = z.object({
   productId: z.string().min(1),
@@ -14,38 +15,7 @@ const addToCartSchema = z.object({
 export const addToCartAction = protectedAction(
   addToCartSchema,
   async (parsedInput, user) => {
-    const cart = await prisma.cart.upsert({
-      where: { userId: user.id },
-      create: { userId: user.id },
-      update: {},
-    });
-
-    const variantId = parsedInput.variantId ?? null;
-
-    const existingItem = await prisma.cartItem.findFirst({
-      where: {
-        cartId: cart.id,
-        productId: parsedInput.productId,
-        variantId,
-      },
-    });
-
-    if (existingItem) {
-      await prisma.cartItem.update({
-        where: { id: existingItem.id },
-        data: { quantity: existingItem.quantity + (parsedInput.quantity ?? 1) },
-      });
-    } else {
-      await prisma.cartItem.create({
-        data: {
-          cartId: cart.id,
-          productId: parsedInput.productId,
-          variantId,
-          quantity: parsedInput.quantity ?? 1,
-        },
-      });
-    }
-
+    await CartService.addToCart(user.id, parsedInput.productId, parsedInput.variantId ?? null, parsedInput.quantity ?? 1);
     revalidatePath("/cart");
     return { success: true, message: "تمت إضافة المنتج إلى السلة" };
   }
@@ -58,13 +28,11 @@ const updateCartItemSchema = z.object({
 
 export const updateCartItemQuantityAction = protectedAction(
   updateCartItemSchema,
-  async (parsedInput) => {
-    await prisma.cartItem.update({
-      where: { id: parsedInput.itemId },
-      data: { quantity: parsedInput.quantity },
-    });
+  async (parsedInput, user) => {
+    const { productId, variantId } = parseCartItemId(parsedInput.itemId);
+    const found = await CartService.updateCartItem(user.id, productId, variantId, parsedInput.quantity);
     revalidatePath("/cart");
-    return { success: true };
+    return found ? { success: true } : { success: false, error: "العنصر غير موجود في السلة" };
   }
 );
 
@@ -74,10 +42,31 @@ const removeCartItemSchema = z.object({
 
 export const removeCartItemAction = protectedAction(
   removeCartItemSchema,
-  async (parsedInput) => {
-    await prisma.cartItem.delete({
-      where: { id: parsedInput.itemId },
-    });
+  async (parsedInput, user) => {
+    const { productId, variantId } = parseCartItemId(parsedInput.itemId);
+    const found = await CartService.removeCartItem(user.id, productId, variantId);
+    revalidatePath("/cart");
+    return found ? { success: true } : { success: false, error: "العنصر غير موجود في السلة" };
+  }
+);
+
+const syncGuestCartSchema = z.object({
+  items: z.array(
+    z.object({
+      productId: z.string().min(1),
+      variantId: z.string().min(1).optional(),
+      quantity: z.number().int().positive(),
+    })
+  ),
+});
+
+/**
+ * Merges the guest (localStorage) cart into the user's Redis cart right after login.
+ */
+export const syncGuestCartAction = protectedAction(
+  syncGuestCartSchema,
+  async (parsedInput, user) => {
+    await CartService.syncCart({ userId: user.id, items: parsedInput.items });
     revalidatePath("/cart");
     return { success: true };
   }

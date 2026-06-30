@@ -1,253 +1,213 @@
-import { OrderService } from "@/services/order.service";
-import { ProductService } from "@/services/product.service";
-import { getCurrentUser } from "@/lib/auth";
-import { Container } from "@/components/layout/container";
-import { ProductGrid } from "@/features/products/components/product-grid";
-import { ProductCard } from "@/features/products/components/product-card";
-import { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { OrderService } from "@/services/order.service";
+import { Section } from "@/components/layout/section";
+import { Container } from "@/components/layout/container";
+import { notFound } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
 
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "تم تأكيد طلبك",
-};
-
-interface OrderSuccessPageProps {
-  params: Promise<{ id: string }>;
-}
-
-type OrderItemResponse = {
+type OrderItem = {
   id: string;
   quantity: number;
   price: number;
-  product?: { name: string } | null;
+  variantLabel?: string | null;
+  product: { name: string } | null;
 };
 
-type OrderResponse = {
+type FullOrder = {
   id: string;
-  userId: string;
+  userId?: string | null;
   totalAmount: number;
   shippingCost: number;
-  status: "PENDING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
-  paymentMethod: "COD" | "CARD";
+  discountAmount: number;
+  taxAmount: number;
+  paymentMethod: string;
+  paymentStatus: string;
   shippingName: string;
-  shippingAddress: string;
   shippingCity: string;
-  createdAt: Date;
-  items: OrderItemResponse[];
+  guestEmail?: string | null;
+  user?: { email?: string | null } | null;
+  items: OrderItem[];
 };
 
-const STATUS_STEPS = [
-  { key: "PENDING", label: "تم استلام الطلب" },
-  { key: "PROCESSING", label: "قيد التجهيز" },
-  { key: "SHIPPED", label: "تم الشحن" },
-  { key: "DELIVERED", label: "تم التسليم" },
-] as const;
+export default async function OrderSuccessPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ paymentFailed?: string }>;
+}) {
+  const [resolvedParams, resolvedSearch, currentUser] = await Promise.all([
+    params,
+    searchParams,
+    getCurrentUser(),
+  ]);
+  // paymentFailed is only shown if the DB confirms the payment is not completed
+  // — prevents spoofing via manual ?paymentFailed=1 on a successfully paid order.
+  const paymentFailedParam = resolvedSearch.paymentFailed === "1";
 
-export default async function OrderSuccessPage({ params }: OrderSuccessPageProps) {
-  const { id } = await params;
-
-  const user = await getCurrentUser();
-  if (!user) {
-    redirect(`/login?callbackUrl=/order-success/${id}`);
-  }
-
-  let order: OrderResponse;
+  let rawOrder: unknown = null;
   try {
-    order = (await OrderService.getOrderById(id)) as OrderResponse;
+    rawOrder = await OrderService.getOrderById(resolvedParams.id);
   } catch {
     notFound();
   }
+  if (!rawOrder) notFound();
 
-  if (order.userId !== user.id) {
+  const order = rawOrder as FullOrder;
+
+  // For user-owned orders, verify the requesting session owns it.
+  // Guest orders (userId === null) have no session to verify against.
+  if (order.userId && (!currentUser || currentUser.id !== order.userId)) {
     notFound();
   }
 
-  const recommended = await ProductService.getProducts({ limit: 3 });
+  // Only show the failure banner when the DB agrees the payment isn't completed.
+  const paymentFailed = paymentFailedParam && order.paymentStatus !== "PAID";
 
-  const isCancelled = order.status === "CANCELLED";
-  const currentStepIndex = STATUS_STEPS.findIndex((s) => s.key === order.status);
-
-  const formattedDate = new Intl.DateTimeFormat("ar-EG", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  }).format(new Date(order.createdAt));
+  const email = order.user?.email ?? order.guestEmail;
 
   return (
-    <main className="bg-background min-h-screen pt-20">
-      <Container className="max-w-container-max px-gutter py-macro-lg">
-        {/* Success Hero */}
-        <section className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto mb-macro-md">
-          {!isCancelled && (
-            <svg className="w-20 h-20 mb-micro-md" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="26" cy="26" r="25" fill="none" stroke="#F39223" strokeWidth="2" />
-              <path d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none" stroke="#F39223" strokeWidth="2" />
-            </svg>
+    <Section className="py-macro-lg bg-white min-h-screen">
+      <Container className="max-w-2xl">
+        <div className="text-center">
+          {paymentFailed ? (
+            <div className="w-24 h-24 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in-75 duration-500">
+              <span className="material-symbols-outlined text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+            </div>
+          ) : (
+            <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in-75 duration-500">
+              <span className="material-symbols-outlined text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+            </div>
           )}
-          <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-micro-sm">
-            {isCancelled ? "تم إلغاء هذا الطلب" : "تم تأكيد طلبك بنجاح"}
-          </h1>
-          <p className="text-body-lg font-body-lg text-secondary">
-            {isCancelled
-              ? "تواصل معنا إذا كان هذا غير متوقع."
-              : "شكراً لاختيارك تشطيب، بدأنا تجهيز طلبك وسيتم التواصل معك قريباً."}
-          </p>
-        </section>
 
-        {/* Order Summary Card */}
-        <section className="w-full max-w-4xl mx-auto mb-macro-md">
-          <div className="bg-white rounded-2xl border border-soft-border shadow-[0_10px_40px_rgba(0,0,0,0.02)] p-macro-sm md:p-macro-md">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-macro-sm pb-micro-md border-b border-stone">
-              <h2 className="font-headline-md text-headline-md text-obsidian mb-micro-xs md:mb-0">تفاصيل الطلب</h2>
-              <div className="flex items-center gap-2 bg-stone p-2 rounded border border-soft-border">
-                <span className="font-label-md text-label-md text-secondary">رقم الطلب:</span>
-                <span className="font-technical-mono text-technical-mono text-obsidian font-bold">#{order.id.slice(-8).toUpperCase()}</span>
+          {paymentFailed ? (
+            <>
+              <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-3">
+                تم تسجيل طلبك — الدفع لم يكتمل
+              </h1>
+              <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-right">
+                <p className="text-sm font-medium text-amber-800 mb-1">لم يتم إنشاء رابط الدفع الإلكتروني</p>
+                <p className="text-sm text-amber-700">
+                  تم حفظ طلبك بنجاح. سيتواصل معك فريق الدعم لإتمام الدفع، أو يمكنك التواصل معنا مباشرةً لتأكيد طريقة السداد.
+                </p>
               </div>
-            </div>
+            </>
+          ) : (
+            <>
+              <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-3">
+                تم تأكيد طلبك بنجاح!
+              </h1>
+              <p className="text-body-lg text-secondary mb-2">
+                شكراً لتسوقك معنا. تم استلام طلبك وهو قيد التجهيز الآن.
+              </p>
+            </>
+          )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-micro-md mb-macro-md">
-              <div>
-                <span className="block font-label-md text-label-md text-secondary mb-1">تاريخ الطلب</span>
-                <span className="block font-body-md text-body-md text-obsidian">{formattedDate}</span>
-              </div>
-              <div>
-                <span className="block font-label-md text-label-md text-secondary mb-1">طريقة الدفع</span>
-                <span className="block font-body-md text-body-md text-obsidian">
-                  {order.paymentMethod === "COD" ? "الدفع عند الاستلام" : "الدفع إلكترونياً"}
-                </span>
-              </div>
-              <div className="md:col-span-2">
-                <span className="block font-label-md text-label-md text-secondary mb-1">عنوان الشحن</span>
-                <span className="block font-body-md text-body-md text-obsidian">
-                  {order.shippingName} — {order.shippingAddress}, {order.shippingCity}
-                </span>
-              </div>
-            </div>
+          {email ? (
+            <p className="text-sm text-secondary mb-8">
+              سيتم إرسال تأكيد الطلب إلى{" "}
+              <span className="font-medium text-obsidian">{email}</span>
+            </p>
+          ) : (
+            <p className="text-sm text-secondary mb-8">
+              سيصلك تأكيد الطلب على بريدك الإلكتروني قريباً.
+            </p>
+          )}
 
-            {/* Items */}
-            <div className="mb-macro-md">
-              <h3 className="font-label-md text-label-md text-secondary mb-micro-md">المنتجات</h3>
-              <div className="flex flex-col divide-y divide-stone">
+          <div className="bg-stone/30 border border-soft-border p-6 rounded-2xl mb-6 mx-auto">
+            <span className="block text-sm text-secondary mb-2">رقم الطلب</span>
+            <span className="block text-2xl font-technical-mono font-bold text-obsidian tracking-wider">
+              #{order.id.slice(-8).toUpperCase()}
+            </span>
+          </div>
+
+          {/* Order items summary */}
+          {order.items?.length > 0 && (
+            <div className="bg-white border border-soft-border rounded-2xl mb-6 text-right overflow-hidden">
+              <div className="px-5 py-3 border-b border-stone/50 bg-stone/20">
+                <span className="text-sm font-bold text-obsidian">ملخص طلبك</span>
+              </div>
+              <div className="divide-y divide-stone/40">
                 {order.items.map((item) => (
-                  <div key={item.id} className="flex justify-between items-center py-3">
-                    <span className="font-body-md text-body-md text-obsidian">
-                      {item.product?.name || "منتج"} <span className="text-secondary">× {item.quantity}</span>
-                    </span>
-                    <span className="font-body-md text-body-md text-obsidian font-bold">{item.price * item.quantity} ج.م</span>
+                  <div key={item.id} className="px-5 py-3 flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-obsidian line-clamp-1">{item.product?.name ?? "منتج"}</p>
+                      {item.variantLabel && <p className="text-xs text-secondary">{item.variantLabel}</p>}
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="text-xs text-secondary">{item.quantity} × {item.price} ج.م</span>
+                      <p className="text-sm font-bold text-obsidian tabular-nums">{item.quantity * item.price} ج.م</p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <div className="flex justify-between items-center pt-4 mt-2 border-t border-stone">
-                <span className="font-body-lg text-body-lg font-bold text-obsidian">الإجمالي</span>
-                <span className="font-headline-md text-headline-md font-bold text-obsidian">{order.totalAmount} ج.م</span>
-              </div>
-            </div>
-
-            {/* Status Timeline */}
-            {!isCancelled && (
-              <div className="pt-micro-md relative">
-                <h3 className="font-label-md text-label-md text-secondary mb-macro-sm">حالة الطلب</h3>
-                <div className="relative flex justify-between items-center w-full">
-                  <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-surface-container-high -z-10 -translate-y-1/2"></div>
-                  <div
-                    className="absolute top-1/2 right-0 h-[2px] bg-tashtep-orange -z-10 -translate-y-1/2 transition-all duration-1000 ease-in-out"
-                    style={{ width: `${(currentStepIndex / (STATUS_STEPS.length - 1)) * 100}%` }}
-                  ></div>
-                  {STATUS_STEPS.map((step, idx) => {
-                    const isDone = idx <= currentStepIndex;
-                    const isCurrent = idx === currentStepIndex;
-                    return (
-                      <div key={step.key} className="flex flex-col items-center gap-2 relative bg-white px-2">
-                        <div
-                          className={
-                            isDone
-                              ? "w-6 h-6 rounded-full bg-tashtep-orange flex items-center justify-center text-white ring-4 ring-white"
-                              : "w-6 h-6 rounded-full bg-surface-bright border-2 border-surface-container-high ring-4 ring-white"
-                          }
-                        >
-                          {isDone && <span className="material-symbols-outlined text-[14px]">check</span>}
-                        </div>
-                        <span
-                          className={
-                            isCurrent
-                              ? "font-label-md text-label-md text-tashtep-orange font-bold text-center absolute top-8 whitespace-nowrap"
-                              : "font-label-md text-label-md text-secondary text-center absolute top-8 whitespace-nowrap"
-                          }
-                        >
-                          {step.label}
-                        </span>
-                      </div>
-                    );
-                  })}
+              <div className="px-5 py-3 border-t border-stone/50 space-y-1.5 bg-stone/10">
+                {order.discountAmount > 0 && (
+                  <div className="flex justify-between text-xs text-secondary">
+                    <span>خصم الكوبون</span>
+                    <span className="text-green-600">-{order.discountAmount} ج.م</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-xs text-secondary">
+                  <span>الشحن</span>
+                  <span>{order.shippingCost === 0 ? "مجاني" : `${order.shippingCost} ج.م`}</span>
                 </div>
-                <div className="h-10"></div>
+                <div className="flex justify-between text-sm font-bold text-obsidian pt-1 border-t border-stone/50">
+                  <span>الإجمالي</span>
+                  <span className="tabular-nums">{order.totalAmount} ج.م</span>
+                </div>
               </div>
-            )}
-          </div>
-        </section>
-
-        {/* Primary Actions */}
-        <section className="flex flex-wrap justify-center items-center gap-micro-sm mb-macro-md">
-          <Link
-            href="/account/orders"
-            className="bg-tashtep-orange text-white font-label-md text-label-md px-8 py-4 rounded hover:opacity-90 transition-opacity flex items-center gap-2"
-          >
-            متابعة الطلب
-            <span className="material-symbols-outlined text-[18px]">local_shipping</span>
-          </Link>
-          <Link
-            href="/products"
-            className="bg-transparent text-obsidian border border-soft-border font-label-md text-label-md px-8 py-4 rounded hover:border-obsidian transition-colors"
-          >
-            متابعة التسوق
-          </Link>
-        </section>
-
-        {/* Recommendations */}
-        {recommended.length > 0 && (
-          <section className="w-full border-t border-stone pt-macro-lg mb-macro-lg">
-            <div className="flex justify-between items-end mb-macro-sm">
-              <h3 className="font-headline-md text-headline-md text-obsidian">قد يعجبك أيضاً</h3>
-              <Link href="/products" className="font-label-md text-label-md text-secondary hover:text-obsidian flex items-center gap-1 transition-colors">
-                عرض الكل
-                <span className="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_forward</span>
-              </Link>
             </div>
-            <ProductGrid>
-              {recommended.map((product) => (
-                <ProductCard key={product.id} product={product} />
+          )}
+
+          {/* Order progress steps */}
+          <div className="mb-10 px-4">
+            <div className="flex items-start justify-between relative">
+              <div className="absolute top-4 left-6 right-6 h-0.5 bg-stone z-0" />
+              {[
+                { icon: "receipt_long", label: "تم الطلب", active: true },
+                { icon: "inventory_2", label: "جاري التجهيز", active: false },
+                { icon: "local_shipping", label: "في الطريق", active: false },
+                { icon: "home", label: "تم التوصيل", active: false },
+              ].map((step, i) => (
+                <div key={i} className="flex flex-col items-center gap-2 z-10">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center
+                    ${step.active ? "bg-tashtep-orange text-white" : "bg-stone text-secondary"}`}>
+                    <span className="material-symbols-outlined text-[16px]"
+                      style={{ fontVariationSettings: step.active ? "'FILL' 1" : "'FILL' 0" }}>
+                      {step.icon}
+                    </span>
+                  </div>
+                  <span className={`text-[11px] font-medium ${step.active ? "text-tashtep-orange" : "text-secondary"}`}>
+                    {step.label}
+                  </span>
+                </div>
               ))}
-            </ProductGrid>
-          </section>
-        )}
-
-        {/* Trust Footer */}
-        <section className="w-full border-t border-stone pt-macro-sm pb-macro-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-micro-md text-center">
-            <div className="flex flex-col items-center justify-center gap-2 px-4">
-              <span className="material-symbols-outlined text-secondary text-[24px]">verified</span>
-              <span className="font-label-md text-label-md text-obsidian">منتجات أصلية</span>
-            </div>
-            <div className="flex flex-col items-center justify-center gap-2 px-4">
-              <span className="material-symbols-outlined text-secondary text-[24px]">local_shipping</span>
-              <span className="font-label-md text-label-md text-obsidian">شحن لجميع المحافظات</span>
-            </div>
-            <div className="flex flex-col items-center justify-center gap-2 px-4">
-              <span className="material-symbols-outlined text-secondary text-[24px]">replay</span>
-              <span className="font-label-md text-label-md text-obsidian">استرجاع 14 يوم</span>
-            </div>
-            <div className="flex flex-col items-center justify-center gap-2 px-4">
-              <span className="material-symbols-outlined text-secondary text-[24px]">support_agent</span>
-              <span className="font-label-md text-label-md text-obsidian">دعم مجاني</span>
             </div>
           </div>
-        </section>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href={`/account/orders/${order.id}`}>
+              <Button variant="tashtep" className="h-12 px-8 rounded-lg w-full sm:w-auto flex items-center gap-2">
+                <span className="material-symbols-outlined text-[18px]">search</span>
+                تتبع الطلب
+              </Button>
+            </Link>
+            <Link href={`/account/orders/${order.id}/invoice`} target="_blank">
+              <Button variant="secondary" className="h-12 px-8 rounded-lg w-full sm:w-auto flex items-center gap-2">
+                <span className="material-symbols-outlined text-[18px]">receipt_long</span>
+                عرض الفاتورة
+              </Button>
+            </Link>
+            <Link href="/products">
+              <Button variant="outline" className="h-12 px-8 rounded-lg w-full sm:w-auto">
+                الاستمرار في التسوق
+              </Button>
+            </Link>
+          </div>
+        </div>
       </Container>
-    </main>
+    </Section>
   );
 }

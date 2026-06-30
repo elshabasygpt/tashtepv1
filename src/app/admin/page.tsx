@@ -145,8 +145,8 @@ export default async function AdminDashboardPage() {
                       </TableCell>
                       <TableCell className="px-4">
                         <div className="flex flex-col">
-                          <span className="font-medium text-obsidian">{order.shippingName}</span>
-                          <span className="text-xs text-secondary font-technical-mono">{order.user.email}</span>
+                          <span className="font-medium text-obsidian">{order.user?.name || order.shippingName}</span>
+                          <span className="text-xs text-secondary font-technical-mono">{order.user?.email || order.guestEmail || "زائر"}</span>
                         </div>
                       </TableCell>
                       <TableCell className="px-4">{getStatusBadge(order.status)}</TableCell>

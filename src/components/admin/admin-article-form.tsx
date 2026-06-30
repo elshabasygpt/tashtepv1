@@ -72,7 +72,15 @@ export function AdminArticleForm({ initialData }: AdminArticleFormProps) {
 
         <div className="space-y-2">
           <label className="text-sm font-bold text-obsidian">محتوى المقال *</label>
-          <Textarea {...register("content", { required: true })} className="bg-stone min-h-[300px]" />
+          <Textarea {...register("content", { required: true })} className="bg-stone min-h-[400px] font-mono text-sm" dir="rtl" />
+          <div className="text-xs text-secondary bg-stone/60 rounded-lg p-3 space-y-1 border border-stone">
+            <p className="font-bold text-obsidian mb-1">تنسيق Markdown مدعوم:</p>
+            <p><code className="bg-white px-1 rounded">## عنوان رئيسي</code> — H2</p>
+            <p><code className="bg-white px-1 rounded">### عنوان فرعي</code> — H3</p>
+            <p><code className="bg-white px-1 rounded">- عنصر قائمة</code> — نقطة</p>
+            <p><code className="bg-white px-1 rounded">**نص غامق**</code> — Bold</p>
+            <p>سطر فارغ = فاصل بين الفقرات</p>
+          </div>
         </div>
 
         <div className="space-y-2">

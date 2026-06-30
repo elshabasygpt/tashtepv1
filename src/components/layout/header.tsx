@@ -2,11 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/hooks/useCart";
-import { useWishlist } from "@/hooks/useWishlist";
+import { useWishlist, wishlistClear, wishlistSync } from "@/hooks/useWishlist";
+import { compareClear } from "@/hooks/use-compare";
+import { getWishlistIdsAction } from "@/actions/wishlist.actions";
 import { useSession, signOut } from "next-auth/react";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,14 +29,23 @@ export type HeaderCategory = {
   }[];
 };
 
-export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
+export function Header({ categories = [], serverCartCount = 0 }: { categories?: HeaderCategory[]; serverCartCount?: number }) {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const { count: cartCount } = useCart();
+  const { count: guestCartCount } = useCart();
   const { count: wishlistCount } = useWishlist();
   const { status } = useSession();
+  const cartCount = status === "authenticated" ? serverCartCount : guestCartCount;
+
+  // Sync DB wishlist → localStorage on login
+  React.useEffect(() => {
+    if (status !== "authenticated") return;
+    getWishlistIdsAction({}).then((result) => {
+      if (result?.success && result?.data) wishlistSync(result.data);
+    });
+  }, [status]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 20);
@@ -49,10 +62,13 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
         {/* Right Section: Logo & Nav */}
         <div className="flex items-center gap-2 md:gap-macro-sm flex-shrink-0">
           <Link href="/" className="focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-DEFAULT transition-transform duration-300 ease-out hover:scale-[0.98]">
-            <img 
+            <Image 
               alt="Tashtep Logo" 
               className="h-10 w-auto object-contain" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfBFrjhfb00UMBeqpphIFKFZkREBR7w_3peFSBDZUZqnd-pMa4U0F9FAMz409vcHqJC8EzU6HpBE1V5BDCF3JjGrZEqSwDsglIYxtzUP-_zVKE9gJpQPIajZzP7iPqAmfTsSBLtxesb8erw8OqUBSarw_9xZ5WyC-vquqL_gZZFNxDgfFUhllcm4qzaUTeEvotHkXngBJW36ljSaBTNCnfmgPTnSeYgTbNH66BWaBa4hbsLPLICjvk_5VpN_r6Vp8EJi-7vU-mp7N2"
+              width={160}
+              height={40}
+              priority
             />
           </Link>
           
@@ -89,7 +105,7 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
                     onMouseLeave={() => setIsMegaMenuOpen(false)}
                   >
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter p-macro-md">
-                      {categories.slice(0, 4).map((column: HeaderCategory) => (
+                      {categories.slice(0, 8).map((column: HeaderCategory) => (
                         <div key={column.id} className="flex flex-col space-y-gutter">
                           <Link href={`/categories/${column.slug}`}>
                             <h3 className="font-headline-md text-headline-md text-obsidian pb-micro-sm border-b border-stone font-bold hover:text-tashtep-orange transition-colors cursor-pointer">
@@ -162,6 +178,7 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
 
         {/* Left Section: Utility Icons */}
         <div className="flex items-center gap-0.5 md:gap-macro-sm flex-shrink-0">
+          <LocaleSwitcher />
           <Link href="/wishlist" aria-label="المفضلة" className="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full relative">
             <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>favorite</span>
             {wishlistCount > 0 && (
@@ -170,7 +187,7 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
           </Link>
           {status === "authenticated" ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full cursor-pointer">
+              <DropdownMenuTrigger aria-label="قائمة الحساب" className="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full cursor-pointer">
                 <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>person</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-white border-soft-border z-50">
@@ -192,9 +209,9 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
                     طلباتي
                   </DropdownMenuItem>
                 </Link>
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="cursor-pointer font-label-md text-error hover:bg-error/10 focus:bg-error/10 flex items-center gap-2"
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                  onClick={() => { wishlistClear(); compareClear(); signOut({ callbackUrl: "/" }); }}
                 >
                   <span className="material-symbols-outlined text-[18px]">logout</span>
                   تسجيل الخروج
@@ -208,7 +225,9 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
           )}
           <Link href="/cart" aria-label="عربة التسوق" className="p-2 text-editorial-text hover:text-tashtep-orange transition-colors duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-tashtep-orange rounded-full relative">
             <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>shopping_cart</span>
-            <span className="absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-tashtep-orange text-white text-[10px] font-bold border border-white">{cartCount}</span>
+            {cartCount > 0 && (
+              <span className="absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-tashtep-orange text-white text-[10px] font-bold border border-white">{cartCount}</span>
+            )}
           </Link>
           <button
             aria-label="القائمة الرئيسية"
@@ -244,6 +263,21 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
       {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-b border-soft-border bg-white max-h-[calc(100vh-88px)] overflow-y-auto">
+          {/* Search inside drawer */}
+          <div className="px-4 py-3 border-b border-stone/50">
+            <form action="/products" onSubmit={() => setIsMobileMenuOpen(false)} className="relative">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <span className="material-symbols-outlined text-tertiary-container text-[20px]">search</span>
+              </div>
+              <input
+                className="block w-full rounded-full border-stone bg-stone py-2.5 pl-4 pr-10 text-editorial-text focus:border-obsidian focus:bg-white focus:ring-0 text-sm placeholder:text-tertiary-container outline-none"
+                dir="rtl"
+                name="q"
+                placeholder="ابحث عن منتج..."
+                type="search"
+              />
+            </form>
+          </div>
           <nav className="flex flex-col py-2">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3.5 font-label-md text-label-md text-editorial-text hover:bg-stone transition-colors">
               الرئيسية
@@ -282,6 +316,8 @@ export function Header({ categories = [] }: { categories?: HeaderCategory[] }) {
                   type="button"
                   onClick={() => {
                     setIsMobileMenuOpen(false);
+                    wishlistClear();
+                    compareClear();
                     signOut({ callbackUrl: "/" });
                   }}
                   className="px-4 py-3.5 text-start font-label-md text-label-md text-error hover:bg-error/10 transition-colors"

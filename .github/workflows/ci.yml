@@ -1,0 +1,52 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    
+    env:
+      DATABASE_URL: "mysql://mock:mock@localhost:3306/mock"
+      NEXTAUTH_SECRET: "mock_secret_for_ci_builds_123456789"
+      NEXTAUTH_URL: "http://localhost:3000"
+      UPSTASH_REDIS_REST_URL: "MOCK"
+      UPSTASH_REDIS_REST_TOKEN: "MOCK"
+      NEXT_PUBLIC_ALGOLIA_APP_ID: "MOCK"
+      NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: "MOCK"
+      PUSHER_APP_ID: "MOCK"
+      NEXT_PUBLIC_PUSHER_KEY: "MOCK"
+      PUSHER_SECRET: "MOCK"
+      NEXT_PUBLIC_PUSHER_CLUSTER: "MOCK"
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+
+    - name: Generate Prisma Client
+      run: npx prisma generate
+
+    - name: Type Check
+      run: npx tsc --noEmit
+
+    - name: Run Linter
+      run: npm run lint
+
+    - name: Run Unit Tests
+      run: npm run test
+
+    - name: Build Application
+      run: npm run build

@@ -1,12 +1,21 @@
 import { prisma } from "@/lib/prisma";
 import { type Product as UIProduct } from "@/features/products/components/product-card";
 import { DatabaseError, NotFoundError } from "@/lib/errors";
-import { Product, Category, ProductImage, ProductVariant, Prisma } from "@prisma/client";
+import { Product, Category, ProductImage, ProductVariant, Brand, Prisma } from "@prisma/client";
+import { AlgoliaService } from "./algolia.service";
 
 export type PrismaProductWithRelations = Product & {
   category?: Category | null;
+  brand?: Brand | null;
   images?: ProductImage[];
   variants?: ProductVariant[];
+  crossSells?: PrismaProductWithRelations[];
+  // Flash sale fields (added in schema migration)
+  salePrice?: number | null;
+  saleEndAt?: Date | null;
+  saleStartAt?: Date | null;
+  lowStockThreshold?: number;
+  b2bPrice?: number | null;
 };
 
 export interface ProductFilterOptions {
@@ -18,8 +27,11 @@ export interface ProductFilterOptions {
   inStock?: boolean;
   minRating?: number;
   categoryId?: string;
+  brandId?: string;
   colors?: string[];
+  sizes?: string[];
   q?: string;
+  includeInactive?: boolean;
 }
 
 export const ProductService = {
@@ -36,7 +48,13 @@ export const ProductService = {
       name: prismaProduct.name,
       price: prismaProduct.price,
       originalPrice: prismaProduct.originalPrice || undefined,
+      stock: prismaProduct.stock,
       category: prismaProduct.category?.name || "عام",
+      brand: prismaProduct.brand ? {
+        name: prismaProduct.brand.name,
+        slug: prismaProduct.brand.slug,
+        image: prismaProduct.brand.logo || undefined,
+      } : undefined,
       image: mainImage,
       images: sortedImages.length > 0 ? sortedImages.map((img) => img.url) : undefined,
       rating: prismaProduct.rating || 0,
@@ -48,6 +66,17 @@ export const ProductService = {
             .sort((a, b) => a.order - b.order)
             .map((v) => ({ id: v.id, type: v.type as "COLOR" | "SIZE", label: v.label, value: v.value }))
         : undefined,
+      crossSells: prismaProduct.crossSells && prismaProduct.crossSells.length > 0
+        ? prismaProduct.crossSells.map((p) => ProductService.mapToUIProduct(p))
+        : undefined,
+      salePrice: prismaProduct.salePrice ?? undefined,
+      saleEndAt: prismaProduct.saleEndAt ?? undefined,
+      oemNumber: prismaProduct.oemNumber ?? undefined,
+      unitLabel: prismaProduct.unitLabel ?? undefined,
+      unitSize: prismaProduct.unitSize ?? undefined,
+      deliveryDays: prismaProduct.deliveryDays ?? undefined,
+      maxOrderQty: prismaProduct.maxOrderQty ?? undefined,
+      specs: prismaProduct.specs ?? undefined,
     };
   },
 
@@ -61,6 +90,10 @@ export const ProductService = {
       const orderBy = options?.orderBy || { createdAt: "desc" };
 
       const where: Prisma.ProductWhereInput = {};
+      
+      if (!options?.includeInactive) {
+        where.isActive = true;
+      }
       
       if (options?.minPrice !== undefined) {
         where.price = typeof where.price === "object" ? { ...where.price, gte: options.minPrice } : { gte: options.minPrice };
@@ -77,6 +110,9 @@ export const ProductService = {
       if (options?.categoryId) {
         where.categoryId = options.categoryId;
       }
+      if (options?.brandId) {
+        where.brandId = options.brandId;
+      }
       if (options?.colors && options.colors.length > 0) {
         where.variants = {
           some: {
@@ -85,12 +121,27 @@ export const ProductService = {
           }
         };
       }
+      if (options?.sizes && options.sizes.length > 0) {
+        where.variants = {
+          ...where.variants,
+          some: {
+            ...where.variants?.some,
+            type: "SIZE",
+            value: { in: options.sizes }
+          }
+        };
+      }
 
       if (options?.q) {
-        where.OR = [
-          { name: { contains: options.q } },
-          { description: { contains: options.q } },
-        ];
+        const algoliaIds = await AlgoliaService.search(options.q);
+        if (algoliaIds.length > 0) {
+          where.id = { in: algoliaIds };
+        } else {
+          where.OR = [
+            { name: { contains: options.q } },
+            { description: { contains: options.q } },
+          ];
+        }
       }
 
       const products = await prisma.product.findMany({
@@ -100,6 +151,7 @@ export const ProductService = {
         orderBy,
         include: {
           category: true,
+          brand: true,
           images: true,
         },
       });
@@ -117,6 +169,10 @@ export const ProductService = {
     try {
       const where: Prisma.ProductWhereInput = {};
 
+      if (!options?.includeInactive) {
+        where.isActive = true;
+      }
+
       if (options?.minPrice !== undefined) {
         where.price = typeof where.price === "object" ? { ...where.price, gte: options.minPrice } : { gte: options.minPrice };
       }
@@ -132,6 +188,9 @@ export const ProductService = {
       if (options?.categoryId) {
         where.categoryId = options.categoryId;
       }
+      if (options?.brandId) {
+        where.brandId = options.brandId;
+      }
       if (options?.colors && options.colors.length > 0) {
         where.variants = {
           some: {
@@ -140,11 +199,26 @@ export const ProductService = {
           }
         };
       }
+      if (options?.sizes && options.sizes.length > 0) {
+        where.variants = {
+          ...where.variants,
+          some: {
+            ...where.variants?.some,
+            type: "SIZE",
+            value: { in: options.sizes }
+          }
+        };
+      }
       if (options?.q) {
-        where.OR = [
-          { name: { contains: options.q } },
-          { description: { contains: options.q } },
-        ];
+        const algoliaIds = await AlgoliaService.search(options.q);
+        if (algoliaIds.length > 0) {
+          where.id = { in: algoliaIds };
+        } else {
+          where.OR = [
+            { name: { contains: options.q } },
+            { description: { contains: options.q } },
+          ];
+        }
       }
 
       return await prisma.product.count({ where });
@@ -162,8 +236,17 @@ export const ProductService = {
         where: { id },
         include: {
           category: true,
+          brand: true,
           images: true,
           variants: true,
+          crossSells: {
+            include: {
+              category: true,
+              brand: true,
+              images: true,
+              variants: true,
+            }
+          }
         },
       });
       if (!product) throw new NotFoundError("المنتج");
@@ -184,6 +267,10 @@ export const ProductService = {
       const orderBy = options?.orderBy || { createdAt: "desc" };
 
       const where: Prisma.ProductWhereInput = { category: { is: { slug: categorySlug } } };
+      
+      if (!options?.includeInactive) {
+        where.isActive = true;
+      }
       
       if (options?.minPrice !== undefined) {
         where.price = typeof where.price === "object" ? { ...where.price, gte: options.minPrice } : { gte: options.minPrice };
@@ -223,13 +310,22 @@ export const ProductService = {
       const skip = options?.page ? (options.page - 1) * take : 0;
       const orderBy = options?.orderBy || { createdAt: "desc" };
 
-      const where: Prisma.ProductWhereInput = {
-        OR: [
+      const where: Prisma.ProductWhereInput = {};
+      
+      const algoliaIds = await AlgoliaService.search(query);
+      if (algoliaIds.length > 0) {
+        where.id = { in: algoliaIds };
+      } else {
+        where.OR = [
           { name: { contains: query } },
           { description: { contains: query } },
           { category: { is: { name: { contains: query } } } }
-        ],
-      };
+        ];
+      }
+
+      if (!options?.includeInactive) {
+        where.isActive = true;
+      }
 
       if (options?.minPrice !== undefined) {
         where.price = typeof where.price === "object" ? { ...where.price, gte: options.minPrice } : { gte: options.minPrice };
@@ -251,6 +347,16 @@ export const ProductService = {
           some: {
             type: "COLOR",
             value: { in: options.colors }
+          }
+        };
+      }
+      if (options?.sizes && options.sizes.length > 0) {
+        where.variants = {
+          ...where.variants,
+          some: {
+            ...where.variants?.some,
+            type: "SIZE",
+            value: { in: options.sizes }
           }
         };
       }
@@ -326,8 +432,9 @@ export const ProductService = {
    */
   async deleteProduct(id: string): Promise<void> {
     try {
-      await prisma.product.delete({
+      await prisma.product.update({
         where: { id },
+        data: { isActive: false },
       });
     } catch (e) {
       console.error(e);
@@ -348,6 +455,37 @@ export const ProductService = {
       return variants;
     } catch (e) {
       console.error("Failed to fetch colors:", e);
+      return [];
+    }
+  },
+
+  /**
+   * Fetch all available unique sizes from the variants table
+   */
+  async getAvailableSizes(): Promise<{ value: string; label: string }[]> {
+    try {
+      const variants = await prisma.productVariant.findMany({
+        where: { type: "SIZE" },
+        distinct: ["value"],
+        select: { value: true, label: true },
+      });
+      return variants;
+    } catch (e) {
+      console.error("Failed to fetch sizes:", e);
+      return [];
+    }
+  },
+
+  /**
+   * Fetch all available brands
+   */
+  async getAvailableBrands() {
+    try {
+      return await prisma.brand.findMany({
+        orderBy: { name: "asc" },
+      });
+    } catch (e) {
+      console.error("Failed to fetch brands:", e);
       return [];
     }
   }

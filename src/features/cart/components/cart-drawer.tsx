@@ -5,6 +5,7 @@ import { X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CartItem, type CartItemType } from "./cart-item";
+import Link from "next/link";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -78,21 +79,40 @@ export function CartDrawer({ isOpen, onClose, items = [] }: CartDrawerProps) {
               )}
             </div>
 
-            {items.length > 0 && (
+            {items.length > 0 && (() => {
+              const taxAmount = Number((total * 0.14).toFixed(2));
+              const finalTotal = total + taxAmount;
+              return (
               <div className="p-6 border-t bg-secondary/10 shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
-                <div className="flex items-center justify-between mb-4 text-muted-foreground text-sm">
+                <div className="flex items-center justify-between mb-2 text-muted-foreground text-sm">
                   <span>المجموع الفرعي</span>
-                  <span>{total} ج.م</span>
+                  <span>{total.toLocaleString("ar-EG")} ج.م</span>
                 </div>
-                <div className="flex items-center justify-between mb-6 font-bold text-xl text-obsidian">
-                  <span>الإجمالي</span>
-                  <span>{total} ج.م</span>
+                <div className="flex items-center justify-between mb-2 text-muted-foreground text-sm">
+                  <span>ضريبة القيمة المضافة (14%)</span>
+                  <span>{taxAmount.toLocaleString("ar-EG")} ج.م</span>
                 </div>
-                <Button variant="tashtep" className="w-full h-14 text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
-                  متابعة الدفع
+                <div className="flex items-center justify-between mb-3 text-muted-foreground text-xs">
+                  <span className="flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[14px]">local_shipping</span>
+                    رسوم الشحن
+                  </span>
+                  <span className="text-tashtep-orange font-medium">تُحسب عند إتمام الطلب</span>
+                </div>
+                <div className="flex items-center justify-between mb-6 font-bold text-xl text-obsidian border-t border-stone/50 pt-3">
+                  <span>الإجمالي المبدئي</span>
+                  <span>{finalTotal.toLocaleString("ar-EG")} ج.م</span>
+                </div>
+                <Button asChild variant="tashtep" className="w-full h-14 text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                  <Link href="/checkout" onClick={onClose}>
+                    متابعة الدفع
+                  </Link>
                 </Button>
+                <Link href="/cart" onClick={onClose} className="block text-center text-sm text-secondary mt-3 hover:text-obsidian transition-colors">
+                  عرض السلة كاملاً
+                </Link>
               </div>
-            )}
+            )})()}
           </motion.div>
         </>
       )}

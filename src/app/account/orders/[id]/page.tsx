@@ -2,8 +2,11 @@ import { OrderService } from "@/services/order.service";
 import { getCurrentUser } from "@/lib/auth";
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CancelOrderButton } from "@/features/account/components/cancel-order-button";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +30,9 @@ type OrderResponse = {
   userId: string;
   totalAmount: number;
   shippingCost: number;
+  taxAmount?: number;
+  discountAmount?: number;
+  couponCode?: string | null;
   status: "PENDING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
   paymentMethod: "COD" | "CARD";
   paymentStatus: "PENDING" | "PAID" | "FAILED";
@@ -89,10 +95,19 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
             <span className="font-label-md text-secondary">رقم الطلب:</span>
             <span className="font-technical-mono text-lg font-bold text-obsidian">#{order.id.slice(-8).toUpperCase()}</span>
           </div>
-          <div className="mt-2 md:mt-0">
+          <div className="mt-4 md:mt-0 flex items-center gap-3">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-stone border border-soft-border">
               {isCancelled ? "ملغي" : STATUS_STEPS[currentStepIndex]?.label || order.status}
             </span>
+            {order.status === "PENDING" && (
+              <CancelOrderButton orderId={order.id} />
+            )}
+            <Link href={`/account/orders/${order.id}/invoice`} target="_blank">
+              <Button variant="outline" size="sm" className="flex items-center gap-1 h-8">
+                <span className="material-symbols-outlined text-[16px]">print</span>
+                طباعة الفاتورة
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -176,7 +191,7 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
               <div key={item.id} className="flex justify-between items-center py-4">
                 <div className="flex items-center gap-4">
                   {item.product?.images && item.product.images[0] ? (
-                    <img src={item.product.images[0]} alt={item.product.name} className="w-16 h-16 object-cover rounded-md border border-stone" />
+                    <Image src={item.product.images[0]} alt={item.product.name} width={64} height={64} className="w-16 h-16 object-cover rounded-md border border-stone" />
                   ) : (
                     <div className="w-16 h-16 bg-stone rounded-md border border-soft-border flex items-center justify-center">
                       <span className="material-symbols-outlined text-secondary">image</span>
@@ -198,11 +213,21 @@ export default async function OrderDetailsPage({ params }: OrderDetailsPageProps
           <div className="pt-4 mt-2 border-t border-stone space-y-2">
             <div className="flex justify-between items-center text-sm text-secondary">
               <span>المجموع الفرعي</span>
-              <span>{order.totalAmount - order.shippingCost} ج.م</span>
+              <span>{order.totalAmount - order.shippingCost - (order.taxAmount || 0) + (order.discountAmount || 0)} ج.م</span>
             </div>
             <div className="flex justify-between items-center text-sm text-secondary">
               <span>تكلفة الشحن</span>
               <span>{order.shippingCost === 0 ? "مجاناً" : `${order.shippingCost} ج.م`}</span>
+            </div>
+            {(order.discountAmount || 0) > 0 && (
+              <div className="flex justify-between items-center text-sm text-green-600 font-medium">
+                <span>الخصم {order.couponCode ? `(${order.couponCode})` : ""}</span>
+                <span>-{order.discountAmount} ج.م</span>
+              </div>
+            )}
+            <div className="flex justify-between items-center text-sm text-secondary">
+              <span>ضريبة القيمة المضافة (14%)</span>
+              <span>{order.taxAmount || 0} ج.م</span>
             </div>
             <div className="flex justify-between items-center pt-2 mt-2 border-t border-stone/50">
               <span className="font-bold text-lg text-obsidian">الإجمالي النهائي</span>

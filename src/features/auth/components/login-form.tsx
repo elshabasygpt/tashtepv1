@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { loginAction } from "@/actions/auth.actions";
+import { syncGuestCartAction } from "@/actions/cart.actions";
+import { useCart } from "@/hooks/useCart";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -25,12 +27,23 @@ export function LoginForm() {
   });
 
   const router = useRouter();
+  const { items, clearCart } = useCart();
 
   async function onSubmit(data: LoginFormValues) {
     const result = await loginAction(data);
     if (result?.error) {
       form.setError("root", { message: result.error });
     } else if (result?.success) {
+      if (items.length > 0) {
+        await syncGuestCartAction({
+          items: items.map((item) => ({
+            productId: item.productId!,
+            variantId: item.variantId,
+            quantity: item.quantity,
+          })),
+        });
+        clearCart();
+      }
       router.push("/");
       router.refresh();
     }

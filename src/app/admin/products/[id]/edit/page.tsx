@@ -7,12 +7,13 @@ import { notFound } from "next/navigation";
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const categoriesPromise = prisma.category.findMany({ select: { id: true, name: true } });
+  const brandsPromise = prisma.brand.findMany({ select: { id: true, name: true } });
   const productPromise = prisma.product.findUnique({
     where: { id },
     include: { images: true, variants: true }
   });
 
-  const [categories, product] = await Promise.all([categoriesPromise, productPromise]);
+  const [categories, brands, product] = await Promise.all([categoriesPromise, brandsPromise, productPromise]);
 
   if (!product) {
     notFound();
@@ -29,7 +30,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
         <h2 className="text-2xl font-headline-md font-bold text-obsidian">تعديل المنتج: {product.name}</h2>
       </div>
 
-      <AdminProductForm categories={categories} initialData={{ ...product, images: product.images.map(i => i.url) }} isEdit={true} />
+      <AdminProductForm categories={categories} brands={brands} initialData={{ ...product, images: product.images.map(i => i.url) }} isEdit={true} />
     </div>
   );
 }

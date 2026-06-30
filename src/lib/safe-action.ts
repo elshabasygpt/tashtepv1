@@ -2,11 +2,13 @@ import { z } from "zod";
 import { getCurrentUser, type SessionUser } from "./auth";
 import { UserRole } from "@/types";
 import { logger } from "@/lib/logger";
+import { AppError } from "@/lib/errors";
 
 export type ActionState<T> = {
   success: boolean;
   data?: T;
   error?: string;
+  unauthorized?: boolean;
   validationErrors?: Record<string, string[] | undefined>;
 };
 
@@ -33,9 +35,12 @@ export function publicAction<TInput, TOutput>(
       return { success: true, data };
     } catch (error) {
       logger.error({ action: "publicAction", error }, "Action Execution Error");
-      if (error instanceof Error) {
+      if (error instanceof AppError) {
+        // AppError subclasses (DatabaseError, ValidationError, etc.) carry
+        // intentional user-facing messages — safe to surface.
         return { success: false, error: error.message };
       }
+      // Generic Error (Prisma, Node.js, third-party) — hide internal details.
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };
@@ -53,7 +58,7 @@ export function protectedAction<TInput, TOutput>(
     try {
       const user = await getCurrentUser();
       if (!user) {
-        return { success: false, error: "غير مصرح لك. يرجى تسجيل الدخول أولاً." };
+        return { success: false, error: "غير مصرح لك. يرجى تسجيل الدخول أولاً.", unauthorized: true };
       }
 
       const result = schema.safeParse(input);
@@ -64,14 +69,17 @@ export function protectedAction<TInput, TOutput>(
           error: "بيانات غير صالحة. يرجى التحقق من المدخلات.",
         };
       }
-      
+
       const data = await handler(result.data, user);
       return { success: true, data };
     } catch (error) {
       logger.error({ action: "protectedAction", error }, "Action Execution Error");
-      if (error instanceof Error) {
+      if (error instanceof AppError) {
+        // AppError subclasses (DatabaseError, ValidationError, etc.) carry
+        // intentional user-facing messages — safe to surface.
         return { success: false, error: error.message };
       }
+      // Generic Error (Prisma, Node.js, third-party) — hide internal details.
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };
@@ -110,9 +118,12 @@ export function roleAction<TInput, TOutput>(
       return { success: true, data };
     } catch (error) {
       logger.error({ action: "roleAction", error }, "Action Execution Error");
-      if (error instanceof Error) {
+      if (error instanceof AppError) {
+        // AppError subclasses (DatabaseError, ValidationError, etc.) carry
+        // intentional user-facing messages — safe to surface.
         return { success: false, error: error.message };
       }
+      // Generic Error (Prisma, Node.js, third-party) — hide internal details.
       return { success: false, error: "حدث خطأ غير متوقع بالخادم." };
     }
   };

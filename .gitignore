@@ -7,3 +7,5 @@ coverage/
 .env*
 !.env.example
 .next/
+prisma/dev.db
+prisma/dev.db-journal

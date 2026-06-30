@@ -30,10 +30,9 @@ export function WishlistButton({ productId, className, variant = "floating" }: W
 
     startTransition(async () => {
       const result = await toggleWishlistAction({ productId });
-      if (!result?.success && result?.error) {
-        // Revert on error
-        toggleWishlist(productId);
-        router.push("/login");
+      if (!result?.success) {
+        toggleWishlist(productId); // revert
+        if (result?.unauthorized) router.push("/login");
       }
     });
   };

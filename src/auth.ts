@@ -25,11 +25,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await prisma.user.findUnique({ where: { email } });
-          
+
           if (!user || !user.passwordHash) return null;
 
           const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
-          if (passwordsMatch) return { ...user, role: user.role as import("@/types").UserRole };
+          if (!passwordsMatch) return null;
+
+          // Block unverified accounts (only if verification token exists — not enforced on OAuth users)
+          if (!user.emailVerified) {
+            const pendingToken = await prisma.verificationToken.findFirst({
+              where: { identifier: email },
+            });
+            if (pendingToken) {
+              throw new Error("يرجى تفعيل حسابك أولاً. تحقق من بريدك الإلكتروني.");
+            }
+          }
+
+          return { ...user, role: user.role as import("@/types").UserRole };
         }
 
         return null;

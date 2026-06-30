@@ -25,13 +25,13 @@ describe('CheckoutService', () => {
     vi.clearAllMocks();
   });
 
-  it('should throw UnauthorizedError if no userId is provided', async () => {
+  it('should throw UnauthorizedError if neither userId nor guestEmail is provided', async () => {
     const request = {
       shippingDetails: { fullName: 'Test', phone: '123', address: '123 St', city: 'Cairo' },
       cartItems: [],
       paymentMethod: 'cod' as const,
     };
-    await expect(CheckoutService.processCheckout(request)).rejects.toThrow('User must be logged in to checkout.');
+    await expect(CheckoutService.processCheckout(request)).rejects.toThrow('User must be logged in or provide an email to checkout.');
   });
 
   it('should throw DatabaseError if user email is not found', async () => {

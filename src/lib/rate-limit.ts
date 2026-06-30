@@ -1,80 +1,131 @@
-/**
- * In-Memory Rate Limiter Abstraction.
- * Designed to be swapped with Upstash Redis or similar later for multi-node deployments.
- */
-type RateLimitConfig = {
-  maxRequests: number;
-  windowMs: number;
-};
+import { logger } from "@/lib/logger";
 
-class RateLimiter {
-  // Store format: map of identifier -> { count, expiresAt }
-  private store = new Map<string, { count: number; expiresAt: number }>();
+type RateLimitConfig = { maxRequests: number; windowMs: number };
+type RateLimitResult = { success: boolean; limitExceeded: boolean };
 
-  /**
-   * Applies standard rate limiting based on identifier (IP or Email).
-   */
-  async limit(identifier: string, config: RateLimitConfig): Promise<{ success: boolean; limitExceeded: boolean }> {
-    const now = Date.now();
-    const record = this.store.get(identifier);
+// ---------------------------------------------------------------------------
+// In-memory store (single instance / dev)
+// ---------------------------------------------------------------------------
+const memStore = new Map<string, { count: number; expiresAt: number }>();
 
-    if (!record || record.expiresAt < now) {
-      this.store.set(identifier, { count: 1, expiresAt: now + config.windowMs });
-      return { success: true, limitExceeded: false };
-    }
-
-    if (record.count >= config.maxRequests) {
-      return { success: false, limitExceeded: true };
-    }
-
-    record.count++;
+function memLimit(id: string, cfg: RateLimitConfig): RateLimitResult {
+  const now = Date.now();
+  const rec = memStore.get(id);
+  if (!rec || rec.expiresAt < now) {
+    memStore.set(id, { count: 1, expiresAt: now + cfg.windowMs });
     return { success: true, limitExceeded: false };
   }
+  if (rec.count >= cfg.maxRequests) return { success: false, limitExceeded: true };
+  rec.count++;
+  return { success: true, limitExceeded: false };
+}
 
-  /**
-   * Tracks failed login attempts to lock out accounts after 5 failures for 15 minutes.
-   */
-  async recordFailedLogin(email: string): Promise<{ locked: boolean }> {
-    const identifier = `lockout:${email.toLowerCase()}`;
-    const now = Date.now();
-    const record = this.store.get(identifier);
-
-    if (record && record.expiresAt > now) {
-      if (record.count >= 5) {
-        return { locked: true };
-      }
-      record.count++;
-      if (record.count >= 5) {
-        // Lock for 15 minutes from now
-        record.expiresAt = now + 15 * 60 * 1000;
-        return { locked: true };
-      }
-      return { locked: false };
-    }
-
-    // First failed attempt, track for 15 minutes window
-    this.store.set(identifier, { count: 1, expiresAt: now + 15 * 60 * 1000 });
+function memRecordFailed(email: string): { locked: boolean } {
+  const id = `lockout:${email.toLowerCase()}`;
+  const now = Date.now();
+  const rec = memStore.get(id);
+  if (rec && rec.expiresAt > now) {
+    if (rec.count >= 5) return { locked: true };
+    rec.count++;
+    if (rec.count >= 5) { rec.expiresAt = now + 15 * 60 * 1000; return { locked: true }; }
     return { locked: false };
   }
+  memStore.set(id, { count: 1, expiresAt: now + 15 * 60 * 1000 });
+  return { locked: false };
+}
 
-  /**
-   * Checks if an account is currently locked without incrementing the counter.
-   */
-  async checkLockout(email: string): Promise<boolean> {
-    const identifier = `lockout:${email.toLowerCase()}`;
-    const record = this.store.get(identifier);
-    if (record && record.expiresAt > Date.now() && record.count >= 5) {
-      return true;
-    }
-    return false;
-  }
+function memCheckLockout(email: string): boolean {
+  const rec = memStore.get(`lockout:${email.toLowerCase()}`);
+  return !!(rec && rec.expiresAt > Date.now() && rec.count >= 5);
+}
 
-  /**
-   * Resets the lockout counter after a successful login.
-   */
-  async resetLoginLockout(email: string): Promise<void> {
-    this.store.delete(`lockout:${email.toLowerCase()}`);
+// ---------------------------------------------------------------------------
+// Redis store (multi-instance / production) — optional
+// ---------------------------------------------------------------------------
+let redis: import("@upstash/redis").Redis | null = null;
+
+function getRedis() {
+  if (redis) return redis;
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Redis } = require("@upstash/redis");
+    redis = new Redis({ url, token });
+    logger.info("Rate limiter: using Upstash Redis");
+    return redis;
+  } catch {
+    logger.warn("Rate limiter: @upstash/redis not available, using in-memory");
+    return null;
   }
 }
 
-export const rateLimiter = new RateLimiter();
+async function redisLimit(
+  r: NonNullable<typeof redis>,
+  id: string,
+  cfg: RateLimitConfig
+): Promise<RateLimitResult> {
+  const key = `rl:${id}`;
+  const count = await r.incr(key);
+  if (count === 1) await r.pexpire(key, cfg.windowMs);
+  if (count > cfg.maxRequests) return { success: false, limitExceeded: true };
+  return { success: true, limitExceeded: false };
+}
+
+// ---------------------------------------------------------------------------
+// Public API
+// ---------------------------------------------------------------------------
+export const rateLimiter = {
+  async limit(id: string, cfg: RateLimitConfig): Promise<RateLimitResult> {
+    const r = getRedis();
+    if (r) {
+      try { return await redisLimit(r, id, cfg); }
+      catch (err) {
+        logger.error({ err }, "Redis rate limit error — falling back to memory");
+      }
+    }
+    return memLimit(id, cfg);
+  },
+
+  async recordFailedLogin(email: string): Promise<{ locked: boolean }> {
+    const r = getRedis();
+    if (r) {
+      try {
+        const key = `lockout:${email.toLowerCase()}`;
+        const count = await r.incr(key);
+        if (count === 1) await r.pexpire(key, 15 * 60 * 1000);
+        return { locked: count >= 5 };
+      } catch (err) {
+        logger.error({ err }, "Redis recordFailedLogin error — falling back to memory");
+      }
+    }
+    return memRecordFailed(email);
+  },
+
+  async checkLockout(email: string): Promise<boolean> {
+    const r = getRedis();
+    if (r) {
+      try {
+        const count = await r.get<number>(`lockout:${email.toLowerCase()}`);
+        return (count ?? 0) >= 5;
+      } catch (err) {
+        logger.error({ err }, "Redis checkLockout error — falling back to memory");
+      }
+    }
+    return memCheckLockout(email);
+  },
+
+  async resetLoginLockout(email: string): Promise<void> {
+    const r = getRedis();
+    if (r) {
+      try {
+        await r.del(`lockout:${email.toLowerCase()}`);
+        return;
+      } catch (err) {
+        logger.error({ err }, "Redis resetLoginLockout error — falling back to memory");
+      }
+    }
+    memStore.delete(`lockout:${email.toLowerCase()}`);
+  },
+};

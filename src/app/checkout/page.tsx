@@ -2,9 +2,12 @@ import { CartService } from "@/services/cart.service";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { GovernorateService } from "@/services/governorate.service";
+import { LoyaltyService } from "@/services/loyalty.service";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { CheckoutClientWrapper } from "@/features/checkout/components/checkout-client-wrapper";
+import { GuestCheckoutView } from "@/features/checkout/components/guest-checkout-view";
+import { CheckoutStepper } from "@/features/checkout/components/checkout-stepper";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -16,20 +19,33 @@ export const metadata: Metadata = {
 
 export default async function CheckoutPage() {
   const user = await getCurrentUser();
+
   if (!user) {
-    redirect("/login?callbackUrl=/checkout");
+    const governorates = await GovernorateService.getGovernorates(true);
+    return (
+      <Section className="py-macro-md md:py-macro-lg bg-white min-h-screen">
+        <Container className="max-w-container-max">
+          <CheckoutStepper currentStep={1} />
+          <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-macro-sm pb-micro-md border-b border-stone">
+            إتمام الطلب
+          </h1>
+          <GuestCheckoutView governorates={governorates} />
+        </Container>
+      </Section>
+    );
   }
 
-  const [cart, dbUser, governorates] = await Promise.all([
+  const [cart, dbUser, governorates, loyaltyBalance] = await Promise.all([
     CartService.getUserCart(user.id) as Promise<{ items: unknown[] }>,
     prisma.user.findUnique({ where: { id: user.id }, select: { phone: true } }),
     GovernorateService.getGovernorates(true),
+    LoyaltyService.getBalance(user.id),
   ]);
 
   const items = cart?.items || [];
 
   if (items.length === 0) {
-    redirect("/cart");
+    redirect("/cart?empty=1");
   }
 
   type CartItemResponse = {
@@ -66,6 +82,7 @@ export default async function CheckoutPage() {
   return (
     <Section className="py-macro-md md:py-macro-lg bg-white min-h-screen">
       <Container className="max-w-container-max">
+        <CheckoutStepper currentStep={1} />
         <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-obsidian mb-macro-sm pb-micro-md border-b border-stone">
           إتمام الطلب
         </h1>
@@ -77,6 +94,7 @@ export default async function CheckoutPage() {
             phone: dbUser?.phone || "",
           }}
           governorates={governorates}
+          loyaltyBalance={loyaltyBalance}
         />
       </Container>
     </Section>

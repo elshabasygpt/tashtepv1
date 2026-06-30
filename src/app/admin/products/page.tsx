@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
+import { DeleteProductButton, RestoreProductButton } from "@/components/admin/product-action-buttons";
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({
@@ -26,7 +27,57 @@ export default async function AdminProductsPage() {
         </Button>
       </div>
 
-      <div className="bg-white border border-stone rounded-xl shadow-sm overflow-hidden">
+      {/* Mobile card list */}
+      <div className="md:hidden space-y-3">
+        {products.length === 0 ? (
+          <div className="bg-white border border-stone rounded-xl p-8 text-center text-secondary text-sm">
+            لا توجد منتجات مسجلة. قم بإضافة منتج جديد.
+          </div>
+        ) : (
+          products.map(product => (
+            <div key={product.id} className="bg-white border border-stone rounded-xl p-4 shadow-sm flex gap-3">
+              <div className="w-16 h-16 rounded-lg bg-stone/30 relative overflow-hidden flex-shrink-0 flex items-center justify-center">
+                {product.images[0] ? (
+                  <Image src={product.images[0].url} alt={product.name} fill className="object-cover" />
+                ) : (
+                  <span className="material-symbols-outlined text-secondary">image</span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <p className="font-medium text-obsidian text-sm line-clamp-2 leading-snug">{product.name}</p>
+                  {!product.isActive ? (
+                    <Badge variant="outline" className="bg-stone border-stone-dark text-secondary shrink-0">محذوف</Badge>
+                  ) : product.stock > 0 ? (
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200 shrink-0">متوفر</Badge>
+                  ) : (
+                    <Badge variant="destructive" className="shrink-0">نفذ</Badge>
+                  )}
+                </div>
+                <p className="text-xs text-secondary">{product.category.name} · مخزون: {product.stock}</p>
+                <div className="flex items-center justify-between mt-2">
+                  <p className="font-bold text-obsidian text-sm">{product.price} ج.م</p>
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={`/admin/products/${product.id}/edit`}>
+                        <span className="material-symbols-outlined text-[16px]">edit</span>
+                      </Link>
+                    </Button>
+                    {product.isActive ? (
+                      <DeleteProductButton id={product.id} />
+                    ) : (
+                      <RestoreProductButton id={product.id} />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white border border-stone rounded-xl shadow-sm overflow-hidden">
         <Table>
           <TableHeader className="bg-stone/20">
             <TableRow>
@@ -66,7 +117,9 @@ export default async function AdminProductsPage() {
                   <TableCell className="font-headline-md">{product.price} ج.م</TableCell>
                   <TableCell>{product.stock}</TableCell>
                   <TableCell>
-                    {product.stock > 0 ? (
+                    {!product.isActive ? (
+                      <Badge variant="outline" className="bg-stone border-stone-dark text-secondary">محذوف</Badge>
+                    ) : product.stock > 0 ? (
                       <Badge className="bg-green-100 text-green-800 hover:bg-green-200">متوفر</Badge>
                     ) : (
                       <Badge variant="destructive">نفذ المخزون</Badge>
@@ -79,6 +132,11 @@ export default async function AdminProductsPage() {
                           <span className="material-symbols-outlined text-[18px]">edit</span>
                         </Link>
                       </Button>
+                      {product.isActive ? (
+                        <DeleteProductButton id={product.id} />
+                      ) : (
+                        <RestoreProductButton id={product.id} />
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>

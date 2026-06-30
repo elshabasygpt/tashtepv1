@@ -1,5 +1,34 @@
 import { prisma } from "@/lib/prisma";
 
+// ---------------------------------------------------------------------------
+// Email Settings
+// ---------------------------------------------------------------------------
+
+const DEFAULT_EMAIL_SETTINGS = {
+  // Admin notification email (where orders, contacts, stock alerts go)
+  adminNotificationEmail: "",
+
+  // SMTP — for sending emails from your own account
+  smtpEnabled: false,
+  smtpHost: "",
+  smtpPort: 465,
+  smtpSecure: true,
+  smtpUser: "",
+  smtpPassword: "",
+  smtpFromName: "تشطيب",
+  smtpFromEmail: "",
+
+  // IMAP — for reading inbox in admin panel
+  imapEnabled: false,
+  imapHost: "",
+  imapPort: 993,
+  imapSecure: true,
+  imapUser: "",
+  imapPassword: "",
+};
+
+export type EmailSettings = typeof DEFAULT_EMAIL_SETTINGS;
+
 // Default content for the About page
 const DEFAULT_ABOUT_CONTENT = {
   heroTitle: "قصة تشطيب",
@@ -85,6 +114,14 @@ export class SettingsService {
   static async saveContactPageContent(content: ContactPageContent): Promise<void> {
     await this.saveSetting("page_contact_us", content);
   }
+
+  static async getEmailSettings(): Promise<EmailSettings> {
+    return this.getSetting<EmailSettings>("email_settings", DEFAULT_EMAIL_SETTINGS);
+  }
+
+  static async saveEmailSettings(settings: EmailSettings): Promise<void> {
+    await this.saveSetting("email_settings", settings);
+  }
 }
 
 // Default content for the Contact page
@@ -123,9 +160,14 @@ const DEFAULT_GENERAL_SETTINGS = {
   phone: "+20 123 456 7890",
   email: "hello@tashtep.com",
   address: "القاهرة، مصر",
+  taxId: "",
+  taxRate: 14,
   facebookUrl: "https://facebook.com",
   instagramUrl: "https://instagram.com",
   twitterUrl: "https://twitter.com",
+  whatsappEnabled: true,
+  whatsappNumber: "201000000000",
+  whatsappMessage: "مرحباً فريق تشطيب، أحتاج إلى مساعدة."
 };
 
 export type GeneralSettings = typeof DEFAULT_GENERAL_SETTINGS;

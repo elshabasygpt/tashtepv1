@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArticleService } from "@/services/article.service";
 
 export const metadata: Metadata = {
   title: "مركز المعرفة",
   description: "اكتشف أحدث المقالات والنصائح في عالم الدهانات والتشطيبات.",
+  alternates: { canonical: "/blog" },
 };
 
 export const dynamic = "force-dynamic";
@@ -38,10 +40,11 @@ export default async function BlogPage() {
                 <article className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm border border-soft-border hover:shadow-md transition-shadow duration-300">
                   <div className="relative w-full aspect-[4/3] bg-stone overflow-hidden">
                     {article.image ? (
-                      <img 
+                      <Image 
                         src={article.image} 
                         alt={article.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-stone text-secondary">

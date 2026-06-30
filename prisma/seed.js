@@ -56,6 +56,61 @@ function generateProducts(categories) {
   return products;
 }
 
+const GOVERNORATES = [
+  { name: 'القاهرة',           shippingCost: 30 },
+  { name: 'الجيزة',            shippingCost: 30 },
+  { name: 'القليوبية',          shippingCost: 35 },
+  { name: 'الإسكندرية',        shippingCost: 40 },
+  { name: 'الشرقية',           shippingCost: 45 },
+  { name: 'الدقهلية',          shippingCost: 45 },
+  { name: 'البحيرة',           shippingCost: 45 },
+  { name: 'الغربية',           shippingCost: 45 },
+  { name: 'المنوفية',          shippingCost: 45 },
+  { name: 'كفر الشيخ',         shippingCost: 50 },
+  { name: 'دمياط',             shippingCost: 50 },
+  { name: 'بورسعيد',           shippingCost: 55 },
+  { name: 'الإسماعيلية',       shippingCost: 50 },
+  { name: 'السويس',            shippingCost: 55 },
+  { name: 'الفيوم',            shippingCost: 50 },
+  { name: 'بني سويف',          shippingCost: 55 },
+  { name: 'المنيا',            shippingCost: 60 },
+  { name: 'أسيوط',             shippingCost: 65 },
+  { name: 'سوهاج',             shippingCost: 65 },
+  { name: 'قنا',               shippingCost: 70 },
+  { name: 'الأقصر',            shippingCost: 75 },
+  { name: 'أسوان',             shippingCost: 80 },
+  { name: 'البحر الأحمر',      shippingCost: 85 },
+  { name: 'سيناء الشمالية',    shippingCost: 80 },
+  { name: 'سيناء الجنوبية',    shippingCost: 85 },
+  { name: 'مطروح',             shippingCost: 80 },
+  { name: 'الوادي الجديد',     shippingCost: 90 },
+];
+
+const BRANDS = [
+  { name: 'جوتن',         slug: 'jotun',          description: 'علامة نرويجية عالمية رائدة في الدهانات والطلاءات عالية الجودة.' },
+  { name: 'سايبس',        slug: 'sipes',          description: 'منتجات كيماوية للبناء والتشطيب بمعايير أوروبية.' },
+  { name: 'فينوماستيك',   slug: 'finomastico',    description: 'دهانات فاخرة بتقنيات إيطالية لتشطيبات داخلية راقية.' },
+  { name: 'كليوباترا',    slug: 'cleopatra',      description: 'علامة مصرية أصيلة بجودة عالمية في السيراميك والبورسلين.' },
+  { name: 'الجوهرة',      slug: 'elgohara',       description: 'منتجات تشطيب مصرية بخامات ممتازة وأسعار تنافسية.' },
+  { name: 'رويال',        slug: 'royal',          description: 'طلاءات ملكية الجودة للأسطح الداخلية والخارجية.' },
+  { name: 'سكيب',         slug: 'skip',           description: 'حلول تشطيب متكاملة مع ضمان طويل الأمد.' },
+  { name: 'مظلوم',        slug: 'mazloum',        description: 'علامة مصرية عريقة في مواد البناء والتشطيب.' },
+];
+
+const DEFAULT_GENERAL_SETTINGS = {
+  storeName: 'تشطيب',
+  storeDescription: 'الوجهة الأولى والموثوقة لكل من يبحث عن التميز والرقي في تشطيب المساحات، مع خيارات واسعة من أرقى الخامات.',
+  phone: '+20 100 000 0000',
+  email: 'info@tashtep.com',
+  address: 'القاهرة، مصر - التجمع الخامس، شارع التسعين',
+  facebookUrl: 'https://facebook.com/tashtep',
+  instagramUrl: 'https://instagram.com/tashtep',
+  twitterUrl: 'https://twitter.com/tashtep',
+  whatsappEnabled: true,
+  whatsappNumber: '201000000000',
+  whatsappMessage: 'مرحباً فريق تشطيب، أحتاج إلى مساعدة.',
+};
+
 async function main() {
   console.log('Starting seed...');
 
@@ -70,7 +125,11 @@ async function main() {
   await prisma.cart.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.brand.deleteMany();
   await prisma.category.deleteMany();
+  await prisma.governorate.deleteMany();
+  await prisma.systemSetting.deleteMany();
+  await prisma.verificationToken.deleteMany();
   await prisma.session.deleteMany();
   await prisma.account.deleteMany();
   await prisma.user.deleteMany();
@@ -109,9 +168,9 @@ async function main() {
         ...productFields,
         images: {
           create: [
-            { url: `https://placehold.co/600x600/png?text=${encodeURIComponent(pData.name)}`, alt: pData.name, isMain: true },
-            { url: `https://placehold.co/600x600/png?text=Side+View`, alt: 'Side View', isMain: false },
-            { url: `https://placehold.co/600x600/png?text=Details`, alt: 'Details', isMain: false }
+            { url: `https://picsum.photos/seed/${pData.slug}/600/750`, alt: pData.name, isMain: true },
+            { url: `https://picsum.photos/seed/${pData.slug}-2/600/750`, alt: 'Side View', isMain: false },
+            { url: `https://picsum.photos/seed/${pData.slug}-3/600/750`, alt: 'Details', isMain: false }
           ]
         },
         variants: isPaint ? {
@@ -163,6 +222,26 @@ async function main() {
       }
     });
   }
+
+  // 7. Seed governorates
+  console.log('Creating governorates...');
+  for (const gov of GOVERNORATES) {
+    await prisma.governorate.create({ data: { ...gov, isActive: true } });
+  }
+
+  // 8. Seed brands
+  console.log('Creating brands...');
+  for (const brand of BRANDS) {
+    await prisma.brand.create({ data: brand });
+  }
+
+  // 9. Seed system settings
+  console.log('Creating system settings...');
+  await prisma.systemSetting.upsert({
+    where: { key: 'site_general_settings' },
+    update: { value: JSON.stringify(DEFAULT_GENERAL_SETTINGS) },
+    create: { key: 'site_general_settings', value: JSON.stringify(DEFAULT_GENERAL_SETTINGS) },
+  });
 
   console.log('Seed completed successfully!');
 }

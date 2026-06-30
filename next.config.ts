@@ -12,19 +12,15 @@ const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-      },
-      {
-        protocol: "https",
-        hostname: "**",
-      },
+      { protocol: "https", hostname: "placehold.co" },
+      { protocol: "https", hostname: "picsum.photos" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "**" },
     ],
   },
 };
 
-export default withSentryConfig(nextConfig, {
+const sentryOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -50,4 +46,10 @@ export default withSentryConfig(nextConfig, {
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
   tunnelRoute: "/monitoring",
-});
+  // Disable the Sentry webpack plugin in development to prevent vendor-chunk
+  // race conditions that cause 500 errors on first page load.
+  disableClientWebpackPlugin: process.env.NODE_ENV !== "production",
+  disableServerWebpackPlugin: process.env.NODE_ENV !== "production",
+};
+
+export default withSentryConfig(nextConfig, sentryOptions);
