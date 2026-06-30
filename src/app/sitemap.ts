@@ -1,24 +1,32 @@
 import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.APP_URL || "https://tashtep.com";
 
-  const [products, categories, articles] = await Promise.all([
-    prisma.product.findMany({
-      where: { isActive: true },
-      select: { id: true, updatedAt: true },
-    }),
-    prisma.category.findMany({
-      select: { slug: true, updatedAt: true },
-    }),
-    prisma.article.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    }),
-  ]);
+  let products: { id: string; updatedAt: Date }[] = [];
+  let categories: { slug: string; updatedAt: Date }[] = [];
+  let articles: { slug: string; updatedAt: Date }[] = [];
+
+  try {
+    [products, categories, articles] = await Promise.all([
+      prisma.product.findMany({
+        where: { isActive: true },
+        select: { id: true, updatedAt: true },
+      }),
+      prisma.category.findMany({
+        select: { slug: true, updatedAt: true },
+      }),
+      prisma.article.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+      }),
+    ]);
+  } catch {
+    // DB unavailable at build time — return static pages only
+  }
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
