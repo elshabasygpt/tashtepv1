@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArticleService } from "@/services/article.service";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   try {
