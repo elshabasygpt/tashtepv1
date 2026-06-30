@@ -57,14 +57,6 @@ export default async function BackupPage() {
   });
   const settingMap = Object.fromEntries(settings.map((s) => [s.key, s.value]));
 
-  // Get DB file size — Prisma resolves "file:./prisma/dev.db" relative to schema dir
-  const dbUrl = process.env.DATABASE_URL ?? "";
-  const relativePath = dbUrl.replace("file:", "");
-  const schemaDir = path.resolve(process.cwd(), "prisma");
-  const dbPath = path.resolve(schemaDir, relativePath);
-  let dbSize = 0;
-  try { dbSize = fs.statSync(dbPath).size; } catch { /* ignore */ }
-
   // Get uploads folder stats
   const uploadsDir = path.resolve(process.cwd(), "public", "uploads");
   const { count: uploadsCount, size: uploadsSize } = countFilesRecursive(uploadsDir);
@@ -116,10 +108,6 @@ export default async function BackupPage() {
         </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-secondary border-t border-stone/50 pt-3">
           <span className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-[16px]">database</span>
-            قاعدة البيانات: <strong className="text-obsidian mr-1">{formatBytes(dbSize)}</strong>
-          </span>
-          <span className="flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">photo_library</span>
             الصور المرفوعة: <strong className="text-obsidian mr-1">{uploadsCount} ملف ({formatBytes(uploadsSize)})</strong>
           </span>
@@ -131,7 +119,7 @@ export default async function BackupPage() {
         {[
           { key: "backup_last_json", label: "آخر JSON backup", icon: "code", color: "blue" },
           { key: "backup_last_uploads", label: "آخر backup الصور", icon: "photo_library", color: "green" },
-          { key: "backup_last_db", label: "آخر SQLite backup", icon: "storage", color: "purple" },
+          { key: "backup_last_db", label: "آخر DB backup", icon: "storage", color: "purple" },
           { key: "backup_last_restore", label: "آخر استعادة", icon: "restore", color: "amber" },
         ].map((item) => {
           const ts = settingMap[item.key] ?? null;
@@ -218,40 +206,21 @@ export default async function BackupPage() {
             )}
           </div>
 
-          {/* SQLite backup — ADMIN only */}
-          <div className={`border rounded-xl p-5 space-y-3 ${isAdmin ? "border-stone" : "border-stone/40 opacity-60"}`}>
+          {/* MySQL info card */}
+          <div className="border border-stone/40 rounded-xl p-5 space-y-3 opacity-80">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
                 <span className="material-symbols-outlined text-purple-600 text-[20px]">storage</span>
               </div>
               <div>
-                <h4 className="font-bold text-obsidian text-sm">Backup SQLite (DB)</h4>
-                <p className="text-xs text-secondary mt-1">ملف قاعدة البيانات الكامل — للكوارث فقط</p>
+                <h4 className="font-bold text-obsidian text-sm">Backup MySQL</h4>
+                <p className="text-xs text-secondary mt-1">عبر hPanel أو mysqldump من SSH</p>
               </div>
             </div>
             <div className="text-xs text-secondary bg-stone/30 rounded-lg p-2 space-y-0.5">
-              <p>✓ نسخة binary مطابقة 100%</p>
-              {isAdmin ? (
-                <p>⚠️ الاستعادة يدوية — استبدل ملف dev.db</p>
-              ) : (
-                <p className="text-amber-600">🔒 ADMIN فقط</p>
-              )}
+              <p>✓ استخدم JSON backup للبيانات</p>
+              <p>✓ من SSH: <code className="bg-stone px-1 rounded">mysqldump -u user -p db &gt; backup.sql</code></p>
             </div>
-            {isAdmin ? (
-              <Link
-                href="/api/admin/backup/db-file"
-                download
-                className="w-full h-10 bg-purple-600 text-white text-sm font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-purple-700 transition-colors"
-              >
-                <span className="material-symbols-outlined text-[18px]">download</span>
-                تحميل DB ({formatBytes(dbSize)})
-              </Link>
-            ) : (
-              <div className="w-full h-10 bg-stone text-secondary text-sm rounded-xl flex items-center justify-center gap-2 cursor-not-allowed">
-                <span className="material-symbols-outlined text-[18px]">lock</span>
-                ADMIN فقط
-              </div>
-            )}
           </div>
         </div>
       </div>

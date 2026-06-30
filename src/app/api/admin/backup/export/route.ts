@@ -56,7 +56,7 @@ export async function GET() {
   const backup = {
     version: "2.0",
     createdAt: new Date().toISOString(),
-    dbProvider: "sqlite",
+    dbProvider: "mysql",
     tables: {
       users,
       accounts,

@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
   try {
     // ── Step 1: Disable FK constraints ────────────────────────────
-    await prisma.$executeRawUnsafe("PRAGMA foreign_keys = OFF");
+    await prisma.$executeRawUnsafe("SET FOREIGN_KEY_CHECKS = 0");
 
     // ── Step 2: Wipe all tables (order doesn't matter with FK off) ─
     const WIPE_ORDER = [
@@ -60,7 +60,6 @@ export async function POST(req: NextRequest) {
       "ProductImage",
       "ProductVariant",
       "_CrossSelling",
-      "CartItem",   // already above, harmless double
       "Cart",
       "Wishlist",
       "Product",
@@ -70,7 +69,6 @@ export async function POST(req: NextRequest) {
       "Session",
       "VerificationToken",
       "User",
-      "CouponUsage",
       "Coupon",
       "GiftCard",
       "Governorate",
@@ -79,11 +77,10 @@ export async function POST(req: NextRequest) {
       "NewsletterSubscriber",
       "ContactMessage",
     ];
-    // Deduplicate
     const wiped = new Set<string>();
     for (const tbl of WIPE_ORDER) {
       if (!wiped.has(tbl)) {
-        await prisma.$executeRawUnsafe(`DELETE FROM "${tbl}"`);
+        await prisma.$executeRawUnsafe(`DELETE FROM \`${tbl}\``);
         wiped.add(tbl);
       }
     }
@@ -517,7 +514,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Step 4: Re-enable FK constraints ──────────────────────────
-    await prisma.$executeRawUnsafe("PRAGMA foreign_keys = ON");
+    await prisma.$executeRawUnsafe("SET FOREIGN_KEY_CHECKS = 1");
 
     // Record restore timestamp
     await prisma.systemSetting.upsert({
@@ -538,7 +535,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     // Re-enable FK even on error
-    await prisma.$executeRawUnsafe("PRAGMA foreign_keys = ON").catch(() => {});
+    await prisma.$executeRawUnsafe("SET FOREIGN_KEY_CHECKS = 1").catch(() => {});
     console.error("Restore error:", err);
     return NextResponse.json(
       { error: "فشل الاستعادة: " + (err instanceof Error ? err.message : "خطأ غير معروف") },
